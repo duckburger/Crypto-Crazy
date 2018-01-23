@@ -1,0 +1,4 @@
+sceneSetups:
+- path: Assets/_Levels/1 Bedroom Apartment/1 Bedroom Apartment.unity
+  isLoaded: 1
+  isActive: 1

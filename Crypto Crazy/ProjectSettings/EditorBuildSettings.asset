@@ -1,0 +1,13 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1045 &1
+EditorBuildSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Scenes:
+  - enabled: 1
+    path: Assets/_Levels/_Main Menu.unity
+    guid: d41f5304b42c484468ceb7f7f3bfae9e
+  - enabled: 1
+    path: Assets/_Levels/1 Bedroom Apartment.unity
+    guid: 56e9d6880eff2e547b88fb1f487fcf16
