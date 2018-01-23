@@ -4,26 +4,54 @@ using UnityEngine;
 
 public class CoinController : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
+    public Animator coinAnimator;
+    public float spinSpeed;
+
+    [SerializeField]
+    private Vector2 touchStartPos;
+
+    [SerializeField]
+    private Vector2 touchEndPos;
+
+    // Use this for initialization
+    void Start () {
 		
 	}
 	
 	// Update is called once per frame
 	void Update () {
 
-        if (Input.GetTouch(0).phase == TouchPhase.Began)
+        if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
         {
-            Vector2 touchStartPos = Input.GetTouch(0).position;
+            touchStartPos = Input.GetTouch(0).position;
             
         }
 
-        if (Input.GetTouch(0).phase == TouchPhase.Moved)
+        if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Moved)
         {
-            Vector2 touchEndPos = Input.GetTouch(0).deltaPosition;
+            touchEndPos = Input.GetTouch(0).deltaPosition;
+
+            float amountMoved = (touchEndPos - touchStartPos).magnitude;
+            spinSpeed += amountMoved;
+            spinSpeed = Mathf.Clamp(spinSpeed, 0, 2000);
+
+            coinAnimator.SetFloat("spinSpeed", spinSpeed);
 
 
         }
+
+        if (Input.touchCount < 0 && Input.GetTouch(0).phase == TouchPhase.Ended)
+        {
+            spinSpeed -= (touchEndPos - touchStartPos).magnitude * 5;
+            spinSpeed = Mathf.Clamp(spinSpeed, 0, 2000);
+            coinAnimator.SetFloat("spinSpeed", spinSpeed);
+        }
 		
 	}
+
+    private void LateUpdate()
+    {
+        spinSpeed -= 5;
+        coinAnimator.SetFloat("spinSpeed", spinSpeed);
+    }
 }
