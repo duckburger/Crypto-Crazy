@@ -9,6 +9,8 @@ public class MenuController : MonoBehaviour {
     public GameObject Menu2;
     public GameObject Menu3;
     public GameObject Menu4;
+    public GameObject Menu5;
+    public GameObject Menu6;
 
 
     public List<GameObject> menus = new List<GameObject>();
@@ -22,6 +24,8 @@ public class MenuController : MonoBehaviour {
         menus.Add(Menu2);
         menus.Add(Menu3);
         menus.Add(Menu4);
+        menus.Add(Menu5);
+        menus.Add(Menu6);
 
         CloseAllOtherMenus();
         
@@ -109,10 +113,40 @@ public class MenuController : MonoBehaviour {
             isAMenuOpen = true;
         }
     }
-   
-	
-	// Update is called once per frame
-	void Update () {
+
+    public void Menu5Control()
+    {
+        if (Menu5.gameObject.activeSelf)
+        {
+            Menu5.SetActive(false);
+            isAMenuOpen = false;
+        }
+        else
+        {
+            CloseAllOtherMenus(Menu4);
+            Menu5.SetActive(true);
+            isAMenuOpen = true;
+        }
+    }
+
+    public void Menu6Control()
+    {
+        if (Menu6.gameObject.activeSelf)
+        {
+            Menu6.SetActive(false);
+            isAMenuOpen = false;
+        }
+        else
+        {
+            CloseAllOtherMenus(Menu4);
+            Menu6.SetActive(true);
+            isAMenuOpen = true;
+        }
+    }
+
+
+    // Update is called once per frame
+    void Update () {
 		
 	}
 }
