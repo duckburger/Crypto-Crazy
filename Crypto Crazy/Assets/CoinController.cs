@@ -6,6 +6,7 @@ public class CoinController : MonoBehaviour {
 
     public Animator coinAnimator;
     public float spinSpeed;
+    public float effectOnMiningSpeed;
     public RectTransform touchRect;
 
     [SerializeField]
@@ -17,23 +18,48 @@ public class CoinController : MonoBehaviour {
     [SerializeField]
     private bool isSpinning;
 
+    [SerializeField]
+    private bool hadEffectOnMineSpeed;
 
+    public MiningControllerTemplate myMiningController;
 
 
 
 
     // Use this for initialization
     void Start() {
-        spinSpeed = Mathf.Clamp(spinSpeed, 0, 2000);
+
+        spinSpeed = Mathf.Clamp(spinSpeed, 0, 10);
     }
 
     // Update is called once per frame
     void Update() {
 
+
+
+        // Handles the scrubbing rotation during the touch/drag phase
         HandlePreSpin();
 
+        // Handles the launch of the rotation
         if (Input.touchCount > 0 && RectTransformUtility.RectangleContainsScreenPoint(touchRect, Input.GetTouch(0).deltaPosition) || RectTransformUtility.RectangleContainsScreenPoint(touchRect, Input.mousePosition))
             HandleTheSpin();
+
+        effectOnMiningSpeed = spinSpeed;
+
+        if (spinSpeed <= 0 && isSpinning)
+        {
+            isSpinning = false;
+
+            if (hadEffectOnMineSpeed)
+            {
+                myMiningController.coinsPerSec -= myMiningController.coinsPerSec / 2f;
+                myMiningController.decreaseSpeed *= 3;
+                hadEffectOnMineSpeed = false;
+            }
+
+
+            Debug.Log("Stopped spinning");
+        }
 
     }
 
@@ -76,20 +102,7 @@ public class CoinController : MonoBehaviour {
             Debug.Log("Registered a click for the coin");
         }
 
-       /* if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Moved)
-        {
-           
-
-            
-            spinSpeed = Mathf.Clamp(spinSpeed, 0, 5);
-
-
-            coinAnimator.SetFloat("spinSpeed", spinSpeed);
-
-            Debug.Log("Registered a touch movement for the coin");
-
-
-        }*/
+   
 
         if (Input.touchCount < 0 && Input.GetTouch(0).phase == TouchPhase.Ended)
         {
@@ -98,11 +111,25 @@ public class CoinController : MonoBehaviour {
             float amountMoved = (touchEndPos - touchStartPos).magnitude;
             spinSpeed += amountMoved;
 
-            spinSpeed -= (touchEndPos - touchStartPos).magnitude * Time.deltaTime;
-            spinSpeed = Mathf.Clamp(spinSpeed, 0, 5);
+           
+            
+
+            spinSpeed = Mathf.Clamp(spinSpeed, 0, 10);
             coinAnimator.SetFloat("spinSpeed", spinSpeed);
 
+            effectOnMiningSpeed = spinSpeed;
+
             isSpinning = true;
+
+            //An increaser
+            myMiningController.coinsPerSec += effectOnMiningSpeed;
+
+            if (!hadEffectOnMineSpeed)
+            {
+                
+                hadEffectOnMineSpeed = true;
+                Debug.Log("Adjusted the mining modifier by 5");
+            }
 
         }
         else if (Input.GetMouseButtonUp(0))
@@ -112,28 +139,37 @@ public class CoinController : MonoBehaviour {
 
 
             spinSpeed += (touchEndPos - touchStartPos).magnitude * Time.deltaTime;
-            spinSpeed = Mathf.Clamp(spinSpeed, 0, 5);
+            spinSpeed = Mathf.Clamp(spinSpeed, 0, 10);
             coinAnimator.SetFloat("spinSpeed", spinSpeed);
 
+            effectOnMiningSpeed = spinSpeed;
+
             isSpinning = true;
+
+            //An increaser
+            myMiningController.coinsPerSec += effectOnMiningSpeed;
+
+
+            if (!hadEffectOnMineSpeed)
+            {
+                hadEffectOnMineSpeed = true;
+                Debug.Log("Adjusted the mining modifier by " + effectOnMiningSpeed);
+            }
 
             Debug.Log("Registered mouse button up for the coin");
         }
 
-        if (spinSpeed <= 0)
-        {
-            isSpinning = false;
-
-            Debug.Log("Stopped spinning");
-        }
     }
 
+    // Handles the gradual slow down of the rotation
     private void LateUpdate()
     {
+        
+
         if (isSpinning)
         {
             spinSpeed -= Time.deltaTime;
-            spinSpeed = Mathf.Clamp(spinSpeed, 0, 5);
+            spinSpeed = Mathf.Clamp(spinSpeed, 0, 10);
             coinAnimator.SetFloat("spinSpeed", spinSpeed);
 
             Debug.Log("Slowing the spinning down");

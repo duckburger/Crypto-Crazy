@@ -1,0 +1,24 @@
+fileFormatVersion: 2
+guid: ee9259d113adfc54eb4d0d0547baf13f
+timeCreated: 1516846705
+licenseType: Free
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Pixel Square
+  fontNames:
+  - Pixel Square
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: c98901e3fe3a6394bbeef8895fb7e536, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

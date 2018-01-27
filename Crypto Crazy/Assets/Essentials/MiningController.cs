@@ -6,45 +6,32 @@ using UnityEngine.UI;
 public class MiningController : MonoBehaviour {
 
 
-    public Text currencyText;
-    public string curName;
+    public MiningControllerTemplate myMiningController;
 
-    public float currencyMined;
-
-
-    private float currencyModifier = 1;
-
+    [SerializeField]
    
-    public float CurrencyModifier
+
+    private void LateUpdate()
     {
-        get
-        {
-            return currencyModifier;
-        }
+        
+        if (myMiningController.coinsPerSec > 1)
+            myMiningController.coinsPerSec -= Time.deltaTime * myMiningController.decreaseSpeed;
 
-        set
-        {
-            currencyModifier = value;
-        }
-    }
+        if (myMiningController.coinsPerSec == 1)
+            myMiningController.decreaseSpeed = myMiningController.defDecSpeed;
 
-    public int currencyMinedPerSecond;
-
-
-    private void Start()
-    {
+        
 
     }
 
     // Update is called once per frame
     void Update () {
 
-        currencyMined += CurrencyModifier * Time.deltaTime;
+        myMiningController.coinsPerSec = Mathf.Clamp(myMiningController.coinsPerSec, 1, myMiningController.maximumCoinsPerSec);
 
-        currencyText.text = Mathf.RoundToInt(currencyMined).ToString("n2");
+        myMiningController.currencyMined += myMiningController.coinsPerSec * Time.deltaTime;
 
-
-
+        
 
 	}
 }
