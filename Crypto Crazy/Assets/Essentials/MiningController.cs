@@ -8,13 +8,15 @@ public class MiningController : MonoBehaviour {
 
     public MiningControllerTemplate myMiningController;
 
-    [SerializeField]
-   
+    private void Start()
+    {
+    }
+
 
     private void LateUpdate()
     {
         
-        if (myMiningController.coinsPerSec > 1)
+        if (myMiningController.coinsPerSec > myMiningController.minCoinsPerSec)
             myMiningController.coinsPerSec -= Time.deltaTime * myMiningController.decreaseSpeed;
 
         if (myMiningController.coinsPerSec == 1)
@@ -24,14 +26,40 @@ public class MiningController : MonoBehaviour {
 
     }
 
+    public void IncreaseMinimumMininSpeed(float amount)
+    {
+        myMiningController.minCoinsPerSec += amount;
+        
+    }
+
+    public void DecreaseMinimumMiningSpeed(float amount)
+    {
+        myMiningController.minCoinsPerSec -= amount;
+    }
+
+    public void IncreaseMaximumMiningSpeed(float amount)
+    {
+        myMiningController.maximumCoinsPerSec += amount;
+    }
+
+    public void DecreaseMaximumMiningSpeed(float amount)
+    {
+        myMiningController.maximumCoinsPerSec -= amount;
+    }
+
+
     // Update is called once per frame
     void Update () {
 
-        myMiningController.coinsPerSec = Mathf.Clamp(myMiningController.coinsPerSec, 1, myMiningController.maximumCoinsPerSec);
-
-        myMiningController.currencyMined += myMiningController.coinsPerSec * Time.deltaTime;
-
         
 
-	}
+        myMiningController.currencyMined += myMiningController.coinsPerSec * Time.deltaTime;
+        myMiningController.coinsPerSec = Mathf.Clamp(myMiningController.coinsPerSec, myMiningController.minCoinsPerSec, myMiningController.maximumCoinsPerSec);
+
+
+
+
+
+
+    }
 }

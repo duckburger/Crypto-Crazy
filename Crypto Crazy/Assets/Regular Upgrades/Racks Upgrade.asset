@@ -14,7 +14,13 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: 9c8e7e723431c1445bdb175f9392906b, type: 3}
   title: Racks for Rigs
   descr: Allows you to place more rigs in your house to mine faster!
-  miscText: 'CURRENT APARTMENT FITS MAX:'
+  miscText: 'CURRENT APARTMENT FITS:'
+  defMiscText: 'CURRENT APARTMENT FITS:'
   currentUpgradeLvl: 0
-  maxUpgradeLvl: 2
+  defCurUpgLvl: 0
+  priceOfNextUpgradeLvl: 400
+  defPrOfNxtUpgLvl: 400
+  currentUpgradeEffect: 0
+  defCurUpgEff: 0
+  maxUpgradeLvl: 8
   effectsForEachUpgradeLvl: 

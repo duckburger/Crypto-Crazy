@@ -11,10 +11,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cc24a6399647ee41b523c5b105e0e60, type: 3}
   m_Name: Chair Upgrade
   m_EditorClassIdentifier: 
-  icon: {fileID: 21300000, guid: 9c8e7e723431c1445bdb175f9392906b, type: 3}
+  icon: {fileID: 21300000, guid: d0f58a29d9182164db0bd87500cecc33, type: 3}
   title: Your Chair
   descr: Having a comfier chair contributes to faster mining... somehow
   miscText: 'NEXT UPGRADE: +2% mining speed'
+  defMiscText: 'NEXT UPGRADE: +2% mining speed'
   currentUpgradeLvl: 0
-  maxUpgradeLvl: 0
-  effectsForEachUpgradeLvl: 
+  defCurUpgLvl: 1
+  priceOfNextUpgradeLvl: 200
+  defPrOfNxtUpgLvl: 200
+  currentUpgradeEffect: 0
+  defCurUpgEff: 0
+  maxUpgradeLvl: 4
+  effectsForEachUpgradeLvl: 02000000050000000a0000000f0000000f000000

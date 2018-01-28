@@ -52,7 +52,10 @@ public class CoinController : MonoBehaviour {
 
             if (hadEffectOnMineSpeed)
             {
-                myMiningController.coinsPerSec -= myMiningController.coinsPerSec / 2f;
+                if ((myMiningController.coinsPerSec -= myMiningController.coinsPerSec / 2f) > myMiningController.minCoinsPerSec)
+                {
+                    myMiningController.coinsPerSec -= myMiningController.coinsPerSec / 2f;
+                }
                 myMiningController.decreaseSpeed *= 3;
                 hadEffectOnMineSpeed = false;
             }
