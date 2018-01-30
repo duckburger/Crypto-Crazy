@@ -14,13 +14,13 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: d0f58a29d9182164db0bd87500cecc33, type: 3}
   title: Your Chair
   descr: Having a comfier chair contributes to faster mining... somehow
-  miscText: 'NEXT UPGRADE: +2% mining speed'
+  miscText: 'NEXT UPGRADE: '
   defMiscText: 'NEXT UPGRADE: +2% mining speed'
-  currentUpgradeLvl: 0
-  defCurUpgLvl: 1
-  priceOfNextUpgradeLvl: 200
+  currentUpgradeLvl: 4
+  defCurUpgLvl: 0
+  priceOfNextUpgradeLvl: 15197.698
   defPrOfNxtUpgLvl: 200
   currentUpgradeEffect: 0
   defCurUpgEff: 0
   maxUpgradeLvl: 4
-  effectsForEachUpgradeLvl: 02000000050000000a0000000f0000000f000000
+  effectsForEachUpgradeLvl: 0200000032000000320000003200000032000000320000003200000032000000320000003200000032000000320000003200000032000000320000003200000032000000320000003200000032000000

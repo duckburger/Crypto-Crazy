@@ -16,20 +16,22 @@ public class MiningControllerTemplate : ScriptableObject {
 
     public float decreaseSpeed;
 
-    public int defMaxMinPerSec;
+    public int defMaxCoinsPerSecond;
     public float defCurMin;
     public float defCoinsPerSec;
     public float defDecSpeed;
+    public float defMinCoinsPerSec;
 
     public float currentCurrencyExchangeRate;
     
 
     private void OnEnable()
     {
-        maximumCoinsPerSec = defMaxMinPerSec;
+        maximumCoinsPerSec = defMaxCoinsPerSecond;
         currencyMined = defCurMin;
         coinsPerSec = defCoinsPerSec;
         decreaseSpeed = defDecSpeed;
+        minCoinsPerSec = defMinCoinsPerSec;
     }
 
 

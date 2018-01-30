@@ -10,6 +10,8 @@ public class UpgradeTemplate : ScriptableObject {
 
     public string title;
    
+  
+
     [TextArea(3, 10)]
     public string descr;
 
@@ -30,6 +32,7 @@ public class UpgradeTemplate : ScriptableObject {
 
     public float maxUpgradeLvl;
     
+    [Tooltip("If this list has 0 elements, than the upgrade does not affect the mining speed.")]
     public List<int> effectsForEachUpgradeLvl;
 
 
@@ -38,6 +41,11 @@ public class UpgradeTemplate : ScriptableObject {
         currentUpgradeLvl = defCurUpgLvl;
         priceOfNextUpgradeLvl = defPrOfNxtUpgLvl;
         currentUpgradeEffect = defCurUpgEff;
+
+        if (effectsForEachUpgradeLvl.Count != 0)
+        {
+            maxUpgradeLvl = effectsForEachUpgradeLvl.Count;
+        }
     }
 
 

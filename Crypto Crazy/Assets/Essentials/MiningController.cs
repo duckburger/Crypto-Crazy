@@ -22,30 +22,15 @@ public class MiningController : MonoBehaviour {
         if (myMiningController.coinsPerSec == 1)
             myMiningController.decreaseSpeed = myMiningController.defDecSpeed;
 
-        
 
     }
 
-    public void IncreaseMinimumMininSpeed(float amount)
+    public void AddPercentageToMiningSpeed (float percentageAmount)
     {
-        myMiningController.minCoinsPerSec += amount;
-        
+        myMiningController.minCoinsPerSec += (myMiningController.minCoinsPerSec / 100 * percentageAmount );
+        myMiningController.maximumCoinsPerSec += (myMiningController.maximumCoinsPerSec / 100 * percentageAmount );
     }
 
-    public void DecreaseMinimumMiningSpeed(float amount)
-    {
-        myMiningController.minCoinsPerSec -= amount;
-    }
-
-    public void IncreaseMaximumMiningSpeed(float amount)
-    {
-        myMiningController.maximumCoinsPerSec += amount;
-    }
-
-    public void DecreaseMaximumMiningSpeed(float amount)
-    {
-        myMiningController.maximumCoinsPerSec -= amount;
-    }
 
 
     // Update is called once per frame

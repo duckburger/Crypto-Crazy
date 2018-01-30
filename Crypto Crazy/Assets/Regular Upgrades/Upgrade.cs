@@ -21,8 +21,9 @@ public class Upgrade : MonoBehaviour {
     public Text currentEffectText;
 
     public float pricePercentageGrowth;
-   
 
+    [SerializeField]
+    private float tempEffectPercentage;
 	// Use this for initialization
 	void Start () {
         titleField.text = myUpgrade.title;
@@ -36,52 +37,93 @@ public class Upgrade : MonoBehaviour {
             icon.sprite = null;
         }
 
+        
+        
 
         buttonText.text = "BUY" + "\n" + myUpgrade.priceOfNextUpgradeLvl;
 
         upgradeLevelUI.fillAmount = myUpgrade.currentUpgradeLvl / myUpgrade.maxUpgradeLvl;
 
-        miscTextField.text = myUpgrade.miscText + " " + myUpgrade.maxUpgradeLvl;
-        currentEffectText.text = myUpgrade.currentUpgradeEffect.ToString();
+        // TODO: Figure out a better way to make this tell what to display in the MISC TEXT and the UPGRADE LVL
+        if (myUpgrade.effectsForEachUpgradeLvl.Count == 0)
+        {
+            currentEffectText.text = myUpgrade.currentUpgradeLvl.ToString();
+            miscTextField.text = myUpgrade.miscText + " " + myUpgrade.maxUpgradeLvl;
+        } else
+        {
+            tempEffectPercentage = myUpgrade.effectsForEachUpgradeLvl[(int)myUpgrade.currentUpgradeLvl];
+            currentEffectText.text = "+ " + tempEffectPercentage.ToString() + "%";
+            miscTextField.text = myUpgrade.miscText + " " + myUpgrade.effectsForEachUpgradeLvl[(int)myUpgrade.currentUpgradeLvl + 1] + "% mining speed";
+        }
     }
 
 
+    // THE UPGRADE COST MATH IS HERE
     public void PurchaseTheUpgrade()
     {
-        if (myUpgrade.priceOfNextUpgradeLvl < myMiningController.currencyMined && myUpgrade.currentUpgradeLvl <= myUpgrade.maxUpgradeLvl)
+        if (myUpgrade.currentUpgradeLvl < myUpgrade.maxUpgradeLvl)
         {
-            myMiningController.currencyMined -= myUpgrade.priceOfNextUpgradeLvl;
-            myUpgrade.currentUpgradeLvl += 1;
-            
-            // Control of the growth of the upgrade price
-            myUpgrade.priceOfNextUpgradeLvl += (myUpgrade.priceOfNextUpgradeLvl * pricePercentageGrowth / 100);
-            pricePercentageGrowth -= (pricePercentageGrowth * 20 / 100);
-
-            // This line raises the event from my attached GameEvent
-            // which is unique for each upgrade. This even determines the effect of the upgrade
-            activationEvent.Raise();
-
-            upgradeLevelUI.fillAmount = myUpgrade.currentUpgradeLvl / myUpgrade.maxUpgradeLvl;
-            currentEffectText.text = myUpgrade.currentUpgradeEffect.ToString();
-
-            Debug.Log("Fill amount is now " + upgradeLevelUI.fillAmount);
-
-            buttonText.text = "BUY" + "\n" + myUpgrade.priceOfNextUpgradeLvl;
-
-            if (myUpgrade.currentUpgradeLvl == myUpgrade.maxUpgradeLvl)
+            if (myUpgrade.priceOfNextUpgradeLvl < myMiningController.currencyMined)
             {
-                upgradeButton.interactable = false;
-                upgradeButton.GetComponent<Image>().color = Color.gray;
+                myMiningController.currencyMined -= myUpgrade.priceOfNextUpgradeLvl;
+                myUpgrade.currentUpgradeLvl += 1;
+
+                // TODO: Try some other math here
+                // Control of the growth of the upgrade price
+                myUpgrade.priceOfNextUpgradeLvl += (myUpgrade.priceOfNextUpgradeLvl * pricePercentageGrowth / 100);
+                pricePercentageGrowth -= (pricePercentageGrowth * 20 / 100);
+
+
+
+                // This line raises the event from my attached GameEvent
+                // which is unique for each upgrade. This even determines the effect of the upgrade
+                activationEvent.Raise();
+
+                upgradeLevelUI.fillAmount = myUpgrade.currentUpgradeLvl / myUpgrade.maxUpgradeLvl;
+                Debug.Log("Fill amount is now " + upgradeLevelUI.fillAmount);
+
+
+                if (myUpgrade.effectsForEachUpgradeLvl.Count == 0)
+                {
+                    currentEffectText.text = myUpgrade.currentUpgradeLvl.ToString();
+                    miscTextField.text = myUpgrade.miscText + " " + myUpgrade.maxUpgradeLvl;
+                }
+                else 
+                {
+                    tempEffectPercentage += myUpgrade.effectsForEachUpgradeLvl[(int)myUpgrade.currentUpgradeLvl];
+                    currentEffectText.text = "+ " + (tempEffectPercentage).ToString() + "%";
+
+                    if ((int)myUpgrade.currentUpgradeLvl + 1 <= myUpgrade.effectsForEachUpgradeLvl.Count - 1)
+                        miscTextField.text = myUpgrade.miscText + " " + myUpgrade.effectsForEachUpgradeLvl[(int)myUpgrade.currentUpgradeLvl + 1] + "% mining speed";
+                    else
+                        miscTextField.text = "MAX UPGRADE REACHED!";
+                } 
+
+                buttonText.text = "BUY" + "\n" + myUpgrade.priceOfNextUpgradeLvl;
+
+                if (myUpgrade.currentUpgradeLvl == myUpgrade.maxUpgradeLvl)
+                {
+                    upgradeButton.interactable = false;
+
+                    Debug.Log("Turnt off the " + myUpgrade.title + " button");
+                    upgradeButton.GetComponent<Image>().color = Color.gray;
+
+                }
 
             }
-
+            else
+            {
+                Debug.Log("Not enough money for this upgrade right now!");
+                return;
+            }
         } else
         {
-            Debug.Log("Max upgrade level for this apartment reached");
+            Debug.Log("You've reached the maximum level for this upgrade right now");
             return;
         }
+        
 
-        return;
+        
     }
 	
 	// Update is called once per frame
@@ -99,6 +141,7 @@ public class Upgrade : MonoBehaviour {
             }
         } else
         {
+            upgradeButton.GetComponent<Image>().color = Color.gray;
             buttonText.text = "Max upgrade" + "\n" +  "reached for this apartment!";
            
         }

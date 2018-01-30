@@ -11,16 +11,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cc24a6399647ee41b523c5b105e0e60, type: 3}
   m_Name: Desk Upgrade
   m_EditorClassIdentifier: 
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 72f0e539ec45e454da73795f91e35ce3, type: 3}
   title: Your Desk
-  descr: 
-  miscText: 
-  defMiscText: 
-  currentUpgradeLvl: 0
+  descr: Let's face it, you spend 90% of your life here. Having a better desk is a
+    good investment then, right?
+  miscText: 'NEXT UPGRADE:'
+  defMiscText: 'NEXT UPGRADE: +2% mining speed'
+  currentUpgradeLvl: 2
   defCurUpgLvl: 0
-  priceOfNextUpgradeLvl: 0
-  defPrOfNxtUpgLvl: 0
+  priceOfNextUpgradeLvl: 7599.8
+  defPrOfNxtUpgLvl: 650
   currentUpgradeEffect: 0
   defCurUpgEff: 0
-  maxUpgradeLvl: 0
-  effectsForEachUpgradeLvl: 
+  maxUpgradeLvl: 20
+  effectsForEachUpgradeLvl: 050000003c0000003c0000003c0000003c0000003c0000003c0000003c0000003c0000003c0000003c0000003c0000003c0000003c0000003c0000003c0000003c0000003c0000003c0000003c000000

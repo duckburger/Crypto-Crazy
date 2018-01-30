@@ -6,6 +6,11 @@ public class MapController : MonoBehaviour {
 
 
     public UpgradeTemplate rackUpgrade;
+    public UpgradeTemplate chairUpgrade;
+    public UpgradeTemplate deskUpgrade;
+
+    public MiningController miningControllerInstance;
+    public MiningControllerTemplate myMiningController;
 
 
     public List<Transform> rackSlots = new List<Transform>();
@@ -25,6 +30,8 @@ public class MapController : MonoBehaviour {
         }
     }
 
+    
+
 
     public void InstallRack()
     {
@@ -33,6 +40,7 @@ public class MapController : MonoBehaviour {
 
         foreach(Transform slot in rackSlots)
         {
+            // This doesn't need a second option, because the Upgrade script already checks whether to let the player press the button
             if (slot.childCount == 0)
             {
                 GameObject.Instantiate(rack, slot.position, Quaternion.identity, slot);
@@ -40,6 +48,21 @@ public class MapController : MonoBehaviour {
             }
             
         }
+    }
+
+    public void InstallChair()
+    {
+        Debug.Log("Purchased a new chair");
+
+        miningControllerInstance.AddPercentageToMiningSpeed(chairUpgrade.effectsForEachUpgradeLvl[(int)chairUpgrade.currentUpgradeLvl]);
+    }
+
+    public void InstallDesk()
+    {
+        Debug.Log("Purchased a new desk");
+
+        miningControllerInstance.AddPercentageToMiningSpeed(deskUpgrade.effectsForEachUpgradeLvl[(int)deskUpgrade.currentUpgradeLvl]);
+
     }
 
 
