@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6cc24a6399647ee41b523c5b105e0e60, type: 3}
+  m_Name: Monitor Upgrade
+  m_EditorClassIdentifier: 
+  icon: {fileID: 21300000, guid: 10a36340bc293824daa1a974fa3b80f3, type: 3}
+  title: Your Monitor
+  descr: This thing helps you track your literal destiny and coin value in real time!
+  miscText: 'NEXT UPGRADE:'
+  defMiscText: 'NEXT UPGRADE: +2% mining speed'
+  currentUpgradeLvl: 0
+  defCurUpgLvl: 0
+  priceOfNextUpgradeLvl: 750
+  defPrOfNxtUpgLvl: 750
+  currentUpgradeEffect: 0
+  defCurUpgEff: 0
+  maxUpgradeLvl: 20
+  effectsForEachUpgradeLvl: 1e0000001e0000001e0000001e0000001e0000001e0000001e0000001e0000001e0000001e0000001e0000001e0000001e0000001e0000001e0000001e0000001e0000001e0000001e0000001e000000

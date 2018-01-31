@@ -16,11 +16,11 @@ MonoBehaviour:
   descr: Having a comfier chair contributes to faster mining... somehow
   miscText: 'NEXT UPGRADE: '
   defMiscText: 'NEXT UPGRADE: +2% mining speed'
-  currentUpgradeLvl: 4
+  currentUpgradeLvl: 20
   defCurUpgLvl: 0
-  priceOfNextUpgradeLvl: 15197.698
+  priceOfNextUpgradeLvl: 2338.4
   defPrOfNxtUpgLvl: 200
   currentUpgradeEffect: 0
   defCurUpgEff: 0
-  maxUpgradeLvl: 4
+  maxUpgradeLvl: 20
   effectsForEachUpgradeLvl: 0200000032000000320000003200000032000000320000003200000032000000320000003200000032000000320000003200000032000000320000003200000032000000320000003200000032000000

@@ -37,9 +37,6 @@ public class Upgrade : MonoBehaviour {
             icon.sprite = null;
         }
 
-        
-        
-
         buttonText.text = "BUY" + "\n" + myUpgrade.priceOfNextUpgradeLvl;
 
         upgradeLevelUI.fillAmount = myUpgrade.currentUpgradeLvl / myUpgrade.maxUpgradeLvl;
@@ -61,9 +58,7 @@ public class Upgrade : MonoBehaviour {
     // THE UPGRADE COST MATH IS HERE
     public void PurchaseTheUpgrade()
     {
-        if (myUpgrade.currentUpgradeLvl < myUpgrade.maxUpgradeLvl)
-        {
-            if (myUpgrade.priceOfNextUpgradeLvl < myMiningController.currencyMined)
+            if (myUpgrade.priceOfNextUpgradeLvl < myMiningController.currencyMined && myUpgrade.currentUpgradeLvl < myUpgrade.maxUpgradeLvl)
             {
                 myMiningController.currencyMined -= myUpgrade.priceOfNextUpgradeLvl;
                 myUpgrade.currentUpgradeLvl += 1;
@@ -73,33 +68,56 @@ public class Upgrade : MonoBehaviour {
                 myUpgrade.priceOfNextUpgradeLvl += (myUpgrade.priceOfNextUpgradeLvl * pricePercentageGrowth / 100);
                 pricePercentageGrowth -= (pricePercentageGrowth * 20 / 100);
 
+                
+
+            upgradeLevelUI.fillAmount = myUpgrade.currentUpgradeLvl / myUpgrade.maxUpgradeLvl;
+            Debug.Log("Fill amount is now " + upgradeLevelUI.fillAmount);
 
 
-                // This line raises the event from my attached GameEvent
-                // which is unique for each upgrade. This even determines the effect of the upgrade
-                activationEvent.Raise();
-
-                upgradeLevelUI.fillAmount = myUpgrade.currentUpgradeLvl / myUpgrade.maxUpgradeLvl;
-                Debug.Log("Fill amount is now " + upgradeLevelUI.fillAmount);
+            // This line raises the event from my attached GameEvent
+            // which is unique for each upgrade. This even determines the effect of the upgrade
+            activationEvent.Raise();
 
 
-                if (myUpgrade.effectsForEachUpgradeLvl.Count == 0)
+                if (myUpgrade.effectsForEachUpgradeLvl.Count <= 0)
                 {
                     currentEffectText.text = myUpgrade.currentUpgradeLvl.ToString();
                     miscTextField.text = myUpgrade.miscText + " " + myUpgrade.maxUpgradeLvl;
                 }
-                else 
+                else
                 {
-                    tempEffectPercentage += myUpgrade.effectsForEachUpgradeLvl[(int)myUpgrade.currentUpgradeLvl];
+                if (myUpgrade.currentUpgradeLvl == myUpgrade.maxUpgradeLvl)
+                {
+                    miscTextField.text = "MAX UPGRADE REACHED!";
+                    upgradeButton.interactable = false;
+
+                    Debug.Log("Turnt off the " + myUpgrade.title + " button");
+                    upgradeButton.GetComponent<Image>().color = Color.gray;
+                    return;
+                }
+                    tempEffectPercentage += myUpgrade.effectsForEachUpgradeLvl[myUpgrade.currentUpgradeLvl];
                     currentEffectText.text = "+ " + (tempEffectPercentage).ToString() + "%";
 
-                    if ((int)myUpgrade.currentUpgradeLvl + 1 <= myUpgrade.effectsForEachUpgradeLvl.Count - 1)
-                        miscTextField.text = myUpgrade.miscText + " " + myUpgrade.effectsForEachUpgradeLvl[(int)myUpgrade.currentUpgradeLvl + 1] + "% mining speed";
-                    else
-                        miscTextField.text = "MAX UPGRADE REACHED!";
-                } 
+                    if ((int)myUpgrade.currentUpgradeLvl < myUpgrade.effectsForEachUpgradeLvl.Count)
+                    {
+                        miscTextField.text = myUpgrade.miscText + " " + myUpgrade.effectsForEachUpgradeLvl[myUpgrade.currentUpgradeLvl] + "% mining speed";
 
-                buttonText.text = "BUY" + "\n" + myUpgrade.priceOfNextUpgradeLvl;
+                    } else
+                    {
+                        miscTextField.text = "MAX UPGRADE REACHED!";
+
+                        upgradeButton.interactable = false;
+
+                        Debug.Log("Turnt off the " + myUpgrade.title + " button");
+                        upgradeButton.GetComponent<Image>().color = Color.gray;
+
+
+                        Debug.Log("You've reached the maximum level for this upgrade right now");
+                        return;
+                    }
+
+                }
+
 
                 if (myUpgrade.currentUpgradeLvl == myUpgrade.maxUpgradeLvl)
                 {
@@ -107,8 +125,12 @@ public class Upgrade : MonoBehaviour {
 
                     Debug.Log("Turnt off the " + myUpgrade.title + " button");
                     upgradeButton.GetComponent<Image>().color = Color.gray;
-
+                    return;
                 }
+
+                buttonText.text = "BUY" + "\n" + myUpgrade.priceOfNextUpgradeLvl;
+
+                
 
             }
             else
@@ -116,15 +138,13 @@ public class Upgrade : MonoBehaviour {
                 Debug.Log("Not enough money for this upgrade right now!");
                 return;
             }
-        } else
-        {
-            Debug.Log("You've reached the maximum level for this upgrade right now");
-            return;
-        }
+        } 
+        
+        
         
 
         
-    }
+    
 	
 	// Update is called once per frame
 	void Update () {

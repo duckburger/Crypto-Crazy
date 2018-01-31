@@ -20,8 +20,8 @@ public class UpgradeTemplate : ScriptableObject {
     [TextArea(3, 10)]
     public string defMiscText;
 
-    public float currentUpgradeLvl;
-    public float defCurUpgLvl;
+    public int currentUpgradeLvl;
+    public int defCurUpgLvl;
 
     public float priceOfNextUpgradeLvl;
     public float defPrOfNxtUpgLvl;
@@ -44,7 +44,7 @@ public class UpgradeTemplate : ScriptableObject {
 
         if (effectsForEachUpgradeLvl.Count != 0)
         {
-            maxUpgradeLvl = effectsForEachUpgradeLvl.Count;
+            maxUpgradeLvl = effectsForEachUpgradeLvl.Count - 1;
         }
     }
 

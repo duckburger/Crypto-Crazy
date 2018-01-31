@@ -8,6 +8,7 @@ public class MapController : MonoBehaviour {
     public UpgradeTemplate rackUpgrade;
     public UpgradeTemplate chairUpgrade;
     public UpgradeTemplate deskUpgrade;
+    public UpgradeTemplate monitorUpgrade;
 
     public MiningController miningControllerInstance;
     public MiningControllerTemplate myMiningController;
@@ -54,17 +55,24 @@ public class MapController : MonoBehaviour {
     {
         Debug.Log("Purchased a new chair");
 
-        miningControllerInstance.AddPercentageToMiningSpeed(chairUpgrade.effectsForEachUpgradeLvl[(int)chairUpgrade.currentUpgradeLvl]);
+        miningControllerInstance.AddPercentageToMiningSpeed(chairUpgrade.effectsForEachUpgradeLvl[chairUpgrade.currentUpgradeLvl]);
     }
 
     public void InstallDesk()
     {
         Debug.Log("Purchased a new desk");
 
-        miningControllerInstance.AddPercentageToMiningSpeed(deskUpgrade.effectsForEachUpgradeLvl[(int)deskUpgrade.currentUpgradeLvl]);
+        miningControllerInstance.AddPercentageToMiningSpeed(deskUpgrade.effectsForEachUpgradeLvl[deskUpgrade.currentUpgradeLvl]);
 
     }
 
+    public void InstallMonitor()
+    {
+        Debug.Log("Purchased a new monitor");
+
+        miningControllerInstance.AddPercentageToMiningSpeed(monitorUpgrade.effectsForEachUpgradeLvl[monitorUpgrade.currentUpgradeLvl]);
+
+    }
 
    
 }
