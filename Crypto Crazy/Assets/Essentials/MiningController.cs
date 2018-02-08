@@ -8,9 +8,7 @@ public class MiningController : MonoBehaviour {
 
     public MiningControllerTemplate myMiningController;
 
-    private void Start()
-    {
-    }
+    
 
 
     private void LateUpdate()
@@ -29,6 +27,11 @@ public class MiningController : MonoBehaviour {
     {
         myMiningController.minCoinsPerSec += (myMiningController.minCoinsPerSec / 100 * percentageAmount );
         myMiningController.maximumCoinsPerSec += (myMiningController.maximumCoinsPerSec / 100 * percentageAmount );
+    }
+
+    public void AddTimeToDustTimer (int amount)
+    {
+        myMiningController.dustTimer += amount;
     }
 
 

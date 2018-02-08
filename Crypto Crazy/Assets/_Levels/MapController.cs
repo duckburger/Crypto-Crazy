@@ -9,6 +9,7 @@ public class MapController : MonoBehaviour {
     public UpgradeTemplate chairUpgrade;
     public UpgradeTemplate deskUpgrade;
     public UpgradeTemplate monitorUpgrade;
+    public UpgradeTemplate coolingUpgrade;
 
     public MiningController miningControllerInstance;
     public MiningControllerTemplate myMiningController;
@@ -20,8 +21,10 @@ public class MapController : MonoBehaviour {
 
     public GameObject partner;
     public GameObject livingRoom;
+    public GameObject cooling;
 
-    public GameObject rack;
+
+
 
     private void Start()
     {
@@ -31,48 +34,39 @@ public class MapController : MonoBehaviour {
         }
     }
 
+   
+    // TODO: This has to be changed to accept an attribute of type "Building"
+    // which will hold an id and a GO
+    public void SpawnAnItem (Building thingToSpawn)
+    {
+
+        // We're spawning a RACK
+        if (thingToSpawn.id == 0)
+        {
+            foreach (Transform slot in rackSlots)
+            {
+                // This doesn't need a second option, because the Upgrade script already checks whether to let the player press the button
+                if (slot.childCount == 0)
+                {
+                    if (rackUpgrade.currentUpgradeLvl <= 0)
+                    {
+
+                    }
+
+                    GameObject.Instantiate(thingToSpawn.myBuildingPrefab, slot.position, Quaternion.identity, slot);
+                    
+                    return;
+                }
+
+            }
+        }
+        
+    }
+
+    
     
 
 
-    public void InstallRack()
-    {
-        Debug.Log("Purchased a new rack");
-        rackUpgrade.currentUpgradeEffect += 1;
-
-        foreach(Transform slot in rackSlots)
-        {
-            // This doesn't need a second option, because the Upgrade script already checks whether to let the player press the button
-            if (slot.childCount == 0)
-            {
-                GameObject.Instantiate(rack, slot.position, Quaternion.identity, slot);
-                return;
-            }
-            
-        }
-    }
-
-    public void InstallChair()
-    {
-        Debug.Log("Purchased a new chair");
-
-        miningControllerInstance.AddPercentageToMiningSpeed(chairUpgrade.effectsForEachUpgradeLvl[chairUpgrade.currentUpgradeLvl]);
-    }
-
-    public void InstallDesk()
-    {
-        Debug.Log("Purchased a new desk");
-
-        miningControllerInstance.AddPercentageToMiningSpeed(deskUpgrade.effectsForEachUpgradeLvl[deskUpgrade.currentUpgradeLvl]);
-
-    }
-
-    public void InstallMonitor()
-    {
-        Debug.Log("Purchased a new monitor");
-
-        miningControllerInstance.AddPercentageToMiningSpeed(monitorUpgrade.effectsForEachUpgradeLvl[monitorUpgrade.currentUpgradeLvl]);
-
-    }
-
+   
    
 }

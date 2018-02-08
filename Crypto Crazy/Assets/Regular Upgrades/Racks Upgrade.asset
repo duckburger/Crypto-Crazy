@@ -20,7 +20,11 @@ MonoBehaviour:
   defCurUpgLvl: 0
   priceOfNextUpgradeLvl: 400
   defPrOfNxtUpgLvl: 400
-  currentUpgradeEffect: 0
   defCurUpgEff: 0
   maxUpgradeLvl: 8
-  effectsForEachUpgradeLvl: 
+  attributesIAffect: []
+  buildingsISpawn:
+  - {fileID: 11400000, guid: 759db3d60b9c86a42920f49adb286b74, type: 2}
+  primaryListOfEffects: 
+  myEffectAmount: 0
+  secondaryListOfEffects: 

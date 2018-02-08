@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51383de849956254e84153dc7adf5a3d, type: 3}
+  m_Name: Crypto Positive
+  m_EditorClassIdentifier: 
+  icon: {fileID: 21300000, guid: d0f58a29d9182164db0bd87500cecc33, type: 3}
+  image: {fileID: 21300000, guid: 71d800d890c4d314eb26f13b587526b6, type: 3}
+  title: Crypto On The Rise!
+  body: It seems that the markets have finally accepted crypto. All the currencies
+    are on the steady rise, and it's as good time as ever to start mining.
+  button1Label: Continue
+  button2Label: 
+  affectsGameplay: 0
+  attributesIAffect: []
+  button1EffectOnAttribute: 0
+  button2EffectOnAttribute: 0

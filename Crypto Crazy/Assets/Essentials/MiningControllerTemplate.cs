@@ -9,6 +9,7 @@ public class MiningControllerTemplate : ScriptableObject {
     public float maximumCoinsPerSec;
     public float currencyMined;
     public float coinsPerSec;
+    public float dustTimer;
 
     //This number determined how low the mining speed can go
     // so it should be modified by upgrades
@@ -21,8 +22,11 @@ public class MiningControllerTemplate : ScriptableObject {
     public float defCoinsPerSec;
     public float defDecSpeed;
     public float defMinCoinsPerSec;
+    public float defaultDustTimer;
 
     public float currentCurrencyExchangeRate;
+
+    
     
 
     private void OnEnable()
@@ -32,7 +36,10 @@ public class MiningControllerTemplate : ScriptableObject {
         coinsPerSec = defCoinsPerSec;
         decreaseSpeed = defDecSpeed;
         minCoinsPerSec = defMinCoinsPerSec;
+        dustTimer = defaultDustTimer;
     }
+
+ 
 
 
 }

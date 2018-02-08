@@ -12,14 +12,16 @@ MonoBehaviour:
   m_Name: MiningController
   m_EditorClassIdentifier: 
   currencyName: Dudecoins
-  maximumCoinsPerSec: 837497660
-  currencyMined: 1.0002262e+11
-  coinsPerSec: 16749954
-  minCoinsPerSec: 16749954
-  decreaseSpeed: 2
+  maximumCoinsPerSec: 4.4031436e+12
+  currencyMined: 1.1694081e+12
+  coinsPerSec: 8.806285e+10
+  dustTimer: 565
+  minCoinsPerSec: 8.806285e+10
+  decreaseSpeed: 6
   defMaxCoinsPerSecond: 50
   defCurMin: 0
   defCoinsPerSec: 1
   defDecSpeed: 2
   defMinCoinsPerSec: 1
+  defaultDustTimer: 90
   currentCurrencyExchangeRate: 0.0005

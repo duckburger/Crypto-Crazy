@@ -17,11 +17,14 @@ MonoBehaviour:
     help you mine faster.
   miscText: 'NEXT UPGRADE:'
   defMiscText: 'NEXT UPGRADE: +2% mining speed'
-  currentUpgradeLvl: 19
+  currentUpgradeLvl: 0
   defCurUpgLvl: 0
-  priceOfNextUpgradeLvl: 3292982
+  priceOfNextUpgradeLvl: 650
   defPrOfNxtUpgLvl: 650
-  currentUpgradeEffect: 0
   defCurUpgEff: 0
   maxUpgradeLvl: 19
-  effectsForEachUpgradeLvl: 050000003c0000003c0000003c0000003c0000003c0000003c0000003c0000003c0000003c0000003c0000003c0000003c0000003c0000003c0000003c0000003c0000003c0000003c0000003c000000
+  attributesIAffect:
+  - {fileID: 11400000, guid: c830d208fc11c5543b65f7d049e52d89, type: 2}
+  buildingsISpawn: []
+  primaryListOfEffects: 0000000028000000280000002800000028000000280000002800000028000000280000002800000028000000280000002800000028000000280000002800000028000000280000002800000028000000
+  secondaryListOfEffects: 

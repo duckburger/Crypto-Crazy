@@ -12,6 +12,7 @@ public class MenuController : MonoBehaviour {
     public GameObject Menu5;
     public GameObject Menu6;
 
+    public NotificationSystem notificationSystem;
 
     public List<GameObject> menus = new List<GameObject>();
 
@@ -31,7 +32,7 @@ public class MenuController : MonoBehaviour {
         
     }
 
-    void CloseAllOtherMenus(GameObject currentMenu = null)
+    public void CloseAllOtherMenus(GameObject currentMenu = null)
     {
         if (currentMenu != null)
         {
@@ -61,7 +62,7 @@ public class MenuController : MonoBehaviour {
             Menu1.SetActive(false);
             isAMenuOpen = false;
 
-        } else
+        } else if (!notificationSystem.noteIsShowing)
         {
             CloseAllOtherMenus(Menu1);
             Menu1.SetActive(true);
@@ -76,7 +77,7 @@ public class MenuController : MonoBehaviour {
             Menu2.SetActive(false);
             isAMenuOpen = false;
         }
-        else
+        else if (!notificationSystem.noteIsShowing)
         {
             CloseAllOtherMenus(Menu2);
             Menu2.SetActive(true);
@@ -91,7 +92,7 @@ public class MenuController : MonoBehaviour {
             Menu3.SetActive(false);
             isAMenuOpen = false;
         }
-        else
+        else if (!notificationSystem.noteIsShowing)
         {
             CloseAllOtherMenus(Menu3);
             Menu3.SetActive(true);
@@ -106,7 +107,7 @@ public class MenuController : MonoBehaviour {
             Menu4.SetActive(false);
             isAMenuOpen = false;
         }
-        else
+        else if (!notificationSystem.noteIsShowing)
         {
             CloseAllOtherMenus(Menu4);
             Menu4.SetActive(true);
@@ -121,7 +122,7 @@ public class MenuController : MonoBehaviour {
             Menu5.SetActive(false);
             isAMenuOpen = false;
         }
-        else
+        else if (!notificationSystem.noteIsShowing)
         {
             CloseAllOtherMenus(Menu4);
             Menu5.SetActive(true);
@@ -136,7 +137,7 @@ public class MenuController : MonoBehaviour {
             Menu6.SetActive(false);
             isAMenuOpen = false;
         }
-        else
+        else if (!notificationSystem.noteIsShowing)
         {
             CloseAllOtherMenus(Menu4);
             Menu6.SetActive(true);

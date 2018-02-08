@@ -10,7 +10,6 @@ public class UpgradeTemplate : ScriptableObject {
 
     public string title;
    
-  
 
     [TextArea(3, 10)]
     public string descr;
@@ -26,27 +25,35 @@ public class UpgradeTemplate : ScriptableObject {
     public float priceOfNextUpgradeLvl;
     public float defPrOfNxtUpgLvl;
 
-    public float currentUpgradeEffect;
-    public float defCurUpgEff;
     
+    public float defCurUpgEff;
 
     public float maxUpgradeLvl;
+
+    public List<Attribute> attributesIAffect;
+    public List<Building> buildingsISpawn;
     
     [Tooltip("If this list has 0 elements, than the upgrade does not affect the mining speed.")]
-    public List<int> effectsForEachUpgradeLvl;
+    public List<int> primaryListOfEffects;
 
+
+    [Tooltip("This is a secondary list in case the upgrade affects more than 1 compnent.")]
+    public List<int> secondaryListOfEffects;
 
     private void OnEnable()
     {
         currentUpgradeLvl = defCurUpgLvl;
         priceOfNextUpgradeLvl = defPrOfNxtUpgLvl;
-        currentUpgradeEffect = defCurUpgEff;
+        
 
-        if (effectsForEachUpgradeLvl.Count != 0)
+        if (primaryListOfEffects.Count != 0)
         {
-            maxUpgradeLvl = effectsForEachUpgradeLvl.Count - 1;
+            maxUpgradeLvl = primaryListOfEffects.Count - 1;
         }
     }
+
+
+  
 
 
 }
