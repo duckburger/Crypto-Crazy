@@ -16,21 +16,44 @@ public class MapController : MonoBehaviour {
 
 
     public List<Transform> rackSlots = new List<Transform>();
+    public List<Transform> rigSlots = new List<Transform>();
 
-    public Transform rackSlotsInThisApartment;
+    public Transform rackSlotHolder;
+    public Transform rigSlotHolder;
+
+
+    public float leftmostScrollValue;
+    public float rightmostScrollValue;
 
     public GameObject partner;
     public GameObject livingRoom;
     public GameObject cooling;
 
+    public Building rackBuildingObject;
+
+
+    public Notification firstRackInstallation;
+    public bool partnerKickedOut;
+
+    // This event will send the info up to the UI to unlock a new rack slot, when we install a new rack
+    delegate void NewRackInstalled(int newRackID);
+    NewRackInstalled RackInstalledActions;
 
 
 
-    private void Start()
+
+    private void OnEnable()
     {
-        foreach (Transform child in rackSlotsInThisApartment)
+        // Populating the rack
+        foreach (Transform child in rackSlotHolder)
         {
             rackSlots.Add(child);
+        }
+
+
+        foreach (Transform child in rigSlotHolder)
+        {
+            rigSlots.Add(child);
         }
     }
 
@@ -39,10 +62,16 @@ public class MapController : MonoBehaviour {
     // which will hold an id and a GO
     public void SpawnAnItem (Building thingToSpawn)
     {
-
         // We're spawning a RACK
         if (thingToSpawn.id == 0)
         {
+            if (!partnerKickedOut)
+            {
+                // Run the notification first to ask whether the player wants to remove his partner
+                AskAboutPartner();
+                return;
+            }
+
             foreach (Transform slot in rackSlots)
             {
                 // This doesn't need a second option, because the Upgrade script already checks whether to let the player press the button
@@ -61,6 +90,17 @@ public class MapController : MonoBehaviour {
             }
         }
         
+    }
+
+    public void AskAboutPartner()
+    {
+        NotificationSystem.Instance.DisplayAChoiceNotification(firstRackInstallation, null, () => { SpawnAnItem(rackBuildingObject); KickOutThePartner(); });
+        partnerKickedOut = true;
+    }
+
+    public void KickOutThePartner()
+    {
+        Destroy(partner.gameObject);
     }
 
     

@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 
+[CreateAssetMenu]
 public class Notification : ScriptableObject {
 
     public Sprite icon;
@@ -25,6 +26,7 @@ public class Notification : ScriptableObject {
 
     public float button1EffectOnAttribute;
     public float button2EffectOnAttribute;
+    
 
     
 

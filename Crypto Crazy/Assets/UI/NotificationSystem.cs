@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 public class NotificationSystem : MonoBehaviour {
+
+    public static NotificationSystem Instance;
 
 
     public Text noteTitle;
@@ -23,7 +26,6 @@ public class NotificationSystem : MonoBehaviour {
 
     public List<Notification> miscNotifications;
 
-    public Notification firstTimeRackNotification;
 
     public Transform thumbnailHolder;
     public List<GameObject> thumbnailSpaces;
@@ -36,7 +38,15 @@ public class NotificationSystem : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
-        HideAllNotificaitons();
+        if (!Instance)
+        {
+            Instance = this;
+        } else
+        {
+            Destroy(gameObject);
+        }
+
+        HideAllNotifications();
 
         PopulateTheThumbnailSpaces();
     }
@@ -79,13 +89,13 @@ public class NotificationSystem : MonoBehaviour {
 
     }
 
-    public void DisplayRegularNotification (Notification notification, NotificationThumbnail currentlyOpenThumbnail)
+    public void DisplayRegularNotification (Notification notification, NotificationThumbnail currentlyOpenThumbnail = null)
     {
 
         currentlyOpenNoteThumbnail = currentlyOpenThumbnail;
 
         // Close all the other menus first
-        HideAllNotificaitons();
+        HideAllNotifications();
         menuController.CloseAllOtherMenus();
 
         currentNoteToshow = notification;
@@ -110,8 +120,8 @@ public class NotificationSystem : MonoBehaviour {
         {
             button1.gameObject.SetActive(true);
             button1.onClick.RemoveAllListeners();
-            button1.onClick.AddListener(HideAllNotificaitons);
-            button1.onClick.AddListener(() => HideAllNotificaitons());
+            button1.onClick.AddListener(HideAllNotifications);
+            button1.onClick.AddListener(() => HideAllNotifications());
             button1.GetComponentInChildren<Text>().text = notification.button1Label;
         }
 
@@ -125,11 +135,87 @@ public class NotificationSystem : MonoBehaviour {
     }
 
 
-    // TODO: Write a function for a notification that will affect an attribute in the game
+   
 
-    
+    public void DisplayAChoiceNotification(Notification notification, NotificationThumbnail currentlyOpenThumbnail = null, 
+        UnityAction firstButtonAction = null, UnityAction secondButtonAction = null)
+    {
+        if (currentlyOpenThumbnail)
+        {
+            currentlyOpenNoteThumbnail = currentlyOpenThumbnail;
+        }
 
-    public void HideAllNotificaitons()
+        // Close all the other menus first
+        HideAllNotifications();
+        menuController.CloseAllOtherMenus();
+
+        currentNoteToshow = notification;
+        notificationPanel.SetActive(true);
+
+
+        noteTitle.text = currentNoteToshow.title;
+        noteBody.text = currentNoteToshow.body;
+
+        noteIsShowing = true;
+
+        noteImage.gameObject.SetActive(false);
+
+
+        if (notification.image)
+        {
+            noteImage.gameObject.SetActive(true);
+            noteImage.GetComponent<Image>().sprite = notification.image;
+        }
+
+        button1.gameObject.SetActive(false);
+
+
+        if (notification.button1Label != "")
+        {
+            button1.gameObject.SetActive(true);
+            button1.onClick.RemoveAllListeners();
+            button1.onClick.AddListener(HideAllNotifications);
+
+            button1.onClick.AddListener(firstButtonAction);
+
+            button1.GetComponentInChildren<Text>().text = notification.button1Label;
+
+            if (notification.affectsGameplay)
+            {
+                foreach(Attribute attr in notification.attributesIAffect)
+                {
+                    if (attr.id == 0)
+                    {
+                        button1.onClick.AddListener(() => miningController.AddPercentageToMiningSpeed(notification.button1EffectOnAttribute));
+                    } else if (attr.id == 1)
+                    {
+                        button1.onClick.AddListener(() => miningController.AddTimeToDustTimer((int)notification.button1EffectOnAttribute));
+                    }
+                }
+            }
+        }
+
+        button2.gameObject.SetActive(false);
+
+        if (notification.button2Label != "")
+        {
+            button2.gameObject.SetActive(true);
+            button2.onClick.RemoveAllListeners();
+            button2.onClick.AddListener(HideAllNotifications);
+
+            button2.onClick.AddListener(secondButtonAction);
+
+            button2.GetComponentInChildren<Text>().text = notification.button2Label;
+
+            
+        }
+
+
+    }
+
+
+
+    public void HideAllNotifications()
     {
         notificationPanel.SetActive(false);
         noteIsShowing = false;

@@ -11,6 +11,17 @@ public class CameraController : MonoBehaviour {
     public float minCameraZoom;
     public float maxCameraZoom;
 
+    public MapController currentApartment;
+
+   
+    public float touchPanSensitivity;
+    public Vector3 mouseTrackingOrigin;
+    public Vector3 touchTrackingOrigin;
+    public RectTransform dragTouchRect;
+
+    public bool isMousePanning;
+    
+
     public void SwitchZoomLevels()
     {
         if (zoomedIn)
@@ -32,7 +43,7 @@ public class CameraController : MonoBehaviour {
     }
 	
 	// Update is called once per frame
-	void Update () {
+	void LateUpdate () {
 
         float camZoom = Camera.main.orthographicSize;
 
@@ -42,7 +53,8 @@ public class CameraController : MonoBehaviour {
 
         Camera.main.orthographicSize = camZoom;*/
 
-
+        // Zoom behaviour
+        /*
         if (Input.touchCount == 2)
         {
             Touch touchZero = Input.GetTouch(0);
@@ -60,10 +72,54 @@ public class CameraController : MonoBehaviour {
             Camera.main.orthographicSize = Mathf.Clamp(Camera.main.orthographicSize, minCameraZoom, maxCameraZoom);
 
 
-        }
+        }*/
 
 
         Camera.main.orthographicSize = Mathf.Clamp(Camera.main.orthographicSize, minCameraZoom, maxCameraZoom);
 
+
+        // Handle touch dragging
+        if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Moved && RectTransformUtility.RectangleContainsScreenPoint(dragTouchRect, Input.GetTouch(0).position))
+        {
+            Vector2 touchDeltaPosition = Input.GetTouch(0).deltaPosition;
+            transform.Translate(-touchDeltaPosition.x * touchPanSensitivity * Time.deltaTime, 0, 0);
+
+
+            transform.position = new Vector3(Mathf.Clamp(transform.position.x, currentApartment.leftmostScrollValue, currentApartment.rightmostScrollValue),
+               Mathf.Clamp(transform.position.y, transform.position.y, transform.position.y), 0);
+        }
+
+
+
+        // Mouse panning solution (WIP) TODO: make this a bit nicer
+        if (Input.GetMouseButtonDown(1) && RectTransformUtility.RectangleContainsScreenPoint(dragTouchRect, Input.mousePosition))
+        {
+            mouseTrackingOrigin = Input.mousePosition;
+            isMousePanning = true;
+        }
+
+
+        if (isMousePanning)
+        {
+            Vector2 currentCamPos = (Input.mousePosition - mouseTrackingOrigin);
+
+
+            Vector2 moveVector = new Vector2(currentCamPos.x * touchPanSensitivity * Time.deltaTime, 0);
+
+            transform.Translate(moveVector, Space.Self);
+
+
+
+            transform.position = new Vector3(Mathf.Clamp(transform.position.x, currentApartment.leftmostScrollValue, currentApartment.rightmostScrollValue), 
+                transform.position.y, 0);
+            
+        }
+
+
+        if (Input.GetMouseButtonUp(1))
+        {
+            isMousePanning = false;
+        }
+        
     }
 }
