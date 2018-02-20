@@ -426,7 +426,7 @@ MonoBehaviour:
   darkOverlay: {fileID: 114104021690560276}
   myRigNumber: 0
   myRackNumber: 0
-  controllingRack: 0
+  controllingRack: 1
   racksControlled: 0
   title: {fileID: 114640209652967736}
   description: {fileID: 114321797710048866}

@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8157f9a72d364084f8954592d38eb63d, type: 3}
+  m_Name: 8_Workstation Grade Mining Rig
+  m_EditorClassIdentifier: 
+  myBuildingPrefab: {fileID: 0}
+  buildingID: 1
+  myStringName: workstation_rig
+  title: Workstation-Grade Mining Rig
+  icon: {fileID: 21300000, guid: d1326d34ac80d6e498bf427a7dbdea6c, type: 3}
+  id: 8
+  myAppearance: {fileID: 21300000, guid: d1326d34ac80d6e498bf427a7dbdea6c, type: 3}
+  myDescription: This is a mining rig taken to the extreme. You can render 10k video
+    on it, while mining mad crypto, and it won't break a sweat.
+  myEffectOnMining: 200
+  priceOfNextUpgradeLvl: 564859.1

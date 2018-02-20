@@ -6,11 +6,11 @@ public class RigController : MonoBehaviour {
 
 
     public int rigsOwned;
-    public Rig thisRig;
     
 
     public MapController currentMap;
 
+    public MiningController miningController;
 
 
     // This is the percentage value that the rig price goes up by after the next upgrade
@@ -18,21 +18,28 @@ public class RigController : MonoBehaviour {
 
 
     // This will get called whenever we spawn a new rig or upgrade an old one
-    delegate void OnRigSpawned (int rigId, int rigSlot);
-    OnRigSpawned rigSpawnedActions;
+    public delegate void OnRigSpawned (int rigSlot);
+    public OnRigSpawned rigSpawnedActions;
 
 
-    private void OnEnable()
+    // Use this for initialization
+    void Start()
     {
+        miningController = FindObjectOfType<MiningController>();
+    }
+
+
+    public void UpgradeARig(int rigOrderNumber)
+    {
+        // TODO: Make this send an upgrade message to the map controller, and make this collect money from the MiningController
+       
+            rigSpawnedActions(rigOrderNumber);
+      
+
         
     }
 
-    public void UpgradeARig(int rigIDInHierarchy)
-    {
-        // TODO: Make this send an upgrade message to the map controller, and make this collect money from the MiningController
-    }
-
-    public void UpgradeARack()
+    public void UpgradeARack(int rackOrderNumber)
     {
         // TODO: Make this send an upgrade message to the map controller, and make this collect money from the MiningController
     }
@@ -49,10 +56,7 @@ public class RigController : MonoBehaviour {
 
     
 
-	// Use this for initialization
-	void Start () {
-		
-	}
+	
 	
 	// Update is called once per frame
 	void Update () {

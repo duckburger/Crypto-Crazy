@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8157f9a72d364084f8954592d38eb63d, type: 3}
+  m_Name: 5_Midrange Mining Rig
+  m_EditorClassIdentifier: 
+  myBuildingPrefab: {fileID: 0}
+  buildingID: 1
+  myStringName: midrange_mining_rig
+  title: Midrange Mining Rig
+  icon: {fileID: 21300000, guid: 2f0f487a6fe299343b7843ddd5830fd2, type: 3}
+  id: 5
+  myAppearance: {fileID: 21300000, guid: 2f0f487a6fe299343b7843ddd5830fd2, type: 3}
+  myDescription: Mining rigs have improved over the years. They make less noise, and
+    actually do their job better!
+  myEffectOnMining: 50
+  priceOfNextUpgradeLvl: 28697.814

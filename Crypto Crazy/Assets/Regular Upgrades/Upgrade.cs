@@ -209,6 +209,7 @@ public class Upgrade : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
+        
         if (myUpgrade.currentUpgradeLvl < myUpgrade.maxUpgradeLvl)
         {
             if (myUpgrade.priceOfNextUpgradeLvl < myMiningController.currencyMined)

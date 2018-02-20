@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8157f9a72d364084f8954592d38eb63d, type: 3}
+  m_Name: 6_Top Mining Rig
+  m_EditorClassIdentifier: 
+  myBuildingPrefab: {fileID: 0}
+  buildingID: 1
+  myStringName: top_mining_rig
+  title: Top Tier Mining Rig
+  icon: {fileID: 21300000, guid: 88f9c39900139e245a5bca7003eb6807, type: 3}
+  id: 6
+  myAppearance: {fileID: 21300000, guid: 88f9c39900139e245a5bca7003eb6807, type: 3}
+  myDescription: The best of the best in mining rigs.
+  myEffectOnMining: 100
+  priceOfNextUpgradeLvl: 77484.1

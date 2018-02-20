@@ -7,7 +7,7 @@ public class Building : ScriptableObject {
 
     public GameObject myBuildingPrefab;
 
-    public int id;
+    public int buildingID;
 
 
 

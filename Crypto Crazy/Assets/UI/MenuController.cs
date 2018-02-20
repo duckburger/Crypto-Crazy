@@ -5,10 +5,10 @@ using UnityEngine.UI;
 
 public class MenuController : MonoBehaviour {
 
-    public GameObject Menu1;
-    public GameObject Menu2;
-    public GameObject Menu3;
-    public GameObject Menu4;
+    public GameObject upgradesMenu;
+    public GameObject realEstateMenu;
+    public GameObject miscMenu;
+    public GameObject rigsMenu;
     public GameObject Menu5;
     public GameObject Menu6;
 
@@ -21,10 +21,10 @@ public class MenuController : MonoBehaviour {
 
     void Start()
     {
-        menus.Add(Menu1);
-        menus.Add(Menu2);
-        menus.Add(Menu3);
-        menus.Add(Menu4);
+        menus.Add(upgradesMenu);
+        menus.Add(realEstateMenu);
+        menus.Add(miscMenu);
+        menus.Add(rigsMenu);
         menus.Add(Menu5);
         menus.Add(Menu6);
 
@@ -57,60 +57,60 @@ public class MenuController : MonoBehaviour {
 
     public void Menu1Control()
     {
-        if (Menu1.gameObject.activeSelf)
+        if (upgradesMenu.gameObject.activeSelf)
         {
-            Menu1.SetActive(false);
+            upgradesMenu.SetActive(false);
             isAMenuOpen = false;
 
         } else if (!notificationSystem.noteIsShowing)
         {
-            CloseAllOtherMenus(Menu1);
-            Menu1.SetActive(true);
+            CloseAllOtherMenus(upgradesMenu);
+            upgradesMenu.SetActive(true);
             isAMenuOpen = true;
         }
     }
 
     public void Menu2Control()
     {
-        if (Menu2.gameObject.activeSelf)
+        if (realEstateMenu.gameObject.activeSelf)
         {
-            Menu2.SetActive(false);
+            realEstateMenu.SetActive(false);
             isAMenuOpen = false;
         }
         else if (!notificationSystem.noteIsShowing)
         {
-            CloseAllOtherMenus(Menu2);
-            Menu2.SetActive(true);
+            CloseAllOtherMenus(realEstateMenu);
+            realEstateMenu.SetActive(true);
             isAMenuOpen = true;
         }
     }
 
     public void Menu3Control()
     {
-        if (Menu3.gameObject.activeSelf)
+        if (miscMenu.gameObject.activeSelf)
         {
-            Menu3.SetActive(false);
+            miscMenu.SetActive(false);
             isAMenuOpen = false;
         }
         else if (!notificationSystem.noteIsShowing)
         {
-            CloseAllOtherMenus(Menu3);
-            Menu3.SetActive(true);
+            CloseAllOtherMenus(miscMenu);
+            miscMenu.SetActive(true);
             isAMenuOpen = true;
         }
     }
 
     public void Menu4Control()
     {
-        if (Menu4.gameObject.activeSelf)
+        if (rigsMenu.gameObject.activeSelf)
         {
-            Menu4.SetActive(false);
+            rigsMenu.SetActive(false);
             isAMenuOpen = false;
         }
         else if (!notificationSystem.noteIsShowing)
         {
-            CloseAllOtherMenus(Menu4);
-            Menu4.SetActive(true);
+            CloseAllOtherMenus(rigsMenu);
+            rigsMenu.SetActive(true);
             isAMenuOpen = true;
         }
     }
@@ -124,7 +124,7 @@ public class MenuController : MonoBehaviour {
         }
         else if (!notificationSystem.noteIsShowing)
         {
-            CloseAllOtherMenus(Menu4);
+            CloseAllOtherMenus(rigsMenu);
             Menu5.SetActive(true);
             isAMenuOpen = true;
         }
@@ -139,7 +139,7 @@ public class MenuController : MonoBehaviour {
         }
         else if (!notificationSystem.noteIsShowing)
         {
-            CloseAllOtherMenus(Menu4);
+            CloseAllOtherMenus(rigsMenu);
             Menu6.SetActive(true);
             isAMenuOpen = true;
         }

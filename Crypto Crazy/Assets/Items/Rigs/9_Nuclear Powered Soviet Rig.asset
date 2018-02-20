@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8157f9a72d364084f8954592d38eb63d, type: 3}
+  m_Name: 9_Nuclear Powered Soviet Rig
+  m_EditorClassIdentifier: 
+  myBuildingPrefab: {fileID: 0}
+  buildingID: 1
+  myStringName: nuclear_rig
+  title: Nuclear Powered Soviet Secret Rig
+  icon: {fileID: 21300000, guid: 009f636fb93afe84594c154f51d6c0c6, type: 3}
+  id: 9
+  myAppearance: {fileID: 21300000, guid: 009f636fb93afe84594c154f51d6c0c6, type: 3}
+  myDescription: 'Your friend''s cousing, Vlad, has somehow manage to get this for
+    you. Don''t ask questions, just plug it in and start mining. '
+  myEffectOnMining: 200
+  priceOfNextUpgradeLvl: 1525119.6

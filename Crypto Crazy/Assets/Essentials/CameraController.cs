@@ -39,7 +39,7 @@ public class CameraController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         zoomedIn = true;
-
+        SwitchZoomLevels();
     }
 	
 	// Update is called once per frame
