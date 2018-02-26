@@ -22,6 +22,10 @@ public class RigController : MonoBehaviour {
     public OnRigSpawned rigSpawnedActions;
 
 
+    public delegate void OnRackSpawned(int rackSlot);
+    public OnRackSpawned rackSpawnedActions;
+
+
     // Use this for initialization
     void Start()
     {
@@ -31,7 +35,7 @@ public class RigController : MonoBehaviour {
 
     public void UpgradeARig(int rigOrderNumber)
     {
-        // TODO: Make this send an upgrade message to the map controller, and make this collect money from the MiningController
+        // Sends a message to the map controller
        
             rigSpawnedActions(rigOrderNumber);
       
@@ -41,21 +45,17 @@ public class RigController : MonoBehaviour {
 
     public void UpgradeARack(int rackOrderNumber)
     {
-        // TODO: Make this send an upgrade message to the map controller, and make this collect money from the MiningController
+        // TODO: Make this send an upgrade message to the map controller, and make this collect money from the MiningControlle
+
+        rackSpawnedActions(rackOrderNumber);
+
+
     }
 
     public float CalculateCostOfNextUpgrade(float priceOfNextUpgradeLvl, float pricePercentageGrowth)
     {
         return (priceOfNextUpgradeLvl * pricePercentageGrowth / 100);
     }
-
-
-    
-
-   
-
-    
-
 	
 	
 	// Update is called once per frame

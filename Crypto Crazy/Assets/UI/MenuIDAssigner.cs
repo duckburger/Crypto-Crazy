@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,18 +9,31 @@ public class MenuIDAssigner : MonoBehaviour {
     public MapController currentMapController;
     public Transform rigMenuHolder;
 
+    public GameObject rackGroupTemplate;
+    public GameObject individualRackTemplate;
 
     private void Awake()
     {
+
+        currentMapController = FindObjectOfType<MapController>();
+        PopulateTheRigsMenu();
         AssignIDToRigMenu();
     }
 
-    private void OnEnable()
+    
+   
+    // This spawns the UI elements for racks into the rigs menu
+    private void PopulateTheRigsMenu()
     {
-        currentMapController = FindObjectOfType<MapController>();
-
+        for (int i = 0; i < currentMapController.maxRacks; i++)
+        {
+            Instantiate(individualRackTemplate, Vector3.zero, Quaternion.identity, rigMenuHolder);
+        }
+        
         
     }
+
+    
 
     public void AssignIDToRigMenu()
     {
@@ -32,7 +46,8 @@ public class MenuIDAssigner : MonoBehaviour {
             {
                 child.GetComponent<RigID>().myControlID = i;
                 i++;
-            } else if (child.GetComponent<RackID>() && i < 16)
+            }
+            else if ( currentMapController.controlsRacksByOne && child.GetComponent<RackID>() && i < 16)
             {
                 child.GetComponent<RackID>().myControlID = i;
                 i++;

@@ -14,6 +14,7 @@ public class RigScript : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         myIcon = me.icon;
+        iconHolder = GetComponent<SpriteRenderer>();
 	}
 
 

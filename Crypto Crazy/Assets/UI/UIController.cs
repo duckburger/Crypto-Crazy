@@ -13,10 +13,40 @@ public class UIController : MonoBehaviour {
 
     public NumberConverter numberConverter;
 
-	// Use this for initialization
+    public Animator sideMenuAnimator;
+    public Animator rigsMenuAnimator;
+    public bool sideMenuShown;
+
+	// Use this for initializations
 	void Start () {
         currencyName.text = myMiningController.currencyName;
+
 	}
+
+
+    public void ShowRacksSideMenu()
+    {
+        if (!sideMenuShown)
+        {
+            sideMenuShown = true;
+            rigsMenuAnimator.SetTrigger("SlideOff");
+            sideMenuAnimator.SetTrigger("ShowMyRacks");
+            
+            
+            return;
+        }
+
+        HideRackSideMenu();
+    }
+
+    public void HideRackSideMenu()
+    {
+        sideMenuShown = false;
+        rigsMenuAnimator.SetTrigger("SlideOn");
+        sideMenuAnimator.SetTrigger("HideMyRacks");
+        
+        
+    }
 	
 	// Update is called once per frame
 	void Update () {

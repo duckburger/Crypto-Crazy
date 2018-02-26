@@ -6,6 +6,7 @@ public class RackSlot : MonoBehaviour {
 
     public Rack myRack;
     public int myOrderNumber;
+    public int racksInThisGroup;
 
 	// Use this for initialization
 	void Start () {

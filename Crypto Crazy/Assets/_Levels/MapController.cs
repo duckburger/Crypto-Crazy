@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -36,21 +37,30 @@ public class MapController : MonoBehaviour {
 
     public Notification firstRackInstallation;
     public bool partnerKickedOut;
+    public Notification fifthRackInstallation;
+    public bool furnitureSold;
 
     // This will get called whenever we finish updating a rig (sends a message to UI, for example)
     public delegate void OnRigUpgraded(int rigSlot, Rig newlyInstalledRig);
     public OnRigUpgraded upgradedRigActions;
 
 
-    public delegate void OnRackUpgraded(int rackSlot, Rack newlyInstalledRack);
+    public delegate void OnRackUpgraded(int rackSlot, Rig newlyInstalledRig, int racksInThisGroup);
     public OnRackUpgraded upgradedRackActions;
 
     public float pricePercentageGrowth;
 
+    // This factors in what we are sending back to the UI of the racks
+    public bool controlsRacksByOne;
+    public int racksPerGroup;
+    public int maxRacks;
+    public int racksBuilt;
 
 
     private void Start()
     {
+        
+
         rigController = FindObjectOfType<RigController>();
         itemDatabase = GetComponent<ItemDatabase>();
         miningControllerInstance = FindObjectOfType<MiningController>();
@@ -62,8 +72,19 @@ public class MapController : MonoBehaviour {
 
         rigController = FindObjectOfType<RigController>();
 
-        // Populating the rack slots list
+       
+
+        // Populating the rig slot list
         int i = 0;
+        foreach (Transform child in rigSlotHolder)
+        {
+            rigSlots.Add(child);
+            child.GetComponent<Rigslot>().myOrderNumber = i;
+            i++;
+        }
+
+        // Populating the rack slots list
+
         foreach (Transform child in rackSlotHolder)
         {
             rackSlots.Add(child);
@@ -72,17 +93,8 @@ public class MapController : MonoBehaviour {
 
         }
 
-        // Populating the rig slot list
-        int j = 0;
-        foreach (Transform child in rigSlotHolder)
-        {
-            rigSlots.Add(child);
-            child.GetComponent<Rigslot>().myOrderNumber = j;
-            j++;
-        }
-
         rigController.rigSpawnedActions += UpgradeARig;
-        rigController.rigSpawnedActions += UpgradeARackOfRigs;
+        rigController.rackSpawnedActions += UpgradeARackOfRigs;
 
     }
 
@@ -99,6 +111,15 @@ public class MapController : MonoBehaviour {
                 return;
             }
 
+            if (racksBuilt >= maxRacks / 2 && !furnitureSold)
+            {
+                // Run the notification first to ask whether the player wants to remove his furniture
+                AskAboutFurniture();
+                return;
+            }
+
+
+
             foreach (Transform slot in rackSlots)
             {
                 // This doesn't need a second option, because the Upgrade script already checks whether to let the player press the button
@@ -106,12 +127,22 @@ public class MapController : MonoBehaviour {
                 {
                    
                     GameObject.Instantiate(thingToSpawn.myBuildingPrefab, slot.position, Quaternion.identity, slot);
-                    
+                    racksBuilt++;
+                    slot.GetComponent<RackSlot>().racksInThisGroup++;
+
+                    // Passing in the slot number as well as the most basic rig, because this is a brand new rack
+                    // This case is for when the map has singular rack control
+                    if (controlsRacksByOne)
+                        upgradedRackActions(slot.GetComponent<RackSlot>().myOrderNumber, itemDatabase.rigTypes[0], racksPerGroup);
+
                     return;
                 }
 
             }
-        } else if (thingToSpawn.buildingID == 1)
+
+            // We're spawning a RIG
+        }
+        else if (thingToSpawn.buildingID == 1)
         {
             foreach(Transform slot in rigSlots)
             {
@@ -122,14 +153,7 @@ public class MapController : MonoBehaviour {
                 }
             }
         }
-
-        
-
-       
-        
     }
-
-    
 
 
     public void UpgradeARig(int rigSlot)
@@ -145,12 +169,10 @@ public class MapController : MonoBehaviour {
                 if (rigscript.me.priceOfNextUpgradeLvl < miningControllerInstance.myMiningController.currencyMined)
                 {
 
-                    
-
                     miningControllerInstance.myMiningController.currencyMined -= rigscript.me.priceOfNextUpgradeLvl;
                     float thisUpgradePrice = rigscript.me.priceOfNextUpgradeLvl;
                     // TODO: this might break when getting to the last item in the list
-                    rigscript.me = itemDatabase.rigTypes[rigscript.me.buildingID + 1];
+                    rigscript.me = itemDatabase.rigTypes[rigscript.me.id + 1];
                     rigscript.RefreshIcon();
 
 
@@ -159,8 +181,10 @@ public class MapController : MonoBehaviour {
                     //pricePercentageGrowth -= (pricePercentageGrowth * 20 / 100);
                     Rig currentRig = rigscript.me;
 
-                    // TODO: MAKE THE NEW RIG ACTUALLY APPLY AN EFFECT TO THE MINING CONTROLLER
+                    // MAKING THE NEW RIG ACTUALLY APPLY AN EFFECT TO THE MINING CONTROLLER
                     miningControllerInstance.AddPercentageToMiningSpeed(currentRig.myEffectOnMining);
+
+                    // Sewnding the info to the UI element responsible for this rig
                     upgradedRigActions(rigSlot, currentRig);
                     return;
 
@@ -173,11 +197,56 @@ public class MapController : MonoBehaviour {
         }
     }
 
+  
     public void UpgradeARackOfRigs(int rackSlot)
     {
 
+        
+        foreach (Transform slot in rackSlots)
+        {
+            if (slot.GetComponent<RackSlot>().myOrderNumber == rackSlot)
+            {
+                Debug.Log("About to upgrade this rack!");
+                RigScript[] rigslotsInThisRackGroup;
+                // Collecting all the RIGSCRIPTS inside this RACKSLOT to the update them
+                rigslotsInThisRackGroup = slot.GetComponentsInChildren<RigScript>(true);
+                Debug.Log(rigslotsInThisRackGroup.Length);
+
+                // Find out if we have enough money to upgrade all the rigs in this group
+                if (rigslotsInThisRackGroup[0].me.priceOfNextUpgradeLvl * rigslotsInThisRackGroup.Length < miningControllerInstance.myMiningController.currencyMined)
+                {
+                    // Charge me the money for the upgrade
+                    miningControllerInstance.myMiningController.currencyMined -= rigslotsInThisRackGroup[0].me.priceOfNextUpgradeLvl * rigslotsInThisRackGroup.Length;
+                    //Debug.Log("Charged you " + rigslotsInThisRackGroup[0].me.priceOfNextUpgradeLvl * rigslotsInThisRackGroup.Length + " for the upgrades on the rack");
+                    
+                    foreach (RigScript rig in rigslotsInThisRackGroup)
+                    {
+                        Debug.Log(rig.me);
+                        //Debug.Log("My rig id is now " + rig.me.id);
+                        rig.me = itemDatabase.rigTypes[rig.me.id + 1];
+                        //Debug.Log("My rig id is now " + rig.me.id);
+                        rig.RefreshIcon();
+
+                        miningControllerInstance.AddPercentageToMiningSpeed(rig.me.myEffectOnMining);
+
+                    }
+                    //Send in the info to the UI so it can be udpated with the newly updated rig info for this rag
+                    if (controlsRacksByOne)
+                        upgradedRackActions(rackSlot, rigslotsInThisRackGroup[0].me, racksPerGroup);
+
+                    //Debug.Log("I've upgraded all the rigs in this group!");
+                    return;
+                   
+                }
+                Debug.Log("Not enough money to upgrade all the rigs in this group!");
+                return;
+            }
+            
+        }
     }
 
+
+    #region STORY RELATED FUNCTIONS
     public void AskAboutPartner()
     {
         NotificationSystem.Instance.DisplayAChoiceNotification(firstRackInstallation, null, () => { SpawnAnItem(rackBuildingObject); KickOutThePartner(); });
@@ -187,12 +256,20 @@ public class MapController : MonoBehaviour {
     public void KickOutThePartner()
     {
         Destroy(partner.gameObject);
+        
     }
 
-    
-    
+    public void AskAboutFurniture()
+    {
+        NotificationSystem.Instance.DisplayAChoiceNotification(fifthRackInstallation, null, () => { SpawnAnItem(rackBuildingObject); GetRidOfFurniture(); });
+        furnitureSold = true;
+    }
 
+    private void GetRidOfFurniture()
+    {
+        Destroy(livingRoom.gameObject);
+        
+    }
 
-   
-   
+    #endregion  
 }

@@ -32,6 +32,7 @@ public class MenuController : MonoBehaviour {
         
     }
 
+    // This will close all menus if nothing is passed in
     public void CloseAllOtherMenus(GameObject currentMenu = null)
     {
         if (currentMenu != null)
@@ -53,6 +54,14 @@ public class MenuController : MonoBehaviour {
 
         return;
        
+    }
+
+    public void CloseAllMenus()
+    {
+        foreach (GameObject menu in menus)
+        {
+            menu.SetActive(false);
+        }
     }
 
     public void Menu1Control()

@@ -96,8 +96,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   me: {fileID: 11400000, guid: 500b394db8db44d4c91c4a846b132529, type: 2}
-  myID: 0
   myIcon: {fileID: 0}
+  iconHolder: {fileID: 212790009831238682}
 --- !u!212 &212790009831238682
 SpriteRenderer:
   m_ObjectHideFlags: 1

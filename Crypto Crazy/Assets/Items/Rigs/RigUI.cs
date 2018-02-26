@@ -13,6 +13,7 @@ public class RigUI : MonoBehaviour {
     public RigController rigController;
     public MapController currentMapController;
     public MiningController miningController;
+    public UIController mainUIController;
 
 
     // Determines whether I control the rig or the rack
@@ -33,6 +34,7 @@ public class RigUI : MonoBehaviour {
     // Needs this to adjust the button properties every click
     public Button upgradeButton;
 
+    // This button activates the rig panel and buy the basic rig
     public Button activateButton;
 
     // For changing the text of the button
@@ -63,12 +65,14 @@ public class RigUI : MonoBehaviour {
         rigController = FindObjectOfType<RigController>();
         miningController = FindObjectOfType<MiningController>();
         currentMapController = FindObjectOfType<MapController>();
-
+       
         
 
         if (controllingRack)
-        {
+        {   // If this UI element controls a rack, then make the button call upgrade a rack function from the rig controller
+            Debug.Log("Signing up for the rack upgrades!!! I am a button with and ID " + GetComponent<RackID>().myControlID);
             upgradeButton.onClick.AddListener(() => rigController.UpgradeARack(GetComponent<RackID>().myControlID));
+            
             myRackID = GetComponent<RackID>();
         } else
         {
@@ -77,8 +81,9 @@ public class RigUI : MonoBehaviour {
             myRig = currentMapController.itemDatabase.rigTypes[0];
         }
 
+
         if (activateButton)
-            activateButton.onClick.AddListener(() => ActivateThisUI());
+            activateButton.onClick.AddListener(() => BuyARigFromScratch());
 
         if (!controllingRack)
             currentMapController.upgradedRigActions += UpdateMyRigUI;
@@ -92,8 +97,11 @@ public class RigUI : MonoBehaviour {
         
     }
 
-    void ActivateThisUI()
+    #region RIG SPECIFIC FUNCTIONS
+
+    void BuyARigFromScratch()
     {
+        // Check if we have enough money for the rig
         if (miningController.myMiningController.currencyMined > 200)
         {
             miningController.myMiningController.currencyMined -= 200;
@@ -110,10 +118,9 @@ public class RigUI : MonoBehaviour {
         
             
     }
-  
+    
 
-   
-
+    // This one is signed up to the UPGRADED A RIG delegate in the MapController
     void UpdateMyRigUI(int idOfUpdatedRig, Rig currentRigInfo)
     {
 
@@ -122,7 +129,7 @@ public class RigUI : MonoBehaviour {
         {
           
             // FIRST check whether this is the last upgade
-            if (currentRigInfo.buildingID  >= 9)
+            if (currentRigInfo.id  >= 9)
             {
                 title.text = currentRigInfo.title;
                 description.text = currentRigInfo.myDescription;
@@ -161,7 +168,7 @@ public class RigUI : MonoBehaviour {
                 
                  buttonText.text = "BUY BETTER RIG\n" + currentRigInfo.priceOfNextUpgradeLvl;
                  //rigsControlled.text = "x1";
-                 upgradeLvlUI.fillAmount = (float)currentRigInfo.buildingID / currentMapController.gameObject.GetComponent<ItemDatabase>().rigTypes.Count;
+                 upgradeLvlUI.fillAmount = (float)currentRigInfo.id / currentMapController.gameObject.GetComponent<ItemDatabase>().rigTypes.Count;
                  myRig = currentRigInfo;
 
 
@@ -185,13 +192,68 @@ public class RigUI : MonoBehaviour {
             }
         }
     }
+    #endregion
 
+    #region RACK SPECIFIC FUNCTIONS
 
-    public void UpdateMyRackUI(int rackSlot, Rack currentRackInfo)
+    // This one is signed up to the UPGRADED A RACK delegate in the MapController
+    public void UpdateMyRackUI(int rackSlot, Rig currentRigInThisRack, int racksPerGroup)
     {
 
-    }
+        
+        // If the rack ID that was sent in matches my RACK ID...
+        if (rackSlot == myRackID.myControlID)
+        {
+            // FIRST check whether this is the last upgade (uses a magic number - currently max rig level)
+            if (currentRigInThisRack.id >= 9)
+            {
+                isEnabled = false;
+                title.text = currentRigInThisRack.title + " (Rack)";
+                description.text = currentRigInThisRack.myDescription;
+                miscText.text = "MAX RIG LVL REACHED!";
+                rigIcon.sprite = currentRigInThisRack.icon;
+                buttonText.text = "MAX UPGRADE REACHED";
 
+                tempEffectPercentage += currentRigInThisRack.myEffectOnMining;
+
+                currentEffectText.text = "+ " + tempEffectPercentage.ToString() + "%";
+                rigsControlled.text = "x" + (racksPerGroup * 3).ToString();
+                // Shows the upgrade level visually by dividing by the size of the size of the rig database
+                upgradeLvlUI.fillAmount = currentRigInThisRack.buildingID / currentMapController.gameObject.GetComponent<ItemDatabase>().rigTypes.Count;
+                upgradeLvlUI.fillAmount = 1;
+                // Set this button as disabled and change its color to gray
+                upgradeButton.GetComponent<Image>().color = Color.gray;
+                upgradeButton.interactable = false;
+                fullyUpgraded = true;
+                myRig = currentRigInThisRack;
+                return;
+            }
+                if (currentRigInThisRack.id == 0)
+                    isEnabled = true;
+                    darkOverlay.gameObject.SetActive(false);
+                    upgradeButton.interactable = true;
+
+                title.text = currentRigInThisRack.title + " (Rack)";
+                description.text = currentRigInThisRack.myDescription;
+                miscText.text = "Next rig effect: \n" + "+" + currentRigInThisRack.myEffectOnMining + "% mining speed";
+                rigIcon.sprite = currentRigInThisRack.icon;
+
+                // Multiplying 3 because there are 3 rigs in the rack
+                tempEffectPercentage += currentRigInThisRack.myEffectOnMining * 3;
+
+                
+
+                currentEffectText.text = "+ " + (int)tempEffectPercentage + "%";
+                
+                // Multiplying 3 because there are 3 rigs in the rack
+                buttonText.text = "BUY BETTER RIG\n" + currentRigInThisRack.priceOfNextUpgradeLvl * 3;
+                rigsControlled.text = "x3";
+                upgradeLvlUI.fillAmount = (float)currentRigInThisRack.id / currentMapController.gameObject.GetComponent<ItemDatabase>().rigTypes.Count;
+                myRig = currentRigInThisRack;
+            
+        }
+    }
+    #endregion
 
     public void InitizalizeTheUI()
     {
@@ -209,8 +271,6 @@ public class RigUI : MonoBehaviour {
             upgradeButton.interactable = false;
             darkOverlay.gameObject.SetActive(true);
 
-            
-
         }
         else
         {
@@ -226,16 +286,18 @@ public class RigUI : MonoBehaviour {
                 //Debug.Log(currentMapController.itemDatabase);
                 rigsControlled.text = "x1";
                 miscText.text = "Next rig effect: \n" + "+" + currentMapController.itemDatabase.rigTypes[0].myEffectOnMining + "% mining speed";
-            } else
+            }
+            else
             {
                 title.text = currentMapController.rigSlots[0].GetComponentInChildren<RigScript>(true).me.title;
                 description.text = currentMapController.rigSlots[0].GetComponentInChildren<RigScript>(true).me.myDescription;
                 buttonText.text = "UPGRADE RACK\n" + currentMapController.rackSlots[myRackID.myControlID].GetComponentInChildren<RigScript>(true).me.priceOfNextUpgradeLvl;
-                miscText.text = "Next rig effect: \n" + "+" + currentMapController.itemDatabase.rigTypes[0].myEffectOnMining + "% mining speed";
+                // Multiplying by 3 because this controls a rack
+                miscText.text = "Next rig effect: \n" + "+" + currentMapController.itemDatabase.rigTypes[0].myEffectOnMining * 3 + "% mining speed";
             }
 
             tempEffectPercentage = currentMapController.rigSlots[0].GetComponentInChildren<RigScript>(true).me.myEffectOnMining;
-            Debug.Log(tempEffectPercentage);
+           
             currentEffectText.text = "+ " + tempEffectPercentage + "%";
             upgradeButton.interactable = true;
             darkOverlay.gameObject.SetActive(false);
@@ -250,8 +312,22 @@ public class RigUI : MonoBehaviour {
 
 
 	
-	// Update is called once per frame
+	// Using this mainly to update the UI on the buttons
 	void Update () {
+
+        if (!isEnabled && !controllingRack)
+        {
+            if (miningController.myMiningController.currencyMined > 200)
+            {
+                activateButton.GetComponent<Image>().color = Color.green;
+            }
+            else if (miningController.myMiningController.currencyMined < 200)
+            {
+                activateButton.GetComponent<Image>().color = Color.grey;
+            }
+        }
+        
+
 
         if (!fullyUpgraded)
         {
@@ -260,7 +336,7 @@ public class RigUI : MonoBehaviour {
                 if (myRig.priceOfNextUpgradeLvl < miningController.myMiningController.currencyMined)
                 {
 
-
+                    // This only works because we are controlling the racks 1 by 1
                     if (!controllingRack)
                     {
                         if (currentMapController.rigSlots[myRigID.myControlID].GetComponentInChildren<RigScript>(true).me.priceOfNextUpgradeLvl < miningController.myMiningController.currencyMined)
@@ -276,7 +352,9 @@ public class RigUI : MonoBehaviour {
                     }
                     else
                     {
-                        if (currentMapController.rackSlots[myRackID.myControlID - 4].GetComponentInChildren<RigScript>(true).me.priceOfNextUpgradeLvl < miningController.myMiningController.currencyMined
+                        // Multiplying by 3 because there are 3 rigs in the rack
+                       
+                        if (currentMapController.rackSlots[myRackID.myControlID - 4].GetComponentInChildren<RigScript>(true).me.priceOfNextUpgradeLvl * 3 < miningController.myMiningController.currencyMined
                             && myRig.priceOfNextUpgradeLvl < miningController.myMiningController.currencyMined)
                         {
                             upgradeButton.GetComponent<Image>().color = Color.green;
