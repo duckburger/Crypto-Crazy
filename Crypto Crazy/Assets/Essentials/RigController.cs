@@ -19,11 +19,14 @@ public class RigController : MonoBehaviour {
 
     // This will get called whenever we spawn a new rig or upgrade an old one
     public delegate void OnRigSpawned (int rigSlot);
-    public OnRigSpawned rigSpawnedActions;
+    public OnRigSpawned rigUpgradedActions;
 
 
-    public delegate void OnRackSpawned(int rackSlot);
-    public OnRackSpawned rackSpawnedActions;
+    public delegate void OnRackSpawned(int rackSlot, Rack rackToUpgrade = null);
+    public OnRackSpawned rackUpgradedActions;
+
+    public delegate void OnSpecRackUpgraded(Rack rackToUpgrade);
+    public OnSpecRackUpgraded specRackUpgradedActions;
 
 
     // Use this for initialization
@@ -37,17 +40,17 @@ public class RigController : MonoBehaviour {
     {
         // Sends a message to the map controller
        
-            rigSpawnedActions(rigOrderNumber);
-      
-
-        
+            rigUpgradedActions(rigOrderNumber);
+  
     }
 
-    public void UpgradeARack(int rackOrderNumber)
+    public void UpgradeARack(int rackOrderNumber, Rack rackToUpgrade = null)
     {
         // TODO: Make this send an upgrade message to the map controller, and make this collect money from the MiningControlle
-
-        rackSpawnedActions(rackOrderNumber);
+        if (currentMap.controlsRacksByOne)
+            rackUpgradedActions(rackOrderNumber);
+        else
+            specRackUpgradedActions(rackToUpgrade);
 
 
     }

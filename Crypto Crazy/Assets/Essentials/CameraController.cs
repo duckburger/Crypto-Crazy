@@ -78,7 +78,7 @@ public class CameraController : MonoBehaviour {
         Camera.main.orthographicSize = Mathf.Clamp(Camera.main.orthographicSize, minCameraZoom, maxCameraZoom);
 
 
-        // Handle touch dragging
+        // Handle touch dragging for SIDE TO SIDE movement
         if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Moved && RectTransformUtility.RectangleContainsScreenPoint(dragTouchRect, Input.GetTouch(0).position))
         {
             Vector2 touchDeltaPosition = Input.GetTouch(0).deltaPosition;
@@ -104,7 +104,7 @@ public class CameraController : MonoBehaviour {
             Vector2 currentCamPos = (Input.mousePosition - mouseTrackingOrigin);
 
 
-            Vector2 moveVector = new Vector2(currentCamPos.x * touchPanSensitivity * Time.deltaTime, 0);
+            Vector2 moveVector = new Vector2(-currentCamPos.x * touchPanSensitivity * Time.deltaTime, 0);
 
             transform.Translate(moveVector, Space.Self);
 

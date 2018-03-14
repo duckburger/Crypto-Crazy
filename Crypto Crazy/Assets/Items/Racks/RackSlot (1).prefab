@@ -209,8 +209,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   me: {fileID: 0}
-  myID: 0
   myIcon: {fileID: 0}
+  iconHolder: {fileID: 0}
 --- !u!114 &114287059617523552
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -223,8 +223,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   me: {fileID: 0}
-  myID: 0
   myIcon: {fileID: 0}
+  iconHolder: {fileID: 0}
 --- !u!114 &114366754412258254
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -250,7 +250,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myRigs: []
-  isClaimedByUI: 0
 --- !u!114 &114765450259777764
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -275,8 +274,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 273828c8c10c361409ac0959dbcf9827, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myRack: {fileID: 114435222492682232}
+  myRacks:
+  - {fileID: 114435222492682232}
   myOrderNumber: 0
+  racksInThisGroup: 0
 --- !u!114 &114923952346460070
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -289,8 +290,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   me: {fileID: 0}
-  myID: 0
   myIcon: {fileID: 0}
+  iconHolder: {fileID: 0}
 --- !u!114 &114992150498292302
 MonoBehaviour:
   m_ObjectHideFlags: 1

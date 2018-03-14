@@ -5,8 +5,8 @@ using UnityEngine;
 public class Rack : MonoBehaviour {
 
     public List<Rig> myRigs;
-
-   
+    public string myIndividualID;
+    
     
 
     public int CountMyRigs()

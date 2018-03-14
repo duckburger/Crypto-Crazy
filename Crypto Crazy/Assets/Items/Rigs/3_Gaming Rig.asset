@@ -20,5 +20,5 @@ MonoBehaviour:
   myAppearance: {fileID: 21300000, guid: 245a5ea31bd7d8d4a9aad3bec1288ecb, type: 3}
   myDescription: This rig can run "Dudebro 3" on Ultra, so it's only fair to use for
     crunchy crypto numbers...
-  myEffectOnMining: 10
+  myEffectOnMining: 5
   priceOfNextUpgradeLvl: 3936.6

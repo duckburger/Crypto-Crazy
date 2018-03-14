@@ -71,6 +71,8 @@ public class Upgrade : MonoBehaviour {
 
 
     // TODO: Pull the ui updating methods out of here
+
+   // This is assigned to the button through the inspector!
     public void PurchaseTheUpgrade()
     {
             if (myUpgrade.priceOfNextUpgradeLvl < myMiningController.currencyMined && myUpgrade.currentUpgradeLvl < myUpgrade.maxUpgradeLvl)
@@ -80,7 +82,7 @@ public class Upgrade : MonoBehaviour {
                 // TODO: Try some other math here
                 // Control of the growth of the upgrade price
                 myUpgrade.priceOfNextUpgradeLvl += (myUpgrade.priceOfNextUpgradeLvl * pricePercentageGrowth / 100);
-                pricePercentageGrowth -= (pricePercentageGrowth * 20 / 100);
+                pricePercentageGrowth -= (pricePercentageGrowth * 40 / 100);
                 myUpgrade.currentUpgradeLvl++;
 
                 // APPLYING THE UPGRADE EFFECTS HERE
@@ -177,11 +179,12 @@ public class Upgrade : MonoBehaviour {
         {
             foreach(Attribute attribute in myAttributes)
             {
+                // Mining speed
                 if (attribute.id == 0)
                 {  
                     minContr.AddPercentageToMiningSpeed(myUpgrade.primaryListOfEffects[myUpgrade.currentUpgradeLvl]);
                 }
-
+                // Dust timer
                 if (attribute.id == 1)
                 {
                     minContr.AddTimeToDustTimer(myUpgrade.secondaryListOfEffects[myUpgrade.currentUpgradeLvl]);
@@ -195,6 +198,8 @@ public class Upgrade : MonoBehaviour {
         {
             foreach(Building building in myBuildings)
             {
+
+                Debug.Log("I am spawning a building!");
                 mapController.SpawnAnItem(building);
                 continue;
             }

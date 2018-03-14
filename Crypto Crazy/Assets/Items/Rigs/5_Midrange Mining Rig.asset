@@ -20,5 +20,5 @@ MonoBehaviour:
   myAppearance: {fileID: 21300000, guid: 2f0f487a6fe299343b7843ddd5830fd2, type: 3}
   myDescription: Mining rigs have improved over the years. They make less noise, and
     actually do their job better!
-  myEffectOnMining: 50
+  myEffectOnMining: 10
   priceOfNextUpgradeLvl: 28697.814

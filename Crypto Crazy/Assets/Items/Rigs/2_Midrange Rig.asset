@@ -20,5 +20,5 @@ MonoBehaviour:
   myAppearance: {fileID: 21300000, guid: 917adf9d549be3b4881e67a234a3d384, type: 3}
   myDescription: You learnt how to build this one on the popular "SUPER DUPER PC TIPS"
     website.
-  myEffectOnMining: 10
+  myEffectOnMining: 5
   priceOfNextUpgradeLvl: 1458

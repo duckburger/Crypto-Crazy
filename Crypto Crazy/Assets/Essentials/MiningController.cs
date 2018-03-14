@@ -25,7 +25,13 @@ public class MiningController : MonoBehaviour {
 
     public void AddPercentageToMiningSpeed (float percentageAmount)
     {
+        Debug.Log("Added " + percentageAmount + "% to the max mining per sec speed");
         myMiningController.minCoinsPerSec += (myMiningController.minCoinsPerSec / 100 * percentageAmount );
+        if (myMiningController.minCoinsPerSec < 5)
+        {
+            myMiningController.maximumCoinsPerSec += percentageAmount;
+            return;
+        }
         myMiningController.maximumCoinsPerSec += (myMiningController.maximumCoinsPerSec / 100 * percentageAmount );
     }
 

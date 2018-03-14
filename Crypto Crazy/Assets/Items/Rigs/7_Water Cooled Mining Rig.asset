@@ -19,5 +19,5 @@ MonoBehaviour:
   id: 7
   myAppearance: {fileID: 21300000, guid: fd09b3f029943e748aa32faf3d542f79, type: 3}
   myDescription: The best of the best in mining rigs.. with WATER COOLING!!!111
-  myEffectOnMining: 100
+  myEffectOnMining: 15
   priceOfNextUpgradeLvl: 209207.08

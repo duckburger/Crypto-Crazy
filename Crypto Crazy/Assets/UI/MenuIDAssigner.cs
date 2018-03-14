@@ -25,12 +25,15 @@ public class MenuIDAssigner : MonoBehaviour {
     // This spawns the UI elements for racks into the rigs menu
     private void PopulateTheRigsMenu()
     {
-        for (int i = 0; i < currentMapController.maxRacks; i++)
-        {
-            Instantiate(individualRackTemplate, Vector3.zero, Quaternion.identity, rigMenuHolder);
-        }
         
+            for (int i = 0; i < currentMapController.maxRacks; i++)
+            {
+                Instantiate(individualRackTemplate, Vector3.zero, Quaternion.identity, rigMenuHolder);
+            }
         
+       
+
+
     }
 
     
@@ -47,10 +50,15 @@ public class MenuIDAssigner : MonoBehaviour {
                 child.GetComponent<RigID>().myControlID = i;
                 i++;
             }
-            else if ( currentMapController.controlsRacksByOne && child.GetComponent<RackID>() && i < 16)
+
+            // Here we use "+4" because every single apartment will have 4 rigs available.
+            else if (child.GetComponent<RackID>() && i < currentMapController.maxRacks + 4)
             {
                 child.GetComponent<RackID>().myControlID = i;
                 i++;
+            } else if (!currentMapController.controlsRacksByOne && child.GetComponent<RackID>() && i < 16)
+            {
+
             }
         }
 

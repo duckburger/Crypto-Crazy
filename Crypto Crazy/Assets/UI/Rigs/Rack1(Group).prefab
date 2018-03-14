@@ -464,7 +464,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: x3 Racks
+  m_Text: 3/8 Racks Installed
 --- !u!114 &114667273067782992
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -714,8 +714,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -134.1, y: 23.36}
-  m_SizeDelta: {x: 218.99, y: 23.67}
+  m_AnchoredPosition: {x: -113.04, y: 23.36}
+  m_SizeDelta: {x: 261.1, y: 23.67}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224633562785764480
 RectTransform:

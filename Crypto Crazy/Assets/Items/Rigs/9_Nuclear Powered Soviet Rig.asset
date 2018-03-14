@@ -20,5 +20,5 @@ MonoBehaviour:
   myAppearance: {fileID: 21300000, guid: 009f636fb93afe84594c154f51d6c0c6, type: 3}
   myDescription: 'Your friend''s cousing, Vlad, has somehow manage to get this for
     you. Don''t ask questions, just plug it in and start mining. '
-  myEffectOnMining: 200
+  myEffectOnMining: 100
   priceOfNextUpgradeLvl: 1525119.6

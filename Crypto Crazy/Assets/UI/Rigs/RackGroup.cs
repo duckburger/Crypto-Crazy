@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -32,6 +33,7 @@ public class RackGroup : MonoBehaviour {
     // For controlling the upgrade level bar
     public Image upgradeLvlUI;
 
+    public int orderNumber;
    
 
     // Use this for initialization
@@ -39,16 +41,50 @@ public class RackGroup : MonoBehaviour {
 
         rigController = FindObjectOfType<RigController>();
         miningController = FindObjectOfType<MiningController>();
-        currentMapController = FindObjectOfType<MapController>();
+       
         mainUIController = GameObject.FindGameObjectWithTag("MainUI").GetComponent<UIController>();
 
-        unfoldButton.onClick.AddListener(() => mainUIController.ShowRacksSideMenu());
+        // I am sending the ID of the rackslot I am referring to
+        unfoldButton.onClick.AddListener(() => mainUIController.ShowRacksSideMenu(orderNumber));
+
+        upgradeAllButton.onClick.AddListener(() => UpgradeAllRacksInThisGroup());
 
 
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    private int UpgradeAllRacksInThisGroup()
+    {
+        // TODO implement
+        throw new NotImplementedException();
+    }
+
+    private void OnEnable()
+    {
+
+        currentMapController = FindObjectOfType<MapController>();
+
+        if (currentMapController.racksBuilt <= 0)
+        {
+            upgradeAllButton.interactable = false;
+            unfoldButton.interactable = false;
+
+            upgradeAllButton.GetComponent<Image>().color = Color.black;
+            unfoldButton.GetComponent<Image>().color = Color.black;
+
+
+        }
+        else
+        {
+            upgradeAllButton.interactable = true;
+            unfoldButton.interactable = true;
+
+            upgradeAllButton.GetComponent<Image>().color = Color.green;
+            unfoldButton.GetComponent<Image>().color = Color.green;
+        }
+    }
+
+    // Update is called once per frame
+    void Update () {
         
 
 

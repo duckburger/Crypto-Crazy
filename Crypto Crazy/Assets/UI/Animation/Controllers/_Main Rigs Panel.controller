@@ -8,17 +8,11 @@ AnimatorController:
   m_Name: _Main Rigs Panel
   serializedVersion: 5
   m_AnimatorParameters:
-  - m_Name: SlideOff
-    m_Type: 9
+  - m_Name: SlideOnMenu
+    m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
-    m_DefaultBool: 0
-    m_Controller: {fileID: 0}
-  - m_Name: SlideOn
-    m_Type: 9
-    m_DefaultFloat: 0
-    m_DefaultInt: 0
-    m_DefaultBool: 0
+    m_DefaultBool: 1
     m_Controller: {fileID: 0}
   m_AnimatorLayers:
   - serializedVersion: 5
@@ -62,7 +56,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: SlideOn
+    m_ConditionEvent: SlideOnMenu
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1102559019425292952}
@@ -85,8 +79,8 @@ AnimatorStateTransition:
   m_PrefabInternal: {fileID: 0}
   m_Name: 
   m_Conditions:
-  - m_ConditionMode: 1
-    m_ConditionEvent: SlideOff
+  - m_ConditionMode: 2
+    m_ConditionEvent: SlideOnMenu
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1102368523555846528}

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class RackSlot : MonoBehaviour {
 
-    public Rack myRack;
+    public List<Rack> myRacks = new List<Rack>();
     public int myOrderNumber;
     public int racksInThisGroup;
 

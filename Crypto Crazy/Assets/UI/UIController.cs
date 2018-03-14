@@ -17,6 +17,14 @@ public class UIController : MonoBehaviour {
     public Animator rigsMenuAnimator;
     public bool sideMenuShown;
 
+    public delegate void OnAuxMenuOpened(int rackGroupID);
+    public OnAuxMenuOpened openedAuxMenu;
+
+    public delegate void OnAuxMenuClosed();
+    public OnAuxMenuClosed closedAuxMenu;
+
+    
+
 	// Use this for initializations
 	void Start () {
         currencyName.text = myMiningController.currencyName;
@@ -24,15 +32,18 @@ public class UIController : MonoBehaviour {
 	}
 
 
-    public void ShowRacksSideMenu()
+    public void ShowRacksSideMenu(int rackGroupOrderNumber = 0)
     {
         if (!sideMenuShown)
         {
+            rigsMenuAnimator.gameObject.SetActive(true);
             sideMenuShown = true;
-            rigsMenuAnimator.SetTrigger("SlideOff");
-            sideMenuAnimator.SetTrigger("ShowMyRacks");
-            
-            
+            rigsMenuAnimator.SetBool("SlideOnMenu", false);
+            sideMenuAnimator.SetBool("ShowMenu", true);
+
+            // Should call a delegate to make sure that will trigger the aux menu to show the right amount of racks
+            openedAuxMenu(rackGroupOrderNumber);
+
             return;
         }
 
@@ -42,11 +53,29 @@ public class UIController : MonoBehaviour {
     public void HideRackSideMenu()
     {
         sideMenuShown = false;
-        rigsMenuAnimator.SetTrigger("SlideOn");
-        sideMenuAnimator.SetTrigger("HideMyRacks");
-        
-        
+        rigsMenuAnimator.SetBool("SlideOnMenu", true);
+        //sideMenuAnimator.SetBool("ShowMenu", false);
+
+        closedAuxMenu();
+
+
+        return;
+
     }
+
+    public void HideJustSideRackMenu()
+    {
+        sideMenuShown = false;
+
+        //sideMenuAnimator.SetBool("ShowMenu", false);
+
+        
+
+
+        return;
+    }
+
+
 	
 	// Update is called once per frame
 	void Update () {

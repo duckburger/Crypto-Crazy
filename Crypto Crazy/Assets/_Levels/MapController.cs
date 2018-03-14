@@ -11,6 +11,7 @@ public class MapController : MonoBehaviour {
     public UpgradeTemplate deskUpgrade;
     public UpgradeTemplate monitorUpgrade;
     public UpgradeTemplate coolingUpgrade;
+    public UpgradeTemplate hamsterUpgrade;
 
     public MiningController miningControllerInstance;
     public MiningControllerTemplate myMiningController;
@@ -24,13 +25,16 @@ public class MapController : MonoBehaviour {
     public Transform rackSlotHolder;
     public Transform rigSlotHolder;
 
-
     public float leftmostScrollValue;
     public float rightmostScrollValue;
 
     public GameObject partner;
     public GameObject livingRoom;
     public GameObject cooling;
+    public Transform chairSlot;
+    public Transform deskSlot;
+    public Transform monitorSlot;
+    public GameObject hamster;
 
     public Building rackBuildingObject;
 
@@ -45,7 +49,7 @@ public class MapController : MonoBehaviour {
     public OnRigUpgraded upgradedRigActions;
 
 
-    public delegate void OnRackUpgraded(int rackSlot, Rig newlyInstalledRig, int racksInThisGroup);
+    public delegate void OnRackUpgraded(Rig newlyInstalledRig, int racksInThisGroup, int rackSlot);
     public OnRackUpgraded upgradedRackActions;
 
     public float pricePercentageGrowth;
@@ -62,7 +66,7 @@ public class MapController : MonoBehaviour {
         
 
         rigController = FindObjectOfType<RigController>();
-        itemDatabase = GetComponent<ItemDatabase>();
+        itemDatabase = FindObjectOfType<ItemDatabase>();
         miningControllerInstance = FindObjectOfType<MiningController>();
     }
 
@@ -74,7 +78,7 @@ public class MapController : MonoBehaviour {
 
        
 
-        // Populating the rig slot list
+        // Populating the rig slot list and assigning IDs
         int i = 0;
         foreach (Transform child in rigSlotHolder)
         {
@@ -83,18 +87,20 @@ public class MapController : MonoBehaviour {
             i++;
         }
 
-        // Populating the rack slots list
+        // Populating the rack slots list and assigning IDs
 
         foreach (Transform child in rackSlotHolder)
         {
             rackSlots.Add(child);
             child.GetComponent<RackSlot>().myOrderNumber = i;
+            
+                child.GetComponent<RackSlot>().racksInThisGroup = 0;
+          
             i++;
-
         }
 
-        rigController.rigSpawnedActions += UpgradeARig;
-        rigController.rackSpawnedActions += UpgradeARackOfRigs;
+        rigController.rigUpgradedActions += UpgradeARig;
+        rigController.rackUpgradedActions += UpgradeARackOfRigs;
 
     }
 
@@ -107,40 +113,80 @@ public class MapController : MonoBehaviour {
             if (!partnerKickedOut)
             {
                 // Run the notification first to ask whether the player wants to remove his partner
+                
+
+                //FOR THIS TO WORK: Notification system must be enabled!
                 AskAboutPartner();
                 return;
             }
 
-            if (racksBuilt >= maxRacks / 2 && !furnitureSold)
+            if (racksBuilt >= (maxRacks / 2) && !furnitureSold)
             {
                 // Run the notification first to ask whether the player wants to remove his furniture
+
+
+                //FOR THIS TO WORK: Notification system must be enabled!
                 AskAboutFurniture();
                 return;
             }
 
 
+            // Find an empty rackSlot to spawn into (if the map controls racks 1-by-1)
 
-            foreach (Transform slot in rackSlots)
+            if (controlsRacksByOne)
             {
-                // This doesn't need a second option, because the Upgrade script already checks whether to let the player press the button
-                if (slot.childCount == 0)
+                foreach (Transform slot in rackSlots)
                 {
-                   
-                    GameObject.Instantiate(thingToSpawn.myBuildingPrefab, slot.position, Quaternion.identity, slot);
-                    racksBuilt++;
-                    slot.GetComponent<RackSlot>().racksInThisGroup++;
+                    // This needs to diversify between when the map supports multiple racks inside aslot, and when it doesn't
 
-                    // Passing in the slot number as well as the most basic rig, because this is a brand new rack
-                    // This case is for when the map has singular rack control
-                    if (controlsRacksByOne)
-                        upgradedRackActions(slot.GetComponent<RackSlot>().myOrderNumber, itemDatabase.rigTypes[0], racksPerGroup);
+                    // This doesn't need a second option, because the Upgrade script already checks whether to let the player press the button
+                    if (slot.childCount == 0)
+                    {
 
-                    return;
+                        Rack newRack = GameObject.Instantiate(thingToSpawn.myBuildingPrefab, slot.position, Quaternion.identity, slot).GetComponent<Rack>();
+                        racksBuilt++;
+                        slot.GetComponent<RackSlot>().racksInThisGroup++;
+                        slot.GetComponent<RackSlot>().myRacks.Add(newRack);
+
+                        // Passing in the slot number as well as the most basic rig, because this is a brand new rack
+                        // This case is for when the map has singular rack control. This is needed because individual racks won't be shown in the 
+                        // Main rig menu - they will be hidden in a slide-out menu
+                        upgradedRackActions(itemDatabase.rigTypes[0], racksPerGroup, slot.GetComponent<RackSlot>().myOrderNumber);
+
+                        return;
+                    }
+
                 }
+            } else
+            {
+                // Find a rackSlot and compare the amount of its children to the racksPerGroup parameter of this map
+                foreach (Transform slot in rackSlots)
+                {
+                    if (slot.childCount < racksPerGroup)
+                    {
+                        // Fill up the slot
+                        for (int i = 0; i < racksPerGroup; i++)
+                        {
+                            Rack newRack = GameObject.Instantiate(thingToSpawn.myBuildingPrefab, slot.position, Quaternion.identity, slot).GetComponent<Rack>();
 
+
+                            racksBuilt++;
+                            slot.GetComponent<RackSlot>().racksInThisGroup++;
+                            slot.GetComponent<RackSlot>().myRacks.Add(newRack);
+
+                            
+
+                        }
+                        return;
+                       
+                    }
+                }
             }
 
-            // We're spawning a RIG
+            
+            
+
+            // We're spawning a RIG (this only works for the 4 RIG slots in each map)
         }
         else if (thingToSpawn.buildingID == 1)
         {
@@ -149,13 +195,18 @@ public class MapController : MonoBehaviour {
                 if (slot.GetComponent<Rigslot>().myOrderNumber == uiSlot)
                 {
                     slot.GetChild(0).gameObject.SetActive(true);
+
+                    //Debug.Log(slot.GetComponentInChildren<RigScript>(true).me.priceOfNextUpgradeLvl);
+
+                    itemDatabase.rigTypes[1].priceOfNextUpgradeLvl = (slot.GetComponentInChildren<RigScript>(true).me.priceOfNextUpgradeLvl * pricePercentageGrowth / 100);
+                    upgradedRigActions(slot.GetComponent<Rigslot>().myOrderNumber, slot.GetComponentInChildren<RigScript>(true).me);
                     return;
                 }
             }
         }
     }
 
-
+    #region UPGRADE RELATED FUNCTIONS
     public void UpgradeARig(int rigSlot)
     {
        
@@ -171,6 +222,7 @@ public class MapController : MonoBehaviour {
 
                     miningControllerInstance.myMiningController.currencyMined -= rigscript.me.priceOfNextUpgradeLvl;
                     float thisUpgradePrice = rigscript.me.priceOfNextUpgradeLvl;
+                    Debug.Log(thisUpgradePrice);
                     // TODO: this might break when getting to the last item in the list
                     rigscript.me = itemDatabase.rigTypes[rigscript.me.id + 1];
                     rigscript.RefreshIcon();
@@ -197,53 +249,97 @@ public class MapController : MonoBehaviour {
         }
     }
 
-  
-    public void UpgradeARackOfRigs(int rackSlot)
+    public void UpgradeARackOfRigs(int rackSlot, Rack rackToUpgrade = null)
     {
-
-        
-        foreach (Transform slot in rackSlots)
+        if (!rackToUpgrade)
         {
-            if (slot.GetComponent<RackSlot>().myOrderNumber == rackSlot)
+            foreach (Transform slot in rackSlots)
             {
-                Debug.Log("About to upgrade this rack!");
-                RigScript[] rigslotsInThisRackGroup;
-                // Collecting all the RIGSCRIPTS inside this RACKSLOT to the update them
-                rigslotsInThisRackGroup = slot.GetComponentsInChildren<RigScript>(true);
-                Debug.Log(rigslotsInThisRackGroup.Length);
-
-                // Find out if we have enough money to upgrade all the rigs in this group
-                if (rigslotsInThisRackGroup[0].me.priceOfNextUpgradeLvl * rigslotsInThisRackGroup.Length < miningControllerInstance.myMiningController.currencyMined)
+                //Checking my rack ID to find the one we want to upgrade
+                if (slot.GetComponent<RackSlot>().myOrderNumber == rackSlot)
                 {
-                    // Charge me the money for the upgrade
-                    miningControllerInstance.myMiningController.currencyMined -= rigslotsInThisRackGroup[0].me.priceOfNextUpgradeLvl * rigslotsInThisRackGroup.Length;
-                    //Debug.Log("Charged you " + rigslotsInThisRackGroup[0].me.priceOfNextUpgradeLvl * rigslotsInThisRackGroup.Length + " for the upgrades on the rack");
-                    
-                    foreach (RigScript rig in rigslotsInThisRackGroup)
-                    {
-                        Debug.Log(rig.me);
-                        //Debug.Log("My rig id is now " + rig.me.id);
-                        rig.me = itemDatabase.rigTypes[rig.me.id + 1];
-                        //Debug.Log("My rig id is now " + rig.me.id);
-                        rig.RefreshIcon();
+                    Debug.Log("About to upgrade this rack!");
+                    RigScript[] rigslotsInThisRackGroup;
+                    // Collecting all the RIGSCRIPTS inside this RACKSLOT to the update them
+                    rigslotsInThisRackGroup = slot.GetComponentsInChildren<RigScript>(true);
+                    Debug.Log(rigslotsInThisRackGroup.Length);
 
-                        miningControllerInstance.AddPercentageToMiningSpeed(rig.me.myEffectOnMining);
+                    // Find out if we have enough money to upgrade all the rigs in this group
+                    if (rigslotsInThisRackGroup[0].me.priceOfNextUpgradeLvl * rigslotsInThisRackGroup.Length < miningControllerInstance.myMiningController.currencyMined)
+                    {
+                        // Charge me the money for the upgrade
+                        miningControllerInstance.myMiningController.currencyMined -= rigslotsInThisRackGroup[0].me.priceOfNextUpgradeLvl * rigslotsInThisRackGroup.Length;
+                        //Debug.Log("Charged you " + rigslotsInThisRackGroup[0].me.priceOfNextUpgradeLvl * rigslotsInThisRackGroup.Length + " for the upgrades on the rack");
+
+                        foreach (RigScript rig in rigslotsInThisRackGroup)
+                        {
+                            Debug.Log(rig.me);
+                            //Debug.Log("My rig id is now " + rig.me.id);
+                            rig.me = itemDatabase.rigTypes[rig.me.id + 1];
+                            //Debug.Log("My rig id is now " + rig.me.id);
+                            rig.RefreshIcon();
+
+                            // APPLYING THE UPGRADE'S EFFECTS (this will be done 3 times, because there are 3 rigs in each rack
+                            miningControllerInstance.AddPercentageToMiningSpeed(rig.me.myEffectOnMining);
+
+                        }
+                        //Send in the info to the UI so it can be udpated with the newly updated rig info for this rag
+                            upgradedRackActions(rigslotsInThisRackGroup[0].me, racksPerGroup, rackSlot);
+
+                       
+                        return;
 
                     }
-                    //Send in the info to the UI so it can be udpated with the newly updated rig info for this rag
-                    if (controlsRacksByOne)
-                        upgradedRackActions(rackSlot, rigslotsInThisRackGroup[0].me, racksPerGroup);
-
-                    //Debug.Log("I've upgraded all the rigs in this group!");
+                    Debug.Log("Not enough money to upgrade all the rigs in this group!");
                     return;
-                   
                 }
-                Debug.Log("Not enough money to upgrade all the rigs in this group!");
-                return;
+
             }
-            
+        } else
+        {
+            Debug.Log("About to upgrade a specific rack!");
+            RigScript[] rigslotsInThisRackGroup;
+            // Collecting all the RIGSCRIPTS inside this RACKSLOT to the update them
+            rigslotsInThisRackGroup = rackToUpgrade.GetComponentsInChildren<RigScript>(true);
+
+            if (rigslotsInThisRackGroup[0].me.priceOfNextUpgradeLvl * rigslotsInThisRackGroup.Length < miningControllerInstance.myMiningController.currencyMined)
+            {
+                // Charge me the money for the upgrade
+                miningControllerInstance.myMiningController.currencyMined -= rigslotsInThisRackGroup[0].me.priceOfNextUpgradeLvl * rigslotsInThisRackGroup.Length;
+                //Debug.Log("Charged you " + rigslotsInThisRackGroup[0].me.priceOfNextUpgradeLvl * rigslotsInThisRackGroup.Length + " for the upgrades on the rack");
+
+                foreach (RigScript rig in rigslotsInThisRackGroup)
+                {
+                    Debug.Log(rig.me);
+                    //Debug.Log("My rig id is now " + rig.me.id);
+                    rig.me = itemDatabase.rigTypes[rig.me.id + 1];
+                    //Debug.Log("My rig id is now " + rig.me.id);
+                    rig.RefreshIcon();
+
+                    miningControllerInstance.AddPercentageToMiningSpeed(rig.me.myEffectOnMining);
+
+                }
+                //Send in the info to the UI so it can be udpated with the newly updated rig info for this rag
+                if (controlsRacksByOne)
+                    upgradedRackActions(rigslotsInThisRackGroup[0].me, racksPerGroup, rackSlot);
+
+                //Debug.Log("I've upgraded all the rigs in this group!");
+                return;
+
+            }
+            Debug.Log("Not enough money to upgrade all the rigs in this group!");
+            return;
         }
+       
     }
+
+
+    public void UpgradeChair()
+    {
+
+    }
+
+    #endregion
 
 
     #region STORY RELATED FUNCTIONS

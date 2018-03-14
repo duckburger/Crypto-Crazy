@@ -19,5 +19,5 @@ MonoBehaviour:
   id: 6
   myAppearance: {fileID: 21300000, guid: 88f9c39900139e245a5bca7003eb6807, type: 3}
   myDescription: The best of the best in mining rigs.
-  myEffectOnMining: 100
+  myEffectOnMining: 10
   priceOfNextUpgradeLvl: 77484.1

@@ -52,6 +52,8 @@ public class MenuController : MonoBehaviour {
             }
         }
 
+        GetComponent<UIController>().HideJustSideRackMenu();
+
         return;
        
     }
@@ -60,7 +62,10 @@ public class MenuController : MonoBehaviour {
     {
         foreach (GameObject menu in menus)
         {
+            Debug.Log("Closing all menus!");
             menu.SetActive(false);
+
+           
         }
     }
 
