@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 864629d6ecd9a174299c96fe7e79e588, type: 3}
+  m_Name: 2BedroomApartment
+  m_EditorClassIdentifier: 
+  myTitle: 2 Bedroom Apartment
+  myIcon: {fileID: 21300000, guid: 5c1da84226d66c04780e2ddf359c35f1, type: 3}
+  myDescText: You inherited this from your grandma.. enough said.
+  rackSlots: 12
+  myPrefab: {fileID: 1643709100346728, guid: 1d37f1099fd97e042ac8afeeb756f12d, type: 2}
