@@ -7,10 +7,11 @@ public class Apartment : ScriptableObject {
 
     public string myTitle;
     public Sprite myIcon;
+    public int myPrice;
     [TextArea(3,10)]
     public string myDescText;
     public int rackSlots;
-  
+    
 
     public GameObject myPrefab;
 }

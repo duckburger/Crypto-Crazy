@@ -47,10 +47,9 @@ public class RigController : MonoBehaviour {
     public void UpgradeARack(int rackOrderNumber, Rack rackToUpgrade = null)
     {
         // TODO: Make this send an upgrade message to the map controller, and make this collect money from the MiningControlle
-        if (currentMap.controlsRacksByOne)
+       
             rackUpgradedActions(rackOrderNumber);
-        else
-            specRackUpgradedActions(rackToUpgrade);
+       
 
 
     }

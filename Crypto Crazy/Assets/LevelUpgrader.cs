@@ -11,11 +11,17 @@ public class LevelUpgrader : MonoBehaviour {
     // Stores the new level we will be upgrading to
     public MapController newLvlData;
 
-    private ItemDatabase itemDatabase;
+    public UIController uiController;
+   
 
     // Some data from the current level that will be stored
     // to carry over into the newly spawned level
     public int racksAmount;
+    public int rigsAmount;
+
+    public List<RigScript> oldRigs = new List<RigScript>();
+    [SerializeField] RigUI[] rigUIElements;
+
     public int chairUpgrLvl;
     public int deskUpgrLvl;
     public int monUpgrLvl;
@@ -26,8 +32,11 @@ public class LevelUpgrader : MonoBehaviour {
     public CameraController cameraController;
 
 
-	// Use this for initialization
-	void Start () {
+    private ItemDatabase itemDatabase;
+   
+   
+    // Use this for initialization
+    void Start () {
         currentLvlData = FindObjectOfType<MapController>();
         itemDatabase = FindObjectOfType<ItemDatabase>();
     }
@@ -35,6 +44,7 @@ public class LevelUpgrader : MonoBehaviour {
     // This method upgrades the current lvl to the prefab passed into it
     public void UpgradeToDifferentLvl(GameObject newLvlPrefab)
     {
+        //Debug.Log("Upgrading to a new lvl");
         //Collect the numbers from the existing apartment
         CollectData();
         //Spawn the new apartment into the scene in the same position as the old one
@@ -42,18 +52,72 @@ public class LevelUpgrader : MonoBehaviour {
         //Assigning the numbers and spawning the same amount of items as in the previous apartment
         AssignDataAndSpawnItems();
 
-        //TODO: add a funciton that will propogate the new apartment into all the classes that use the MapController
+        PropogateNewMap();
+
+        //Delete the old apartment
+        DeleteOldApartment();
+
+        //Setting the new lvl data to the current lvl data
+        currentLvlData = newLvlData;
+        newLvlData = null;
+
+
+    }
+
+    private void PropogateNewMap()
+    {
+        rigUIElements = uiController.rigsMenuAnimator.GetComponentsInChildren<RigUI>(true);
+
+        foreach(RigUI rigUIScript in rigUIElements)
+        {
+            rigUIScript.ResetDataForNewApartment();
+        }   
+    }
+
+    private void DeleteOldApartment()
+    {
+        Destroy(currentLvlData.gameObject);
+        currentLvlData = newLvlData;
+    }
+
+    private void SpawnNewLvl(GameObject lvlToSpawn)
+    {
+        newLvlData = Instantiate(lvlToSpawn, currentLvlData.transform.position, Quaternion.identity).GetComponent<MapController>();
     }
 
     private void AssignDataAndSpawnItems()
     {
-        // Giving the new map the data amount the amount of racks
+        // Giving the new map the data amount the amount of racks and rigs
         newLvlData.racksBuilt = racksAmount;
+        newLvlData.rigsBuilt = rigsAmount;
+
+        
+
+
+        
+
         // Spawning the required amount of racks
-        for (int i = 0; i <= racksAmount; i++)
+        if (racksAmount > 0)
         {
-            newLvlData.SpawnAnItem(itemDatabase.basicRackItem);
+            for (int i = 0; i <= racksAmount; i++)
+            {
+                newLvlData.SpawnAnItem(itemDatabase.basicRackItem);
+            }
         }
+
+        // Spawning the required amount of rigs
+        if (rigsAmount > 0)
+        {
+            int i = 0;
+            // Spawn each rig from the old apartment into the new one, with the correct upgrade level
+            foreach(RigScript rigScript in oldRigs)
+            {
+                Debug.Log(i);
+                newLvlData.SpawnAnItem(rigScript.me, i);
+                i++;
+            }
+        }
+
 
         int chairUpgrLvl = newLvlData.chairUpgrade.currentUpgradeLvl;
         newLvlData.chairSlot.GetComponent<SpriteRenderer>().sprite = itemDatabase.chairs[chairUpgrLvl];
@@ -62,7 +126,7 @@ public class LevelUpgrader : MonoBehaviour {
         newLvlData.deskSlot.GetComponent<SpriteRenderer>().sprite = itemDatabase.desks[deskUpgrLvl];
 
         int monUpgrLvl = newLvlData.monitorUpgrade.currentUpgradeLvl;
-        newLvlData.monitorSlot.GetComponent<SpriteRenderer>().sprite = itemDatabase.desks[monUpgrLvl];
+        newLvlData.monitorSlot.GetComponent<SpriteRenderer>().sprite = itemDatabase.monitors[monUpgrLvl];
 
         int coolUpgrLvl = newLvlData.coolingUpgrade.currentUpgradeLvl;
         newLvlData.cooling.GetComponent<SpriteRenderer>().sprite = itemDatabase.coolSystems[coolUpgrLvl];
@@ -74,14 +138,20 @@ public class LevelUpgrader : MonoBehaviour {
     }
 
 
-    private void SpawnNewLvl(GameObject lvlToSpawn)
-    {
-        newLvlData = Instantiate(lvlToSpawn, currentLvlData.transform.position, Quaternion.identity).GetComponent<MapController>();
-    }
+    
 
     private void CollectData()
     {
         racksAmount = currentLvlData.racksBuilt;
+        rigsAmount = currentLvlData.rigsBuilt;
+
+        // Fill out the rigs list to carry it over
+        foreach(Transform rigSlot in currentLvlData.rigSlots)
+        {
+            if (rigSlot.GetComponentInChildren<RigScript>())
+                oldRigs.Add(rigSlot.GetComponentInChildren<RigScript>());
+        }
+
         chairUpgrLvl = currentLvlData.chairUpgrade.currentUpgradeLvl;
         deskUpgrLvl = currentLvlData.deskUpgrade.currentUpgradeLvl;
         monUpgrLvl = currentLvlData.monitorUpgrade.currentUpgradeLvl;
@@ -90,4 +160,6 @@ public class LevelUpgrader : MonoBehaviour {
 
         // Note: camera boundries for each lvl are stored on the level itself!
     }
+
+    
 }

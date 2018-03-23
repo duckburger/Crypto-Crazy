@@ -289,6 +289,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4266806013743712}
+  - component: {fileID: 212167840871451034}
   m_Layer: 0
   m_Name: Hamster
   m_TagString: Untagged
@@ -879,10 +880,10 @@ MonoBehaviour:
   partner: {fileID: 1023601369467770}
   livingRoom: {fileID: 1100986044618852}
   cooling: {fileID: 1810368218173906}
-  chairSlot: {fileID: 0}
-  deskSlot: {fileID: 0}
-  monitorSlot: {fileID: 0}
-  hamster: {fileID: 0}
+  chairSlot: {fileID: 4668319951982292}
+  deskSlot: {fileID: 4127436725830104}
+  monitorSlot: {fileID: 4382665292972890}
+  hamster: {fileID: 1676204307603856}
   rackBuildingObject: {fileID: 11400000, guid: 759db3d60b9c86a42920f49adb286b74, type: 2}
   firstRackInstallation: {fileID: 11400000, guid: 5caf87654412c2541825322e19f25d8f,
     type: 2}
@@ -895,6 +896,7 @@ MonoBehaviour:
   racksPerGroup: 1
   maxRacks: 8
   racksBuilt: 0
+  rigsBuilt: 1
 --- !u!114 &114245499916622008
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1218,6 +1220,50 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+--- !u!212 &212167840871451034
+SpriteRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1676204307603856}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 1, y: 1}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
 --- !u!212 &212201623889042770
 SpriteRenderer:

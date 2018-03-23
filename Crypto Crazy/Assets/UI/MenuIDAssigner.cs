@@ -56,9 +56,6 @@ public class MenuIDAssigner : MonoBehaviour {
             {
                 child.GetComponent<RackID>().myControlID = i;
                 i++;
-            } else if (!currentMapController.controlsRacksByOne && child.GetComponent<RackID>() && i < 16)
-            {
-
             }
         }
 

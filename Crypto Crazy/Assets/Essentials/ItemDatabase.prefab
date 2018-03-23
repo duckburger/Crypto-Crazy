@@ -62,9 +62,14 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 0172b5620073b4246ae33de9a859c491, type: 2}
   - {fileID: 11400000, guid: 52a54be48974ff84689a3d7d2127f591, type: 2}
   - {fileID: 11400000, guid: b620bbbb1ddb6774380a5f3aeb914a7a, type: 2}
-  chairs: []
-  desks: []
-  monitors: []
-  hamsters: []
-  coolSystems: []
+  chairs:
+  - {fileID: 21300000, guid: 5a7208850c073024880b0201ae1f51f3, type: 3}
+  desks:
+  - {fileID: 21300000, guid: 558b0ec9ad888b54da79ad9412880b0f, type: 3}
+  monitors:
+  - {fileID: 21300000, guid: 981f1ed0fa07d024bbfde0838361de60, type: 3}
+  hamsters:
+  - {fileID: 21300000, guid: 9f81fa2889daf5d49a827bab6f15dab4, type: 3}
+  coolSystems:
+  - {fileID: 21300000, guid: 81377b3a871e9224ba972ac6b9bfe5c4, type: 3}
   basicRackItem: {fileID: 11400000, guid: 759db3d60b9c86a42920f49adb286b74, type: 2}

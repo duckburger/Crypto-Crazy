@@ -60,3 +60,4 @@ MonoBehaviour:
   coolUpgrLvl: 0
   hamUpgrLvl: 0
   cameraController: {fileID: 0}
+  upgradeEvent: {fileID: 11400000, guid: c86285b62fbcedb459666ff8b460b4e5, type: 2}

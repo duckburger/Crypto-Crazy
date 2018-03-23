@@ -16,6 +16,7 @@ public class RigUI : MonoBehaviour {
     public MapController currentMapController;
     public MiningController miningController;
     public UIController mainUIController;
+    public MapDelegateHolder mapDelegateHolder;
 
 
     // Determines whether I control the rig or the rack
@@ -62,13 +63,14 @@ public class RigUI : MonoBehaviour {
     // Use this for initialization
     void Start () {
 
-
+        currentMapController = FindObjectOfType<MapController>();
         itemDatabase = FindObjectOfType<ItemDatabase>();
         rigController = FindObjectOfType<RigController>();
         miningController = FindObjectOfType<MiningController>();
-        currentMapController = FindObjectOfType<MapController>();
-       
-        
+        mapDelegateHolder = FindObjectOfType<MapDelegateHolder>();
+
+
+
 
         if (controllingRack)
         {   // If this UI element controls a rack, then make the button call upgrade a rack function from the rig controller
@@ -87,22 +89,37 @@ public class RigUI : MonoBehaviour {
             myRig = FindObjectOfType<ItemDatabase>().rigTypes[0];
         }
 
-
+        // If the activate button is ON then give it a function of buying a brand new rig
         if (activateButton && !controllingRack)
             activateButton.onClick.AddListener(() => BuyARigFromScratch());
         else
             activateButton.gameObject.SetActive(false);
 
         if (!controllingRack)
-            currentMapController.upgradedRigActions += UpdateMyRigUI;
+            mapDelegateHolder.upgradedRigActions += UpdateMyRigUI;
         else
-            currentMapController.upgradedRackActions += UpdateMyRackUI;
-
-        
+            mapDelegateHolder.upgradedRackActions += UpdateMyRackUI;
 
         InitizalizeTheUI();
+   
+    }
 
+    
+
+
+    public void ResetDataForNewApartment()
+    {
+        Debug.Log("Refreshing data for the new apartment");
         
+        // Find the mape controller for the new apartment
+        currentMapController = FindObjectOfType<MapController>();
+        mapDelegateHolder = FindObjectOfType<MapDelegateHolder>();
+
+        // Need to assigne functions to the new delegates
+        if (!controllingRack)
+            mapDelegateHolder.upgradedRigActions += UpdateMyRigUI;
+        else
+            mapDelegateHolder.upgradedRackActions += UpdateMyRackUI;
     }
 
     public void InitizalizeTheUI()
@@ -365,6 +382,7 @@ public class RigUI : MonoBehaviour {
                     // This only works because we are controlling the racks 1 by 1
                     if (!controllingRack)
                     {
+                        Debug.Log(currentMapController.rigSlots[myRigID.myControlID]);
                         if (currentMapController.rigSlots[myRigID.myControlID].GetComponentInChildren<RigScript>(true).me.priceOfNextUpgradeLvl < miningController.myMiningController.currencyMined)
                         {
                             upgradeButton.GetComponent<Image>().color = Color.green;

@@ -13,13 +13,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currencyName: Dudecoins
   maximumCoinsPerSec: 50
-  currencyMined: 89420.42
+  currencyMined: 10000000
   coinsPerSec: 1
   dustTimer: 90
   minCoinsPerSec: 1
   decreaseSpeed: 2
   defMaxCoinsPerSecond: 50
-  defCurMin: 1000
+  defCurMin: 10000000
   defCoinsPerSec: 1
   defDecSpeed: 2
   defMinCoinsPerSec: 1

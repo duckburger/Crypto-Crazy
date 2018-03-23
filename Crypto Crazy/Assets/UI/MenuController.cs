@@ -16,7 +16,7 @@ public class MenuController : MonoBehaviour {
 
     public List<GameObject> menus = new List<GameObject>();
 
-    private bool isAMenuOpen; // TODO: make use of this somehow
+   
 
 
     void Start()
@@ -62,7 +62,7 @@ public class MenuController : MonoBehaviour {
     {
         foreach (GameObject menu in menus)
         {
-            Debug.Log("Closing all menus!");
+            //Debug.Log("Closing all menus!");
             menu.SetActive(false);
 
            
@@ -74,13 +74,13 @@ public class MenuController : MonoBehaviour {
         if (upgradesMenu.gameObject.activeSelf)
         {
             upgradesMenu.SetActive(false);
-            isAMenuOpen = false;
+          
 
         } else if (!notificationSystem.noteIsShowing)
         {
             CloseAllOtherMenus(upgradesMenu);
             upgradesMenu.SetActive(true);
-            isAMenuOpen = true;
+         
         }
     }
 
@@ -89,13 +89,13 @@ public class MenuController : MonoBehaviour {
         if (realEstateMenu.gameObject.activeSelf)
         {
             realEstateMenu.SetActive(false);
-            isAMenuOpen = false;
+           
         }
         else if (!notificationSystem.noteIsShowing)
         {
             CloseAllOtherMenus(realEstateMenu);
             realEstateMenu.SetActive(true);
-            isAMenuOpen = true;
+           
         }
     }
 
@@ -104,13 +104,13 @@ public class MenuController : MonoBehaviour {
         if (miscMenu.gameObject.activeSelf)
         {
             miscMenu.SetActive(false);
-            isAMenuOpen = false;
+          
         }
         else if (!notificationSystem.noteIsShowing)
         {
             CloseAllOtherMenus(miscMenu);
             miscMenu.SetActive(true);
-            isAMenuOpen = true;
+           
         }
     }
 
@@ -119,13 +119,13 @@ public class MenuController : MonoBehaviour {
         if (rigsMenu.gameObject.activeSelf)
         {
             rigsMenu.SetActive(false);
-            isAMenuOpen = false;
+           
         }
         else if (!notificationSystem.noteIsShowing)
         {
             CloseAllOtherMenus(rigsMenu);
             rigsMenu.SetActive(true);
-            isAMenuOpen = true;
+            
         }
     }
 
@@ -134,13 +134,13 @@ public class MenuController : MonoBehaviour {
         if (Menu5.gameObject.activeSelf)
         {
             Menu5.SetActive(false);
-            isAMenuOpen = false;
+           
         }
         else if (!notificationSystem.noteIsShowing)
         {
             CloseAllOtherMenus(rigsMenu);
             Menu5.SetActive(true);
-            isAMenuOpen = true;
+            
         }
     }
 
@@ -149,13 +149,13 @@ public class MenuController : MonoBehaviour {
         if (Menu6.gameObject.activeSelf)
         {
             Menu6.SetActive(false);
-            isAMenuOpen = false;
+           
         }
         else if (!notificationSystem.noteIsShowing)
         {
             CloseAllOtherMenus(rigsMenu);
             Menu6.SetActive(true);
-            isAMenuOpen = true;
+          
         }
     }
 

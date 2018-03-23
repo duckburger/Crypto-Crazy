@@ -12,11 +12,12 @@ public class MapController : MonoBehaviour {
     public UpgradeTemplate monitorUpgrade;
     public UpgradeTemplate coolingUpgrade;
     public UpgradeTemplate hamsterUpgrade;
-
+    
     public MiningController miningControllerInstance;
     public MiningControllerTemplate myMiningController;
     public RigController rigController;
     public ItemDatabase itemDatabase;
+    public MapDelegateHolder mapDelegateHolder;
 
 
     public List<Transform> rackSlots = new List<Transform>();
@@ -44,30 +45,24 @@ public class MapController : MonoBehaviour {
     public Notification fifthRackInstallation;
     public bool furnitureSold;
 
-    // This will get called whenever we finish updating a rig (sends a message to UI, for example)
-    public delegate void OnRigUpgraded(int rigSlot, Rig newlyInstalledRig);
-    public OnRigUpgraded upgradedRigActions;
-
-
-    public delegate void OnRackUpgraded(Rig newlyInstalledRig, int racksInThisGroup, int rackSlot);
-    public OnRackUpgraded upgradedRackActions;
+    
 
     public float pricePercentageGrowth;
 
     // This factors in what we are sending back to the UI of the racks
-    public bool controlsRacksByOne;
+  
     public int racksPerGroup;
     public int maxRacks;
     public int racksBuilt;
+    public int rigsBuilt;
+
 
 
     private void Start()
     {
         
 
-        rigController = FindObjectOfType<RigController>();
-        itemDatabase = FindObjectOfType<ItemDatabase>();
-        miningControllerInstance = FindObjectOfType<MiningController>();
+        
     }
 
 
@@ -75,8 +70,15 @@ public class MapController : MonoBehaviour {
     {
 
         rigController = FindObjectOfType<RigController>();
+        itemDatabase = FindObjectOfType<ItemDatabase>();
+        miningControllerInstance = FindObjectOfType<MiningController>();
+        mapDelegateHolder = FindObjectOfType<MapDelegateHolder>();
 
-       
+
+        rigController.rigUpgradedActions += UpgradeARig;
+        rigController.rackUpgradedActions += UpgradeARackOfRigs;
+
+      
 
         // Populating the rig slot list and assigning IDs
         int i = 0;
@@ -99,8 +101,7 @@ public class MapController : MonoBehaviour {
             i++;
         }
 
-        rigController.rigUpgradedActions += UpgradeARig;
-        rigController.rackUpgradedActions += UpgradeARackOfRigs;
+       
 
     }
 
@@ -133,8 +134,7 @@ public class MapController : MonoBehaviour {
 
             // Find an empty rackSlot to spawn into (if the map controls racks 1-by-1)
 
-            if (controlsRacksByOne)
-            {
+           
                 foreach (Transform slot in rackSlots)
                 {
                     // This needs to diversify between when the map supports multiple racks inside aslot, and when it doesn't
@@ -151,55 +151,35 @@ public class MapController : MonoBehaviour {
                         // Passing in the slot number as well as the most basic rig, because this is a brand new rack
                         // This case is for when the map has singular rack control. This is needed because individual racks won't be shown in the 
                         // Main rig menu - they will be hidden in a slide-out menu
-                        upgradedRackActions(itemDatabase.rigTypes[0], racksPerGroup, slot.GetComponent<RackSlot>().myOrderNumber);
+                        mapDelegateHolder.upgradedRackActions(itemDatabase.rigTypes[0], racksPerGroup, slot.GetComponent<RackSlot>().myOrderNumber);
 
                         return;
                     }
 
                 }
-            } else
-            {
-                // Find a rackSlot and compare the amount of its children to the racksPerGroup parameter of this map
-                foreach (Transform slot in rackSlots)
-                {
-                    if (slot.childCount < racksPerGroup)
-                    {
-                        // Fill up the slot
-                        for (int i = 0; i < racksPerGroup; i++)
-                        {
-                            Rack newRack = GameObject.Instantiate(thingToSpawn.myBuildingPrefab, slot.position, Quaternion.identity, slot).GetComponent<Rack>();
-
-
-                            racksBuilt++;
-                            slot.GetComponent<RackSlot>().racksInThisGroup++;
-                            slot.GetComponent<RackSlot>().myRacks.Add(newRack);
-
-                            
-
-                        }
-                        return;
-                       
-                    }
-                }
-            }
-
             
-            
-
-            // We're spawning a RIG (this only works for the 4 RIG slots in each map)
+   
         }
+        // We're spawning a RIG (this only works for the 4 RIG slots in each map)
         else if (thingToSpawn.buildingID == 1)
         {
             foreach(Transform slot in rigSlots)
             {
                 if (slot.GetComponent<Rigslot>().myOrderNumber == uiSlot)
                 {
+                    // This is how we "spawn" a rig by just making it active in the scene
                     slot.GetChild(0).gameObject.SetActive(true);
 
-                    //Debug.Log(slot.GetComponentInChildren<RigScript>(true).me.priceOfNextUpgradeLvl);
+                    
 
                     itemDatabase.rigTypes[1].priceOfNextUpgradeLvl = (slot.GetComponentInChildren<RigScript>(true).me.priceOfNextUpgradeLvl * pricePercentageGrowth / 100);
-                    upgradedRigActions(slot.GetComponent<Rigslot>().myOrderNumber, slot.GetComponentInChildren<RigScript>(true).me);
+
+                    //Debug.Log(slot.GetComponentInChildren<RigScript>(true).me);
+
+                    mapDelegateHolder.upgradedRigActions(slot.GetComponent<Rigslot>().myOrderNumber, slot.GetComponentInChildren<RigScript>(true).me);
+                    
+
+                    rigsBuilt++;
                     return;
                 }
             }
@@ -237,7 +217,7 @@ public class MapController : MonoBehaviour {
                     miningControllerInstance.AddPercentageToMiningSpeed(currentRig.myEffectOnMining);
 
                     // Sewnding the info to the UI element responsible for this rig
-                    upgradedRigActions(rigSlot, currentRig);
+                    mapDelegateHolder.upgradedRigActions(rigSlot, currentRig);
                     return;
 
                 }
@@ -284,7 +264,7 @@ public class MapController : MonoBehaviour {
 
                         }
                         //Send in the info to the UI so it can be udpated with the newly updated rig info for this rag
-                            upgradedRackActions(rigslotsInThisRackGroup[0].me, racksPerGroup, rackSlot);
+                        mapDelegateHolder.upgradedRackActions(rigslotsInThisRackGroup[0].me, racksPerGroup, rackSlot);
 
                        
                         return;
@@ -319,9 +299,8 @@ public class MapController : MonoBehaviour {
                     miningControllerInstance.AddPercentageToMiningSpeed(rig.me.myEffectOnMining);
 
                 }
-                //Send in the info to the UI so it can be udpated with the newly updated rig info for this rag
-                if (controlsRacksByOne)
-                    upgradedRackActions(rigslotsInThisRackGroup[0].me, racksPerGroup, rackSlot);
+              
+                    mapDelegateHolder.upgradedRackActions(rigslotsInThisRackGroup[0].me, racksPerGroup, rackSlot);
 
                 //Debug.Log("I've upgraded all the rigs in this group!");
                 return;
