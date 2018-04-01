@@ -224,8 +224,9 @@ public class RigUI : MonoBehaviour {
                 tempEffectPercentage += currentRigInfo.myEffectOnMining;
 
                 currentEffectText.text = "+ " + tempEffectPercentage.ToString() + "%";
-                //rigsControlled.text = "x1";
-                upgradeLvlUI.fillAmount = currentRigInfo.buildingID / currentMapController.gameObject.GetComponent<ItemDatabase>().rigTypes.Count;
+
+               
+                upgradeLvlUI.fillAmount = currentRigInfo.buildingID / currentMapController.itemDatabase.rigTypes.Count;
 
                 // Set this button as disabled
                 upgradeLvlUI.fillAmount = 1;

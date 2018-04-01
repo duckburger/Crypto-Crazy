@@ -57,15 +57,6 @@ public class MapController : MonoBehaviour {
     public int rigsBuilt;
 
 
-
-    private void Start()
-    {
-        
-
-        
-    }
-
-
     private void OnEnable()
     {
 
@@ -105,7 +96,13 @@ public class MapController : MonoBehaviour {
 
     }
 
-   
+    private void OnDestroy()
+    {
+        rigController.rigUpgradedActions -= UpgradeARig;
+        rigController.rackUpgradedActions -= UpgradeARackOfRigs;
+    }
+
+
     public void SpawnAnItem (Building thingToSpawn, int uiSlot = 999)
     {
         // We're spawning a RACK
@@ -171,11 +168,11 @@ public class MapController : MonoBehaviour {
                     slot.GetChild(0).gameObject.SetActive(true);
 
                     
-
+                    // This line sets up the pricing for consequtive rigs
                     itemDatabase.rigTypes[1].priceOfNextUpgradeLvl = (slot.GetComponentInChildren<RigScript>(true).me.priceOfNextUpgradeLvl * pricePercentageGrowth / 100);
 
                     //Debug.Log(slot.GetComponentInChildren<RigScript>(true).me);
-
+                    
                     mapDelegateHolder.upgradedRigActions(slot.GetComponent<Rigslot>().myOrderNumber, slot.GetComponentInChildren<RigScript>(true).me);
                     
 
@@ -184,6 +181,39 @@ public class MapController : MonoBehaviour {
                 }
             }
         }
+    }
+
+    public void SpawnUpgradedRig(Rig rigToSpawn, int uiSlot, bool spawnInThisSlot)
+    {
+            foreach (Transform slot in rigSlots)
+            {
+                if (spawnInThisSlot && slot.GetComponent<Rigslot>().myOrderNumber == uiSlot)
+                {
+                // This is how we "spawn" a rig by just making it active in the scene
+                slot.GetChild(0).gameObject.SetActive(true);
+                
+                slot.GetComponentInChildren<RigScript>(true).me = rigToSpawn;
+                slot.GetComponentInChildren<RigScript>(true).RefreshIcon();
+
+                // This line sets up the pricing for consequtive rigs
+                itemDatabase.rigTypes[1].priceOfNextUpgradeLvl = (slot.GetComponentInChildren<RigScript>(true).me.priceOfNextUpgradeLvl * pricePercentageGrowth / 100);
+
+                    //Debug.Log(slot.GetComponentInChildren<RigScript>(true).me);
+
+                    mapDelegateHolder.upgradedRigActions(slot.GetComponent<Rigslot>().myOrderNumber, slot.GetComponentInChildren<RigScript>(true).me);
+
+
+                    rigsBuilt++;
+                    return;
+                }
+                else if (!spawnInThisSlot && slot.GetComponent<Rigslot>().myOrderNumber == uiSlot)
+                {
+                Debug.Log("Disabling the " + slot.GetChild(0).gameObject + " slot");
+                slot.GetChild(0).gameObject.SetActive(false);
+                return;
+                }
+        }
+        
     }
 
     #region UPGRADE RELATED FUNCTIONS
@@ -202,7 +232,7 @@ public class MapController : MonoBehaviour {
 
                     miningControllerInstance.myMiningController.currencyMined -= rigscript.me.priceOfNextUpgradeLvl;
                     float thisUpgradePrice = rigscript.me.priceOfNextUpgradeLvl;
-                    Debug.Log(thisUpgradePrice);
+                    //Debug.Log(thisUpgradePrice);
                     // TODO: this might break when getting to the last item in the list
                     rigscript.me = itemDatabase.rigTypes[rigscript.me.id + 1];
                     rigscript.RefreshIcon();
@@ -238,11 +268,11 @@ public class MapController : MonoBehaviour {
                 //Checking my rack ID to find the one we want to upgrade
                 if (slot.GetComponent<RackSlot>().myOrderNumber == rackSlot)
                 {
-                    Debug.Log("About to upgrade this rack!");
+                    //Debug.Log("About to upgrade this rack!");
                     RigScript[] rigslotsInThisRackGroup;
                     // Collecting all the RIGSCRIPTS inside this RACKSLOT to the update them
                     rigslotsInThisRackGroup = slot.GetComponentsInChildren<RigScript>(true);
-                    Debug.Log(rigslotsInThisRackGroup.Length);
+                    //Debug.Log(rigslotsInThisRackGroup.Length);
 
                     // Find out if we have enough money to upgrade all the rigs in this group
                     if (rigslotsInThisRackGroup[0].me.priceOfNextUpgradeLvl * rigslotsInThisRackGroup.Length < miningControllerInstance.myMiningController.currencyMined)

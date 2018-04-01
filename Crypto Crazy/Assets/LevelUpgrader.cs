@@ -19,7 +19,7 @@ public class LevelUpgrader : MonoBehaviour {
     public int racksAmount;
     public int rigsAmount;
 
-    public List<RigScript> oldRigs = new List<RigScript>();
+    public List<Rig> oldRigs = new List<Rig>();
     [SerializeField] RigUI[] rigUIElements;
 
     public int chairUpgrLvl;
@@ -110,11 +110,21 @@ public class LevelUpgrader : MonoBehaviour {
         {
             int i = 0;
             // Spawn each rig from the old apartment into the new one, with the correct upgrade level
-            foreach(RigScript rigScript in oldRigs)
+            foreach(Rig rig in oldRigs)
             {
-                Debug.Log(i);
-                newLvlData.SpawnAnItem(rigScript.me, i);
-                i++;
+                if (rig != null)
+                {
+                    // This needs to be upgraded with a method that would spawn a leveled up rig
+                    newLvlData.SpawnUpgradedRig(rig, i, true);
+                    i++;
+                } else
+                {
+                    Debug.Log("Spawning in the " + i + " slot");
+                    newLvlData.SpawnUpgradedRig(rig, i, false);
+                    i++;
+                    continue;
+                }
+               
             }
         }
 
@@ -148,9 +158,18 @@ public class LevelUpgrader : MonoBehaviour {
         // Fill out the rigs list to carry it over
         foreach(Transform rigSlot in currentLvlData.rigSlots)
         {
+           
             if (rigSlot.GetComponentInChildren<RigScript>())
-                oldRigs.Add(rigSlot.GetComponentInChildren<RigScript>());
-        }
+            {
+                oldRigs.Add(rigSlot.GetComponentInChildren<RigScript>().me);
+                
+               
+            } else
+            {
+                oldRigs.Add(null);
+            }
+
+        } 
 
         chairUpgrLvl = currentLvlData.chairUpgrade.currentUpgradeLvl;
         deskUpgrLvl = currentLvlData.deskUpgrade.currentUpgradeLvl;

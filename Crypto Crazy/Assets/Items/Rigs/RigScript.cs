@@ -14,11 +14,16 @@ public class RigScript : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         myIcon = me.icon;
-        iconHolder = GetComponent<SpriteRenderer>();
+       
 	}
 
+    private void OnEnable()
+    {
+        iconHolder = GetComponent<SpriteRenderer>();
+    }
 
-	public void RefreshIcon()
+
+    public void RefreshIcon()
     {
         myIcon = me.icon;
         iconHolder.sprite = myIcon;
