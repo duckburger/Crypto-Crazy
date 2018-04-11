@@ -32,7 +32,7 @@ public class Upgrade : MonoBehaviour {
        
 
         minContr = FindObjectOfType<MiningController>();
-        mapController = FindObjectOfType<MapController>();
+        ResetDataForNewApartment();
 
         titleField.text = myUpgrade.title;
         descriptionField.text = myUpgrade.descr;
@@ -69,6 +69,11 @@ public class Upgrade : MonoBehaviour {
         }
     }
 
+    public void ResetDataForNewApartment()
+    {
+        mapController = FindObjectOfType<MapController>();
+    }
+
 
     // TODO: Pull the ui updating methods out of here
 
@@ -80,7 +85,7 @@ public class Upgrade : MonoBehaviour {
                 myMiningController.currencyMined -= myUpgrade.priceOfNextUpgradeLvl;
                
                 // TODO: Try some other math here
-                // Control of the growth of the upgrade price
+                // Calculate the growth of the upgrade price
                 myUpgrade.priceOfNextUpgradeLvl += (myUpgrade.priceOfNextUpgradeLvl * pricePercentageGrowth / 100);
                 pricePercentageGrowth -= (pricePercentageGrowth * 40 / 100);
                 myUpgrade.currentUpgradeLvl++;

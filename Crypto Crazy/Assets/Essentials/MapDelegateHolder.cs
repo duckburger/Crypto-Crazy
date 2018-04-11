@@ -10,7 +10,7 @@ public class MapDelegateHolder : MonoBehaviour {
     public OnRigUpgraded upgradedRigActions;
 
 
-    public delegate void OnRackUpgraded(Rig newlyInstalledRig, int racksInThisGroup, int rackSlot);
+    public delegate void OnRackUpgraded(Rig newlyInstalledRig, int rackSlot);
     public OnRackUpgraded upgradedRackActions;
 
     // Use this for initialization

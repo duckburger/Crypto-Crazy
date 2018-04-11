@@ -207,8 +207,10 @@ public class RigUI : MonoBehaviour {
     // This one is signed up to the UPGRADED A RIG delegate in the MapController
     void UpdateMyRigUI(int idOfUpdatedRig, Rig currentRigInfo)
     {
+       
+
         //Debug.Log("I've been passed in a " + currentRigInfo.priceOfNextUpgradeLvl);
-        
+
         if (idOfUpdatedRig == myRigID.myControlID)
         {
           
@@ -237,9 +239,7 @@ public class RigUI : MonoBehaviour {
                 return;
             }
 
-            // If not controlling a rack
-            if (!controllingRack)
-            {
+           
 
                  
                  title.text = currentRigInfo.title;
@@ -257,24 +257,11 @@ public class RigUI : MonoBehaviour {
                  myRig = currentRigInfo;
 
 
-            }
-            else
-            {
+          
                 
-                title.text = currentRigInfo.title;
-                description.text = currentRigInfo.myDescription;
-                miscText.text = "Next rig effect: \n" + "+" + currentRigInfo.myEffectOnMining + "% mining speed";
-                rigIcon.sprite = currentRigInfo.icon;
+              
 
-                tempEffectPercentage += currentRigInfo.myEffectOnMining;
-
-                currentEffectText.text = "+ " + tempEffectPercentage.ToString() + "%";
-                buttonText.text = "BUY BETTER RIG\n" + currentRigInfo.priceOfNextUpgradeLvl;
-                //rigsControlled.text = "x1";
-                upgradeLvlUI.fillAmount = (float)currentRigInfo.buildingID / itemDatabase.rigTypes.Count;
-                myRig = currentRigInfo;
-
-            }
+            
         }
     }
     #endregion
@@ -287,14 +274,13 @@ public class RigUI : MonoBehaviour {
  
 
     // This one is signed up to the UPGRADED A RACK delegate in the MapController
-    public void UpdateMyRackUI(Rig currentRigInThisRack, int racksPerGroup, int rackSlot = -1)
+    public void UpdateMyRackUI(Rig currentRigInThisRack, int rackSlot = -1)
     {
-
-        
+        Debug.Log("I received " + currentRigInThisRack);
         // If the rack ID that was sent in matches my RACK ID...
         if (rackSlot == myRackID.myControlID)
         {
-            // FIRST check whether this is the last upgade (uses a magic number - currently max rig level)
+            // FIRST check whether this is the last upgade (uses a magic number - currently max rig level) TODO change the magic number to a var
             if (currentRigInThisRack.id >= 9)
             {
                 isEnabled = false;
@@ -307,7 +293,7 @@ public class RigUI : MonoBehaviour {
                 tempEffectPercentage += currentRigInThisRack.myEffectOnMining;
 
                 currentEffectText.text = "+ " + tempEffectPercentage.ToString() + "%";
-                rigsControlled.text = "x" + (racksPerGroup * 3).ToString();
+                rigsControlled.text = "x3";
                 // Shows the upgrade level visually by dividing by the size of the size of the rig database
                 upgradeLvlUI.fillAmount = currentRigInThisRack.buildingID / itemDatabase.rigTypes.Count;
                 upgradeLvlUI.fillAmount = 1;
@@ -326,13 +312,11 @@ public class RigUI : MonoBehaviour {
                 title.text = currentRigInThisRack.title + " (Rack)";
                 description.text = currentRigInThisRack.myDescription;
                 miscText.text = "Next rig effect: \n" + "+" + currentRigInThisRack.myEffectOnMining + "% mining speed";
+                Debug.Log("Changing the menu rack item " + rackSlot + " to have this icon: " + currentRigInThisRack.icon);
                 rigIcon.sprite = currentRigInThisRack.icon;
 
                 // Multiplying 3 because there are 3 rigs in the rack
                 tempEffectPercentage += currentRigInThisRack.myEffectOnMining * 3;
-
-                
-
                 currentEffectText.text = "+ " + (int)tempEffectPercentage + "%";
                 
                 // Multiplying 3 because there are 3 rigs in the rack
@@ -383,7 +367,7 @@ public class RigUI : MonoBehaviour {
                     // This only works because we are controlling the racks 1 by 1
                     if (!controllingRack)
                     {
-                        Debug.Log(currentMapController.rigSlots[myRigID.myControlID]);
+                       
                         if (currentMapController.rigSlots[myRigID.myControlID].GetComponentInChildren<RigScript>(true).me.priceOfNextUpgradeLvl < miningController.myMiningController.currencyMined)
                         {
                             upgradeButton.GetComponent<Image>().color = Color.green;

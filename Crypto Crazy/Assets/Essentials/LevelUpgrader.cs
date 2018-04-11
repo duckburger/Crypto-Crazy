@@ -12,15 +12,12 @@ public class LevelUpgrader : MonoBehaviour {
     public MapController newLvlData;
 
     public UIController uiController;
-   
+    public MenuController menuController;
 
     // Some data from the current level that will be stored
     // to carry over into the newly spawned level
     public int racksAmount;
     public int rigsAmount;
-
-    public List<Rig> oldRigs = new List<Rig>();
-    [SerializeField] RigUI[] rigUIElements;
 
     public int chairUpgrLvl;
     public int deskUpgrLvl;
@@ -28,10 +25,16 @@ public class LevelUpgrader : MonoBehaviour {
     public int coolUpgrLvl;
     public int hamUpgrLvl;
 
-
     public CameraController cameraController;
 
+    private bool partnerKickedOut;
+    private bool furnitureSold;
 
+    [SerializeField] private List<Rig> oldRigs = new List<Rig>();
+    [SerializeField] private List<Rig> oldRacks = new List<Rig>();
+    
+    [SerializeField] private RigUI[] rigUIElements;
+    [SerializeField] private Upgrade[] upgradeButtons;
     private ItemDatabase itemDatabase;
    
    
@@ -44,15 +47,15 @@ public class LevelUpgrader : MonoBehaviour {
     // This method upgrades the current lvl to the prefab passed into it
     public void UpgradeToDifferentLvl(GameObject newLvlPrefab)
     {
-        //Debug.Log("Upgrading to a new lvl");
+        
         //Collect the numbers from the existing apartment
         CollectData();
         //Spawn the new apartment into the scene in the same position as the old one
         SpawnNewLvl(newLvlPrefab);
-        //Assigning the numbers and spawning the same amount of items as in the previous apartment
-        AssignDataAndSpawnItems();
 
         PropogateNewMap();
+        //Assigning the numbers and spawning the same amount of items as in the previous apartment
+        AssignDataAndSpawnItems();
 
         //Delete the old apartment
         DeleteOldApartment();
@@ -68,10 +71,21 @@ public class LevelUpgrader : MonoBehaviour {
     {
         rigUIElements = uiController.rigsMenuAnimator.GetComponentsInChildren<RigUI>(true);
 
-        foreach(RigUI rigUIScript in rigUIElements)
+        // Propogating the new mapcontroller to all the rig buttons
+        foreach (RigUI rigUIScript in rigUIElements)
         {
             rigUIScript.ResetDataForNewApartment();
-        }   
+        }
+
+        // Propogating the new mapcontroller to all the upgrade buttons
+        upgradeButtons = menuController.upgradesMenu.GetComponentsInChildren<Upgrade>(true);
+
+        foreach (Upgrade upgradeBtnController in upgradeButtons)
+        {
+            upgradeBtnController.ResetDataForNewApartment();
+        }
+
+
     }
 
     private void DeleteOldApartment()
@@ -88,20 +102,35 @@ public class LevelUpgrader : MonoBehaviour {
     private void AssignDataAndSpawnItems()
     {
         // Giving the new map the data amount the amount of racks and rigs
+       
+
+        newLvlData.partnerKickedOut = partnerKickedOut;
+        newLvlData.furnitureSold = furnitureSold;
         newLvlData.racksBuilt = racksAmount;
-        newLvlData.rigsBuilt = rigsAmount;
 
-        
-
+        Debug.Log(newLvlData.racksBuilt + " racks in new apartment!");
 
         
 
         // Spawning the required amount of racks
         if (racksAmount > 0)
         {
-            for (int i = 0; i <= racksAmount; i++)
+            newLvlData.partner.SetActive(false);
+            if (racksAmount >= 5)
+                newLvlData.livingRoom.SetActive(false);
+
+            for (int i = 0; i < racksAmount; i++)
             {
+                
                 newLvlData.SpawnAnItem(itemDatabase.basicRackItem);
+                // Upgrading the spawned rack here if it has upgraded rigs in it
+                int rackUpgradeLvl = oldRacks[i].id;
+
+                Debug.Log("Passing in the id # " + rackUpgradeLvl);
+                newLvlData.UpgradeRackDirectly(rackUpgradeLvl, i);
+
+
+                
             }
         }
 
@@ -119,7 +148,7 @@ public class LevelUpgrader : MonoBehaviour {
                     i++;
                 } else
                 {
-                    Debug.Log("Spawning in the " + i + " slot");
+                    //Debug.Log("Spawning in the " + i + " slot");
                     newLvlData.SpawnUpgradedRig(rig, i, false);
                     i++;
                     continue;
@@ -169,13 +198,35 @@ public class LevelUpgrader : MonoBehaviour {
                 oldRigs.Add(null);
             }
 
-        } 
+        }
 
+
+        // Fill out the racks list to carry it over
+        foreach (Transform rackSlot in currentLvlData.rackSlots)
+        {
+
+            if (rackSlot.GetComponentInChildren<RigScript>())
+            {
+                oldRacks.Add(rackSlot.GetComponentInChildren<RigScript>().me);
+            }
+            else
+            {
+                oldRigs.Add(null);
+            }
+
+        }
+
+
+        // TODO: make sure that the sprites for all the upgrades below update to the correct level in the new apartment
+        // also, make sure that the rack upgrade UI gets synced with the new max racks number
         chairUpgrLvl = currentLvlData.chairUpgrade.currentUpgradeLvl;
         deskUpgrLvl = currentLvlData.deskUpgrade.currentUpgradeLvl;
         monUpgrLvl = currentLvlData.monitorUpgrade.currentUpgradeLvl;
         coolUpgrLvl = currentLvlData.coolingUpgrade.currentUpgradeLvl;
         hamUpgrLvl = currentLvlData.hamsterUpgrade.currentUpgradeLvl;
+
+        partnerKickedOut = currentLvlData.partnerKickedOut;
+        furnitureSold = currentLvlData.furnitureSold;
 
         // Note: camera boundries for each lvl are stored on the level itself!
     }

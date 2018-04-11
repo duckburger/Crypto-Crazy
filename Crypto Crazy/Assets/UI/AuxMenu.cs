@@ -73,7 +73,7 @@ public class AuxMenu : MonoBehaviour {
                 rigUIElements[i].InitizalizeTheUI();
 
 
-                rigUIElements[i].UpdateMyRackUI(currentMapController.rackSlots[i].GetComponent<RackSlot>().GetComponentInChildren<RigScript>(true).me, currentMapController.racksPerGroup, i);
+                rigUIElements[i].UpdateMyRackUI(currentMapController.rackSlots[i].GetComponent<RackSlot>().GetComponentInChildren<RigScript>(true).me, i);
 
                 
 
