@@ -16,24 +16,38 @@ public class MenuIDAssigner : MonoBehaviour {
     {
 
         currentMapController = FindObjectOfType<MapController>();
-        PopulateTheRigsMenu();
+        PopulateRacksMenu();
         AssignIDToRigMenu();
     }
 
     
    
     // This spawns the UI elements for racks into the rigs menu
-    private void PopulateTheRigsMenu()
-    {
-        
+    private void PopulateRacksMenu()
+    {       
             for (int i = 0; i < currentMapController.maxRacks; i++)
             {
                 Instantiate(individualRackTemplate, Vector3.zero, Quaternion.identity, rigMenuHolder);
             }
-        
-       
+    }
 
+    public void RefreshMenuIDs()
+    {
+        currentMapController = FindObjectOfType<MapController>();
+        for (int i = 0; i < currentMapController.maxRacks - currentMapController.racksBuilt; i++)
+        {
+            Instantiate(individualRackTemplate, Vector3.zero, Quaternion.identity, rigMenuHolder);
+        }
 
+        int j = 0;
+        foreach (Transform child in rigMenuHolder)
+        {
+            if (child.GetComponent<RackID>() && j < currentMapController.maxRacks + 4)
+            {
+                child.GetComponent<RackID>().myControlID = j;
+                j++;
+            }
+        }
     }
 
     

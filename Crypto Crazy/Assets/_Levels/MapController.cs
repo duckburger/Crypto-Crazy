@@ -87,13 +87,9 @@ public class MapController : MonoBehaviour {
             rackSlots.Add(child);
             child.GetComponent<RackSlot>().myOrderNumber = i;
             
-                child.GetComponent<RackSlot>().racksInThisGroup = 0;
-          
+                child.GetComponent<RackSlot>().racksInThisGroup = 0;        
             i++;
         }
-
-       
-
     }
 
     private void OnDestroy()
@@ -110,9 +106,7 @@ public class MapController : MonoBehaviour {
         {
             if (!partnerKickedOut)
             {
-                // Run the notification first to ask whether the player wants to remove his partner
-                
-
+                // Run the notification first to ask whether the player wants to remove his partner             
                 //FOR THIS TO WORK: Notification system must be enabled!
                 AskAboutPartner();
                 return;

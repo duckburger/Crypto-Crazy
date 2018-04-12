@@ -16,9 +16,9 @@ MonoBehaviour:
   descr: Allows you to place more rigs in your house to mine faster!
   miscText: 'CURRENT APARTMENT FITS:'
   defMiscText: 'CURRENT APARTMENT FITS:'
-  currentUpgradeLvl: 0
+  currentUpgradeLvl: 12
   defCurUpgLvl: 0
-  priceOfNextUpgradeLvl: 400
+  priceOfNextUpgradeLvl: 26390.043
   defPrOfNxtUpgLvl: 400
   defCurUpgEff: 0
   maxUpgradeLvl: 8
@@ -26,5 +26,4 @@ MonoBehaviour:
   buildingsISpawn:
   - {fileID: 11400000, guid: 759db3d60b9c86a42920f49adb286b74, type: 2}
   primaryListOfEffects: 
-  myEffectAmount: 0
   secondaryListOfEffects: 

@@ -27,13 +27,21 @@ public class Upgrade : MonoBehaviour {
     [SerializeField]
     private float tempEffectPercentage;
     // Use this for initialization
-    void Start() {
-
-       
-
+    void Start()
+    {
         minContr = FindObjectOfType<MiningController>();
-        ResetDataForNewApartment();
+        ResetDataForNewApartment();       
+    }
 
+    public void ResetDataForNewApartment()
+    {
+        mapController = FindObjectOfType<MapController>();
+        RefreshUI();
+
+    }
+
+    private void RefreshUI()
+    {
         titleField.text = myUpgrade.title;
         descriptionField.text = myUpgrade.descr;
         if (myUpgrade.icon)
@@ -45,6 +53,7 @@ public class Upgrade : MonoBehaviour {
             icon.sprite = null;
         }
 
+        upgradeButton.interactable = true;
         buttonText.text = "BUY" + "\n" + myUpgrade.priceOfNextUpgradeLvl;
 
         upgradeLevelUI.fillAmount = myUpgrade.currentUpgradeLvl / myUpgrade.maxUpgradeLvl;
@@ -54,7 +63,8 @@ public class Upgrade : MonoBehaviour {
         {
             currentEffectText.text = myUpgrade.currentUpgradeLvl.ToString();
             miscTextField.text = myUpgrade.miscText + " " + myUpgrade.maxUpgradeLvl;
-        } else
+        }
+        else
         {
             tempEffectPercentage = myUpgrade.primaryListOfEffects[(int)myUpgrade.currentUpgradeLvl];
             currentEffectText.text = "+ " + tempEffectPercentage.ToString() + "%";
@@ -69,15 +79,9 @@ public class Upgrade : MonoBehaviour {
         }
     }
 
-    public void ResetDataForNewApartment()
-    {
-        mapController = FindObjectOfType<MapController>();
-    }
-
-
     // TODO: Pull the ui updating methods out of here
 
-   // This is assigned to the button through the inspector!
+    // This is assigned to the button through the inspector!
     public void PurchaseTheUpgrade()
     {
             if (myUpgrade.priceOfNextUpgradeLvl < myMiningController.currencyMined && myUpgrade.currentUpgradeLvl < myUpgrade.maxUpgradeLvl)
@@ -174,7 +178,6 @@ public class Upgrade : MonoBehaviour {
                 return;
             }
         } 
-        
         
     public void ApplyMyEffectsToGame(List<Attribute> myAttributes, List<Building> myBuildings)
     {

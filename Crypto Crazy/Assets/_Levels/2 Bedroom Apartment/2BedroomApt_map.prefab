@@ -1204,7 +1204,7 @@ MonoBehaviour:
   furnitureSold: 0
   pricePercentageGrowth: 270
   racksPerGroup: 1
-  maxRacks: 8
+  maxRacks: 12
   racksBuilt: 0
   rigsBuilt: 0
 --- !u!114 &114835455812825854

@@ -7,6 +7,7 @@ public class ItemDatabase : MonoBehaviour {
    
 
     public List<Rig> rigTypes = new List<Rig>();
+  
 
     public List<Sprite> chairs = new List<Sprite>();
     public List<Sprite> desks = new List<Sprite>();
@@ -14,5 +15,6 @@ public class ItemDatabase : MonoBehaviour {
     public List<Sprite> hamsters = new List<Sprite>();
     public List<Sprite> coolSystems = new List<Sprite>();
 
+    public UpgradeTemplate rackUpgrade;
     public Building basicRackItem;	
 }

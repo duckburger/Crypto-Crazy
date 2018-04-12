@@ -396,7 +396,7 @@ MonoBehaviour:
   m_MinSize: {x: 917, y: 271}
   m_MaxSize: {x: 22012, y: 10021}
   vertical: 0
-  controlID: 134
+  controlID: 199
 --- !u!114 &18
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -699,23 +699,23 @@ MonoBehaviour:
   m_PersistentViewDataDictionary: {fileID: 0}
   m_TreeViewState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 
-    m_LastClickedID: 0
-    m_ExpandedIDs: ae09ffff143cffff5c3cffff52b7ffff4ef8ffffb6f9ffff00faffff96faffff9efaffffcafaffffd4faffff9efbffff00000000
+    m_SelectedIDs: dafaffff
+    m_LastClickedID: -1318
+    m_ExpandedIDs: fce7fdff02e8fdff08e8fdff06f7ffff4ef8ffff98f8ffffd4f8ffff92faffff96faffff9efaffffcafaffffd4faffff9efbffff00000000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: Icon
-      m_OriginalName: Icon
+      m_Name: 
+      m_OriginalName: 
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
-      m_UserData: -63070
+      m_UserData: 0
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
-      m_OriginalEventType: 0
+      m_OriginalEventType: 11
       m_IsRenamingFilename: 0
       m_ClientGUIView: {fileID: 19}
     m_SearchString: 
@@ -797,19 +797,19 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SearchArea: 0
     m_Folders:
-    - Assets/Items/Rigs
+    - Assets/UI
   m_ViewMode: 1
   m_StartGridSize: 16
   m_LastFolders:
-  - Assets/Items/Rigs
+  - Assets/UI
   m_LastFoldersGridSize: 16
   m_LastProjectPath: C:\Users\kiril\Dropbox\GDEV\UNITY\Crypto Crazy\Crypto Crazy
   m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: e4290000
-    m_LastClickedID: 10724
-    m_ExpandedIDs: 00000000ae270000b627000034280000462800003029000078290000ae290000c0290000e62900008c3400008e34000000ca9a3bffffff7f
+    m_SelectedIDs: 7a290000
+    m_LastClickedID: 10618
+    m_ExpandedIDs: 00000000b0270000b82700000e2800003628000048280000322900007a290000b0290000c2290000e82900008c3400008e34000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -837,7 +837,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000ae270000b627000034280000462800003029000078290000ae290000c0290000e62900008c3400008e340000
+    m_ExpandedIDs: 00000000b0270000b82700003628000048280000322900007a290000b0290000c2290000e82900008c3400008e340000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -868,18 +868,18 @@ MonoBehaviour:
     m_ExpandedInstanceIDs: ce270000c030010056280000882800002c2800006c28000024280000a8280000222800006228000090280000ae270000a428000086290000b6270000bc280000b827000004290000466e0e003828000000000000fe2700001e290000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: 
-      m_OriginalName: 
+      m_Name: 3 Bedroom Apartment
+      m_OriginalName: 3 Bedroom Apartment
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
-      m_UserData: 0
+      m_UserData: 10254
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
-      m_OriginalEventType: 11
+      m_OriginalEventType: 0
       m_IsRenamingFilename: 1
       m_ClientGUIView: {fileID: 20}
     m_CreateAssetUtility:
@@ -997,14 +997,14 @@ MonoBehaviour:
     height: 1286
   m_PersistentViewDataDictionary: {fileID: 0}
   m_SceneLighting: 1
-  lastFramingTime: 1532.4195870831427
+  lastFramingTime: 86349.77196701693
   m_2DMode: 1
   m_isRotationLocked: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 273.65228, y: 683.82666, z: -2.3845334}
+    m_Target: {x: 0.000015258789, y: 0.000015258789, z: 0}
     speed: 2
-    m_Value: {x: 273.65228, y: 683.82666, z: -2.3845334}
+    m_Value: {x: 0.000015258789, y: 0.000015258789, z: 0}
   m_RenderMode: 0
   m_ValidateTrueMetals: 0
   m_SceneViewState:
@@ -1032,9 +1032,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 455.34476
+    m_Target: 7.0915465
     speed: 2
-    m_Value: 455.34476
+    m_Value: 7.0915465
   m_Ortho:
     m_Target: 1
     speed: 2

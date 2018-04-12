@@ -13,7 +13,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myTitle: 3 Bedroom Apartment
   myIcon: {fileID: 0}
-  myPrice: 10000000
+  myPrice: 1320000
   myDescText: 
   rackSlots: 0
   myPrefab: {fileID: 0}

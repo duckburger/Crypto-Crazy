@@ -15,10 +15,9 @@ public class ApartmentUpgrade : MonoBehaviour {
 
     public Apartment myApartment;
 
-    [SerializeField]
-    private bool active;
-    [SerializeField]
-    private bool current;
+
+    public bool active;
+    public bool current;
     private LevelUpgrader levelUpgrader;
     private MiningController miningController;
 
@@ -26,6 +25,8 @@ public class ApartmentUpgrade : MonoBehaviour {
 	void Start () {
         levelUpgrader = FindObjectOfType<LevelUpgrader>();
         miningController = FindObjectOfType<MiningController>();
+
+        levelUpgrader.upgradedApartment += RefreshApartmentPurchaseUI;
 
         AssignFunctionToButton();
     }
@@ -61,15 +62,41 @@ public class ApartmentUpgrade : MonoBehaviour {
     void AssignFunctionToButton()
     {
         // Here we decide what the BUY APARTMENT button does
-        buyButton.onClick.AddListener(() => levelUpgrader.UpgradeToDifferentLvl(myApartment.myPrefab));
+        buyButton.onClick.AddListener(() => levelUpgrader.UpgradeToDifferentLvl(myApartment.myPrefab, this));
     }
 
+    void RefreshApartmentPurchaseUI(ApartmentUpgrade UItoUpdate)
+    {
+        if (this == UItoUpdate)
+        {
+            active = false;
+            current = true;
 
+            darkOverlay.gameObject.SetActive(true);
+            alreadyOwnedText.gameObject.SetActive(true);
+
+            buyButton.GetComponentInChildren<Text>().text = "...";
+            buyButton.interactable = false;
+            buyButton.GetComponent<Image>().color = Color.gray;
+
+        } else
+        {
+            active = false;
+            if (current)
+                current = false;
+                alreadyOwnedText.gameObject.SetActive(false);
+
+            buyButton.GetComponent<Image>().color = Color.gray;
+        }
+        
+    }
     // Update is called once per frame
     void Update () {
 		
         if (active)
         {
+
+            // TODO replace this logic with a method in Mining Controller
             if (miningController.myMiningController.currencyMined < myApartment.myPrice)
             {
                 buyButton.interactable = false;
