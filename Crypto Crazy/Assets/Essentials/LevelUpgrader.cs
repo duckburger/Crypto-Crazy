@@ -17,6 +17,7 @@ public class LevelUpgrader : MonoBehaviour {
     public MenuIDAssigner menuIDAssigner;
     private ItemDatabase itemDatabase;
     
+    
 
     // Some data from the current level that will be stored
     // to carry over into the newly spawned level
@@ -50,6 +51,7 @@ public class LevelUpgrader : MonoBehaviour {
         currentLvlData = FindObjectOfType<MapController>();
         itemDatabase = FindObjectOfType<ItemDatabase>();
         itemDatabase.rackUpgrade.maxUpgradeLvl = currentLvlData.maxRacks;
+        
     }
 
     // This method upgrades the current lvl to the prefab passed into it
@@ -64,7 +66,7 @@ public class LevelUpgrader : MonoBehaviour {
             //Spawn the new apartment into the scene in the same position as the old one
             SpawnNewLvl(newLvlPrefab);
 
-            PropogateNewMap();
+           
             //Assigning the numbers and spawning the same amount of items as in the previous apartment
             AssignDataAndSpawnItems();
 
@@ -72,10 +74,13 @@ public class LevelUpgrader : MonoBehaviour {
             //Delete the old apartment
             DeleteOldApartment();
 
+            PropogateNewMap();
+
             //Setting the new lvl data to the current lvl data
             currentLvlData = newLvlData;
             newLvlData = null;
 
+            // Run the upgraded apartment delegate
             upgradedApartment(UIToUpdate);
         }
         return;
@@ -89,6 +94,7 @@ public class LevelUpgrader : MonoBehaviour {
         itemDatabase.rackUpgrade.maxUpgradeLvl = newLvlData.maxRacks;
 
         menuIDAssigner.RefreshMenuIDs();
+        cameraController.RefreshForNewApt();
 
         // Propogating the new mapcontroller to all the rig buttons
         foreach (RigUI rigUIScript in rigUIElements) 
@@ -182,6 +188,8 @@ public class LevelUpgrader : MonoBehaviour {
 
         int hamUpgrLvl = newLvlData.hamsterUpgrade.currentUpgradeLvl;
         newLvlData.hamster.GetComponent<SpriteRenderer>().sprite = itemDatabase.hamsters[hamUpgrLvl];
+
+        
 
     }
 

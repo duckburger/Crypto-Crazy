@@ -12,6 +12,7 @@ public class ApartmentUpgrade : MonoBehaviour {
     public Button buyButton;
     public Image darkOverlay;
     public GameObject alreadyOwnedText;
+    public int orderNumber;
 
     public Apartment myApartment;
 
@@ -81,11 +82,22 @@ public class ApartmentUpgrade : MonoBehaviour {
 
         } else
         {
-            active = false;
+            if (this.orderNumber < UItoUpdate.orderNumber)
+            {
+                active = false;
+                current = false;
+                darkOverlay.gameObject.SetActive(true);
+                alreadyOwnedText.gameObject.SetActive(false);
+                buyButton.GetComponentInChildren<Text>().text = "...";
+                buyButton.GetComponent<Image>().color = Color.gray;
+            }     
+            
+            // Checking whether this is a current apartment
             if (current)
                 current = false;
                 alreadyOwnedText.gameObject.SetActive(false);
 
+            
             buyButton.GetComponent<Image>().color = Color.gray;
         }
         

@@ -25,7 +25,6 @@ public class UpgradeTemplate : ScriptableObject {
     public float priceOfNextUpgradeLvl;
     public float defPrOfNxtUpgLvl;
 
-    
     public float defCurUpgEff;
 
     public float maxUpgradeLvl;

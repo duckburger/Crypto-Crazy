@@ -12,9 +12,10 @@ public class MenuIDAssigner : MonoBehaviour {
     public GameObject rackGroupTemplate;
     public GameObject individualRackTemplate;
 
+    [SerializeField] private int rackUIElementsSpawned;
+
     private void Awake()
     {
-
         currentMapController = FindObjectOfType<MapController>();
         PopulateRacksMenu();
         AssignIDToRigMenu();
@@ -28,18 +29,22 @@ public class MenuIDAssigner : MonoBehaviour {
             for (int i = 0; i < currentMapController.maxRacks; i++)
             {
                 Instantiate(individualRackTemplate, Vector3.zero, Quaternion.identity, rigMenuHolder);
+                rackUIElementsSpawned++;
             }
     }
-
+    
     public void RefreshMenuIDs()
     {
         currentMapController = FindObjectOfType<MapController>();
-        for (int i = 0; i < currentMapController.maxRacks - currentMapController.racksBuilt; i++)
+        
+        for (int i = rackUIElementsSpawned; i < currentMapController.maxRacks; i++)
         {
             Instantiate(individualRackTemplate, Vector3.zero, Quaternion.identity, rigMenuHolder);
+            rackUIElementsSpawned++;
         }
 
-        int j = 0;
+
+        int j = 4;
         foreach (Transform child in rigMenuHolder)
         {
             if (child.GetComponent<RackID>() && j < currentMapController.maxRacks + 4)

@@ -41,6 +41,11 @@ public class CameraController : MonoBehaviour {
         zoomedIn = true;
         SwitchZoomLevels();
     }
+
+    public void RefreshForNewApt()
+    {
+        currentApartment = FindObjectOfType<MapController>();
+    }
 	
 	// Update is called once per frame
 	void LateUpdate () {

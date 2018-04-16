@@ -14,6 +14,6 @@ MonoBehaviour:
   myTitle: 3 Bedroom Apartment
   myIcon: {fileID: 0}
   myPrice: 1320000
-  myDescText: 
-  rackSlots: 0
-  myPrefab: {fileID: 0}
+  myDescText: 3 rooms. 16 racks. No redundancies!
+  rackSlots: 16
+  myPrefab: {fileID: 1643709100346728, guid: 48ae716cc3b84af4e9de42f0332d5f57, type: 2}
