@@ -871,6 +871,7 @@ MonoBehaviour:
   myMiningController: {fileID: 11400000, guid: 873c1aa079dc5b5419d9a61efdea1c15, type: 2}
   rigController: {fileID: 0}
   itemDatabase: {fileID: 0}
+  mapDelegateHolder: {fileID: 0}
   rackSlots: []
   rigSlots: []
   rackSlotHolder: {fileID: 4379986816791466}
@@ -892,11 +893,11 @@ MonoBehaviour:
     type: 2}
   furnitureSold: 0
   pricePercentageGrowth: 270
-  controlsRacksByOne: 1
   racksPerGroup: 1
   maxRacks: 8
   racksBuilt: 0
   rigsBuilt: 1
+  maxRigs: 4
 --- !u!114 &114245499916622008
 MonoBehaviour:
   m_ObjectHideFlags: 1

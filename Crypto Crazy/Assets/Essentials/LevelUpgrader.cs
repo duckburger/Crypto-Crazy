@@ -64,7 +64,7 @@ public class LevelUpgrader : MonoBehaviour {
             //Collect the numbers from the existing apartment
             CollectData();
             //Spawn the new apartment into the scene in the same position as the old one
-            SpawnNewLvl(newLvlPrefab);
+            SpawnNewApartment(newLvlPrefab);
 
            
             //Assigning the numbers and spawning the same amount of items as in the previous apartment
@@ -109,8 +109,6 @@ public class LevelUpgrader : MonoBehaviour {
         {
             upgradeBtnController.ResetDataForNewApartment();
         }
-
-
     }
 
     private void DeleteOldApartment()
@@ -119,7 +117,7 @@ public class LevelUpgrader : MonoBehaviour {
         currentLvlData = newLvlData;
     }
 
-    private void SpawnNewLvl(GameObject lvlToSpawn)
+    private void SpawnNewApartment(GameObject lvlToSpawn)
     {
         newLvlData = Instantiate(lvlToSpawn, currentLvlData.transform.position, Quaternion.identity).GetComponent<MapController>();
     }
@@ -129,7 +127,6 @@ public class LevelUpgrader : MonoBehaviour {
         // Giving the new map the data amount the amount of racks and rigs
         newLvlData.partnerKickedOut = partnerKickedOut;
         newLvlData.furnitureSold = furnitureSold;
-        newLvlData.racksBuilt = racksAmount;
 
         // Spawning the required amount of racks
         if (racksAmount > 0)
@@ -140,12 +137,9 @@ public class LevelUpgrader : MonoBehaviour {
 
             for (int i = 0; i < racksAmount; i++)
             {
-                
                 newLvlData.SpawnAnItem(itemDatabase.basicRackItem);
                 // Upgrading the spawned rack here if it has upgraded rigs in it
                 int rackUpgradeLvl = oldRacks[i].id;
-
-                Debug.Log("Passing in the id # " + rackUpgradeLvl);
                 newLvlData.UpgradeRackDirectly(rackUpgradeLvl, i);        
             }
         }
@@ -163,7 +157,6 @@ public class LevelUpgrader : MonoBehaviour {
                     i++;
                 } else
                 {
-                    //Debug.Log("Spawning in the " + i + " slot");
                     newLvlData.SpawnUpgradedRig(rig, i, false);
                     i++;
                     continue;
@@ -188,13 +181,8 @@ public class LevelUpgrader : MonoBehaviour {
 
         int hamUpgrLvl = newLvlData.hamsterUpgrade.currentUpgradeLvl;
         newLvlData.hamster.GetComponent<SpriteRenderer>().sprite = itemDatabase.hamsters[hamUpgrLvl];
-
-        
-
     }
 
-
-    
 
     private void CollectData()
     {

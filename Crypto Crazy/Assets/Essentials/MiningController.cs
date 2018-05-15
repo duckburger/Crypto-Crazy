@@ -45,15 +45,8 @@ public class MiningController : MonoBehaviour {
     // Update is called once per frame
     void Update () {
 
-        
-
         myMiningController.currencyMined += myMiningController.coinsPerSec * Time.deltaTime;
         myMiningController.coinsPerSec = Mathf.Clamp(myMiningController.coinsPerSec, myMiningController.minCoinsPerSec, myMiningController.maximumCoinsPerSec);
-
-
-
-
-
 
     }
 }

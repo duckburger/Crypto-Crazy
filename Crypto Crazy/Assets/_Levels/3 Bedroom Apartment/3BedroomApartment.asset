@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Name: 3BedroomApartment
   m_EditorClassIdentifier: 
   myTitle: 3 Bedroom Apartment
-  myIcon: {fileID: 0}
+  myIcon: {fileID: 21300000, guid: ab2dc90f7bd0dfb4a9185a496be7b5f7, type: 3}
   myPrice: 1320000
   myDescText: 3 rooms. 16 racks. No redundancies!
   rackSlots: 16

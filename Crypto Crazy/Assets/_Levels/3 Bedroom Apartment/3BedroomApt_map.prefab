@@ -1342,6 +1342,7 @@ MonoBehaviour:
   maxRacks: 16
   racksBuilt: 0
   rigsBuilt: 0
+  maxRigs: 4
 --- !u!114 &114835455812825854
 MonoBehaviour:
   m_ObjectHideFlags: 1

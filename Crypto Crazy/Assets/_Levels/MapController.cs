@@ -55,6 +55,7 @@ public class MapController : MonoBehaviour {
     public int maxRacks;
     public int racksBuilt;
     public int rigsBuilt;
+    public int maxRigs;
 
 
     private void OnEnable()
@@ -121,11 +122,7 @@ public class MapController : MonoBehaviour {
                 AskAboutFurniture();
                 return;
             }
-
-
             // Find an empty rackSlot to spawn into 
-
-           
                 foreach (Transform slot in rackSlots)
                 {
                     // This needs to diversify between when the map supports multiple racks inside aslot, and when it doesn't
@@ -136,11 +133,12 @@ public class MapController : MonoBehaviour {
 
                         Rack newRack = GameObject.Instantiate(thingToSpawn.myBuildingPrefab, slot.position, Quaternion.identity, slot).GetComponent<Rack>();
                         racksBuilt++;
+                        Debug.Log("Racks build is now " + racksBuilt);
                         slot.GetComponent<RackSlot>().racksInThisGroup++;
                         slot.GetComponent<RackSlot>().myRacks.Add(newRack);
 
                     // Passing in the slot number as well as the most basic rig, because this is a brand new rack
-                        Debug.Log("Spawning a rack with " + itemDatabase.rigTypes[0] + " rig in it");
+                        
                         mapDelegateHolder.upgradedRackActions(itemDatabase.rigTypes[0], slot.GetComponent<RackSlot>().myOrderNumber);
 
                         return;
@@ -190,14 +188,8 @@ public class MapController : MonoBehaviour {
 
                 // This line sets up the pricing for consequtive rigs
                 itemDatabase.rigTypes[1].priceOfNextUpgradeLvl = (slot.GetComponentInChildren<RigScript>(true).me.priceOfNextUpgradeLvl * pricePercentageGrowth / 100);
-
-                    //Debug.Log(slot.GetComponentInChildren<RigScript>(true).me);
-
-                    mapDelegateHolder.upgradedRigActions(uiSlot , slot.GetComponentInChildren<RigScript>(true).me);
-
-
-                    rigsBuilt++;
-                    return;
+                mapDelegateHolder.upgradedRigActions(uiSlot, slot.GetComponentInChildren<RigScript>(true).me);
+                return;
                 }
                 // If this slot is not spawned in then just disable this rig and keep iterating
                 else if (!spawnInThisSlot && slot.GetComponent<Rigslot>().myOrderNumber == uiSlot)
