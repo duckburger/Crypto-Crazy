@@ -103,7 +103,7 @@ MonoBehaviour:
   zoomedIn: 0
   zoomSensitivity: 3
   touchZoomSensitivity: 0.05
-  minCameraZoom: 1.08
+  minCameraZoom: 1.14
   maxCameraZoom: 3.22
   currentApartment: {fileID: 0}
   touchPanSensitivity: 0.05

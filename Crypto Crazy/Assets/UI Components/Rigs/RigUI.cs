@@ -27,6 +27,7 @@ public class RigUI : MonoBehaviour {
     public Text title;
     public Text description;
     public Text miscText;
+    public Text slotText;
     public Text rigsControlled;
 
     // We need this to update the rig icon on the left
@@ -131,14 +132,14 @@ public class RigUI : MonoBehaviour {
         {
             upgradeButton.GetComponent<Image>().color = Color.green;
             activateButton.gameObject.SetActive(false);
+            slotText.gameObject.SetActive(false);
 
             if (!controllingRack)
             {
+                // Pulling data from the rigslots on the rig controller
                 title.text = currentMapController.rigSlots[0].GetComponentInChildren<RigScript>(true).me.title;
                 description.text = currentMapController.rigSlots[0].GetComponentInChildren<RigScript>(true).me.myDescription;
-                //Debug.Log(currentMapController.rigSlots[myRigID.myControlID].GetComponentInChildren<RigScript>(true).me.priceOfNextUpgradeLvl);
                 buttonText.text = "UPGRADE RIG\n" + currentMapController.rigSlots[myRigID.myControlID].GetComponentInChildren<RigScript>(true).me.priceOfNextUpgradeLvl;
-                //Debug.Log(currentMapController.itemDatabase);
                 rigsControlled.text = "x1";
                 miscText.text = "Next rig effect: \n" + "+" + itemDatabase.rigTypes[0].myEffectOnMining + "% mining speed";
             }

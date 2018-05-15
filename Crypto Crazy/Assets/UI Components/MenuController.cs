@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,6 +12,10 @@ public class MenuController : MonoBehaviour {
     public GameObject Menu6;
     public NotificationSystem notificationSystem;
     public List<GameObject> menus = new List<GameObject>();
+
+    [SerializeField] ScrollRect upgradeMenuScrollRect;
+    [SerializeField] ScrollRect realEstateMenuScrollRect;
+    [SerializeField] ScrollRect rigsMenuScrollRect;
 
     void Start()
     {
@@ -44,7 +47,6 @@ public class MenuController : MonoBehaviour {
                 menu.SetActive(false);
             }
         }
-
         GetComponent<UIController>().HideJustSideRackMenu();
 
         return;
@@ -63,11 +65,13 @@ public class MenuController : MonoBehaviour {
     {
         if (upgradesMenu.gameObject.activeSelf)
         {
+            upgradeMenuScrollRect.verticalNormalizedPosition = 1;
             upgradesMenu.SetActive(false);
 
         } else if (!notificationSystem.noteIsShowing)
         {
             CloseAllOtherMenus(upgradesMenu);
+            upgradeMenuScrollRect.verticalNormalizedPosition = 1;
             upgradesMenu.SetActive(true);
         }
     }
@@ -76,12 +80,14 @@ public class MenuController : MonoBehaviour {
     {
         if (realEstateMenu.gameObject.activeSelf)
         {
+            realEstateMenuScrollRect.verticalNormalizedPosition = 1;
             realEstateMenu.SetActive(false);
            
         }
         else if (!notificationSystem.noteIsShowing)
         {
             CloseAllOtherMenus(realEstateMenu);
+            realEstateMenuScrollRect.verticalNormalizedPosition = 1;
             realEstateMenu.SetActive(true);
            
         }
@@ -106,12 +112,14 @@ public class MenuController : MonoBehaviour {
     {
         if (rigsMenu.gameObject.activeSelf)
         {
+            rigsMenuScrollRect.verticalNormalizedPosition = 1;
             rigsMenu.SetActive(false);
            
         }
         else if (!notificationSystem.noteIsShowing)
         {
             CloseAllOtherMenus(rigsMenu);
+            rigsMenuScrollRect.verticalNormalizedPosition = 1;
             rigsMenu.SetActive(true);
             
         }
@@ -146,10 +154,4 @@ public class MenuController : MonoBehaviour {
           
         }
     }
-
-
-    // Update is called once per frame
-    void Update () {
-		
-	}
 }

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class MapController : MonoBehaviour {
@@ -176,13 +174,14 @@ public class MapController : MonoBehaviour {
 
     public void SpawnUpgradedRig(Rig rigToSpawn, int uiSlot, bool spawnInThisSlot)
     {
-            foreach (Transform slot in rigSlots)
-            {
+        foreach (Transform slot in rigSlots)
+        {
                 if (spawnInThisSlot && slot.GetComponent<Rigslot>().myOrderNumber == uiSlot)
                 {
                 // This is how we "spawn" a rig by just making it active in the scene
                 slot.GetChild(0).gameObject.SetActive(true);
                 
+                // Give this rig the data and change its icon to the correct one
                 slot.GetComponentInChildren<RigScript>(true).me = rigToSpawn;
                 slot.GetComponentInChildren<RigScript>(true).RefreshIcon();
 
@@ -191,10 +190,9 @@ public class MapController : MonoBehaviour {
                 mapDelegateHolder.upgradedRigActions(uiSlot, slot.GetComponentInChildren<RigScript>(true).me);
                 return;
                 }
-                // If this slot is not spawned in then just disable this rig and keep iterating
+                // If this slot is not spawned in then just disable this rig and breakout
                 else if (!spawnInThisSlot && slot.GetComponent<Rigslot>().myOrderNumber == uiSlot)
                 {
-                //Debug.Log("Disabling the " + slot.GetChild(0).gameObject + " slot");
                 slot.GetChild(0).gameObject.SetActive(false);
                 return;
                 }

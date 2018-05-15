@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class LevelUpgrader : MonoBehaviour {
@@ -163,9 +161,7 @@ public class LevelUpgrader : MonoBehaviour {
                 }
                
             }
-        }
-
-        
+        } 
 
         int chairUpgrLvl = newLvlData.chairUpgrade.currentUpgradeLvl;
         newLvlData.chairSlot.GetComponent<SpriteRenderer>().sprite = itemDatabase.chairs[chairUpgrLvl];
@@ -192,24 +188,20 @@ public class LevelUpgrader : MonoBehaviour {
         // Fill out the rigs list to carry it over
         foreach(Transform rigSlot in currentLvlData.rigSlots)
         {
-           
+            // If the rigscript item is active in the hierarchy, count it as a spawned rig
             if (rigSlot.GetComponentInChildren<RigScript>())
             {
-                oldRigs.Add(rigSlot.GetComponentInChildren<RigScript>().me);
-                
+                oldRigs.Add(rigSlot.GetComponentInChildren<RigScript>().me); 
                
-            } else
+            }
+            else // Otherwise count it as an empty rig - this works later when we spawn and empty item so the menu appearance is kept
             {
                 oldRigs.Add(null);
             }
-
         }
-
-
         // Fill out the racks list to carry it over
         foreach (Transform rackSlot in currentLvlData.rackSlots)
         {
-
             if (rackSlot.GetComponentInChildren<RigScript>())
             {
                 oldRacks.Add(rackSlot.GetComponentInChildren<RigScript>().me);
