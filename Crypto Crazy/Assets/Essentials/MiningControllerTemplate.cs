@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu]
+[CreateAssetMenu(menuName = "Crypto Crazy/Mining Controller")]
 public class MiningControllerTemplate : ScriptableObject {
 
     public string currencyName;

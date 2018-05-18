@@ -16,5 +16,7 @@ public class ItemDatabase : MonoBehaviour {
     public List<Sprite> coolSystems = new List<Sprite>();
 
     public UpgradeTemplate rackUpgrade;
-    public Building basicRackItem;	
+    public Building basicRackItem;
+
+    public GameObject accentFX;
 }

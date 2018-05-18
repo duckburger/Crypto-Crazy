@@ -4,7 +4,7 @@ using UnityEngine;
 
 
 // This attached to an object that is going to produce an event
-[CreateAssetMenu]
+[CreateAssetMenu(menuName = "Crypto Crazy/Game Event")]
 public class GameEvent : ScriptableObject {
 
 	public List<GameEventListener> eventListeners = new List<GameEventListener>();

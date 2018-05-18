@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-[CreateAssetMenu] 
+[CreateAssetMenu(menuName = "Crypto Crazy/Upgrade")] 
 public class UpgradeTemplate : ScriptableObject {
 
     public Sprite icon;
@@ -36,16 +36,15 @@ public class UpgradeTemplate : ScriptableObject {
     public List<int> primaryListOfEffects;
 
 
-    [Tooltip("This is a secondary list in case the upgrade affects more than 1 compnent.")]
+    [Tooltip("This is a secondary list in case the upgrade affects more than 1 component.")]
     public List<int> secondaryListOfEffects;
 
     private void OnEnable()
     {
         currentUpgradeLvl = defCurUpgLvl;
         priceOfNextUpgradeLvl = defPrOfNxtUpgLvl;
-        
 
-        if (primaryListOfEffects.Count != 0)
+        if (primaryListOfEffects.Count > 0)
         {
             maxUpgradeLvl = primaryListOfEffects.Count - 1;
         }

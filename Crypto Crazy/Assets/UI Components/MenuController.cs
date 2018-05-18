@@ -12,6 +12,7 @@ public class MenuController : MonoBehaviour {
     public GameObject Menu6;
     public NotificationSystem notificationSystem;
     public List<GameObject> menus = new List<GameObject>();
+    public bool isMenuOpen;
 
     [SerializeField] ScrollRect upgradeMenuScrollRect;
     [SerializeField] ScrollRect realEstateMenuScrollRect;
@@ -25,7 +26,7 @@ public class MenuController : MonoBehaviour {
         menus.Add(rigsMenu);
         menus.Add(Menu5);
         menus.Add(Menu6);
-        CloseAllOtherMenus();    
+        CloseAllMenus();
     }
 
     // This will close all menus if nothing is passed in
@@ -47,7 +48,7 @@ public class MenuController : MonoBehaviour {
                 menu.SetActive(false);
             }
         }
-        GetComponent<UIController>().HideJustSideRackMenu();
+        isMenuOpen = true;
 
         return;
        
@@ -59,6 +60,7 @@ public class MenuController : MonoBehaviour {
         {
             menu.SetActive(false);  
         }
+        isMenuOpen = false;
     }
 
     public void UpgradesMenuToggle()
@@ -67,12 +69,14 @@ public class MenuController : MonoBehaviour {
         {
             upgradeMenuScrollRect.verticalNormalizedPosition = 1;
             upgradesMenu.SetActive(false);
-
-        } else if (!notificationSystem.noteIsShowing)
+            isMenuOpen = false;
+        }
+        else if (!notificationSystem.noteIsShowing)
         {
             CloseAllOtherMenus(upgradesMenu);
             upgradeMenuScrollRect.verticalNormalizedPosition = 1;
             upgradesMenu.SetActive(true);
+            isMenuOpen = true;
         }
     }
 
@@ -82,14 +86,14 @@ public class MenuController : MonoBehaviour {
         {
             realEstateMenuScrollRect.verticalNormalizedPosition = 1;
             realEstateMenu.SetActive(false);
-           
+            isMenuOpen = false;
         }
         else if (!notificationSystem.noteIsShowing)
         {
             CloseAllOtherMenus(realEstateMenu);
             realEstateMenuScrollRect.verticalNormalizedPosition = 1;
             realEstateMenu.SetActive(true);
-           
+            isMenuOpen = true;
         }
     }
 
@@ -98,13 +102,14 @@ public class MenuController : MonoBehaviour {
         if (miscMenu.gameObject.activeSelf)
         {
             miscMenu.SetActive(false);
-          
+            isMenuOpen = false;
+
         }
         else if (!notificationSystem.noteIsShowing)
         {
             CloseAllOtherMenus(miscMenu);
             miscMenu.SetActive(true);
-           
+            isMenuOpen = true;
         }
     }
 
@@ -114,14 +119,15 @@ public class MenuController : MonoBehaviour {
         {
             rigsMenuScrollRect.verticalNormalizedPosition = 1;
             rigsMenu.SetActive(false);
-           
+            isMenuOpen = false;
+
         }
         else if (!notificationSystem.noteIsShowing)
         {
             CloseAllOtherMenus(rigsMenu);
             rigsMenuScrollRect.verticalNormalizedPosition = 1;
             rigsMenu.SetActive(true);
-            
+            isMenuOpen = true;
         }
     }
 
@@ -130,13 +136,14 @@ public class MenuController : MonoBehaviour {
         if (Menu5.gameObject.activeSelf)
         {
             Menu5.SetActive(false);
-           
+            isMenuOpen = false;
+
         }
         else if (!notificationSystem.noteIsShowing)
         {
             CloseAllOtherMenus(rigsMenu);
             Menu5.SetActive(true);
-            
+            isMenuOpen = true;
         }
     }
 
@@ -145,13 +152,13 @@ public class MenuController : MonoBehaviour {
         if (Menu6.gameObject.activeSelf)
         {
             Menu6.SetActive(false);
-           
+            isMenuOpen = false;
         }
         else if (!notificationSystem.noteIsShowing)
         {
             CloseAllOtherMenus(rigsMenu);
             Menu6.SetActive(true);
-          
+            isMenuOpen = true;
         }
     }
 }

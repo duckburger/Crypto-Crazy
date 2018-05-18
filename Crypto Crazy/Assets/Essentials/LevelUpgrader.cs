@@ -4,7 +4,7 @@ using UnityEngine;
 public class LevelUpgrader : MonoBehaviour {
 
     // Stores the level that is currently active in the game
-    public MapController currentLvlData;
+    [SerializeField] MapController currentLvlData;
 
     // Stores the new level we will be upgrading to
     public MapController newLvlData;
@@ -14,8 +14,6 @@ public class LevelUpgrader : MonoBehaviour {
     public MiningController miningController;
     public MenuIDAssigner menuIDAssigner;
     private ItemDatabase itemDatabase;
-    
-    
 
     // Some data from the current level that will be stored
     // to carry over into the newly spawned level

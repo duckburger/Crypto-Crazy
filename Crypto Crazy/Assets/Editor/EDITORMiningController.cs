@@ -10,11 +10,8 @@ public class EDITORMiningController : Editor {
 
         MiningControllerTemplate myMiningController = (MiningControllerTemplate)target;
 
-
-       
         EditorStyles.label.normal.textColor = Color.blue;
 
-       
         myMiningController.defCoinsPerSec = EditorGUILayout.FloatField("Default currency mined / sec:", myMiningController.defCoinsPerSec);
         myMiningController.defCurMin = EditorGUILayout.FloatField("Default currency mined: ", myMiningController.defCurMin);
         myMiningController.defMaxCoinsPerSecond = EditorGUILayout.IntField("Default max currency mined / sec" , myMiningController.defMaxCoinsPerSecond);

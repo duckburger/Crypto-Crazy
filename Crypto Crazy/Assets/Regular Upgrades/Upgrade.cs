@@ -86,6 +86,7 @@ public class Upgrade : MonoBehaviour {
     {
             if (myUpgrade.priceOfNextUpgradeLvl < myMiningController.currencyMined && myUpgrade.currentUpgradeLvl < myUpgrade.maxUpgradeLvl)
             {
+                // Charging for the upgrade
                 myMiningController.currencyMined -= myUpgrade.priceOfNextUpgradeLvl;
                
                 // TODO: Try some other math here
@@ -96,8 +97,6 @@ public class Upgrade : MonoBehaviour {
 
                 // APPLYING THE UPGRADE EFFECTS HERE
                 ApplyMyEffectsToGame(myUpgrade.attributesIAffect, myUpgrade.buildingsISpawn);
-
-                
 
                 upgradeLevelUI.fillAmount = myUpgrade.currentUpgradeLvl / myUpgrade.maxUpgradeLvl;
 
@@ -125,8 +124,7 @@ public class Upgrade : MonoBehaviour {
                 // This calculates the next effect of the upgrade and display it in the UI
                 tempEffectPercentage += myUpgrade.primaryListOfEffects[myUpgrade.currentUpgradeLvl];
                 currentEffectText.text = "+ " + (tempEffectPercentage).ToString() + "%";
-                    
-                    
+  
                     if (myUpgrade.currentUpgradeLvl < myUpgrade.primaryListOfEffects.Count)
                     {
                         miscTextField.text = myUpgrade.miscText + " " + myUpgrade.primaryListOfEffects[myUpgrade.currentUpgradeLvl] + "% mining speed";
@@ -138,7 +136,8 @@ public class Upgrade : MonoBehaviour {
                         miscTextField.text += "\n" + "+" + myUpgrade.secondaryListOfEffects[myUpgrade.currentUpgradeLvl] + " secs to dust timer";
                         }
 
-                    } else
+                    }
+                    else
                     {
                         miscTextField.text = "MAX UPGRADE REACHED!";
 
@@ -146,7 +145,6 @@ public class Upgrade : MonoBehaviour {
 
                         //Debug.Log("Turnt off the " + myUpgrade.title + " button");
                         upgradeButton.GetComponent<Image>().color = Color.gray;
-
 
                         Debug.Log("You've reached the maximum level for this upgrade right now");
                         return;
@@ -168,9 +166,6 @@ public class Upgrade : MonoBehaviour {
 
                 // Update the text on the button to display the price of the next step
                 buttonText.text = "BUY" + "\n" + myUpgrade.priceOfNextUpgradeLvl;
-
-                
-
             }
             else
             {
@@ -181,10 +176,12 @@ public class Upgrade : MonoBehaviour {
         
     public void ApplyMyEffectsToGame(List<Attribute> myAttributes, List<Building> myBuildings)
     {
-
         //Debug.Log("Registered a button press on " + myUpgrade.title);
         if (myAttributes.Count > 0)
         {
+
+            // 0 - Mining speed
+            // 1 - Cooling timer
             foreach(Attribute attribute in myAttributes)
             {
                 // Mining speed
@@ -206,7 +203,6 @@ public class Upgrade : MonoBehaviour {
         {
             foreach(Building building in myBuildings)
             {
-
                 Debug.Log("I am spawning a building!");
                 mapController.SpawnAnItem(building);
                 continue;
@@ -215,14 +211,10 @@ public class Upgrade : MonoBehaviour {
            
         }
     }
-
-        
-    
-	
+     
 	// Update is called once per frame
 	void Update () {
 
-        
         if (myUpgrade.currentUpgradeLvl < myUpgrade.maxUpgradeLvl)
         {
             if (myUpgrade.priceOfNextUpgradeLvl < myMiningController.currencyMined)
@@ -233,7 +225,8 @@ public class Upgrade : MonoBehaviour {
             {
                 upgradeButton.GetComponent<Image>().color = Color.gray;
             }
-        } else
+        }
+        else
         {
             upgradeButton.GetComponent<Image>().color = Color.gray;
             buttonText.text = "Max upgrade" + "\n" +  "reached for this apartment!";

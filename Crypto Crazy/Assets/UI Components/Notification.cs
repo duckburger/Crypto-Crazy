@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 
-[CreateAssetMenu]
+[CreateAssetMenu(menuName = "Crypto Crazy/Notification")] 
 public class Notification : ScriptableObject {
 
     public Sprite icon;

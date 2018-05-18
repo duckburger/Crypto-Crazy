@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-[CreateAssetMenu]
+[CreateAssetMenu(menuName = "Crypto Crazy/Rig")]
 public class Rig : Building {
 
     public string myStringName;

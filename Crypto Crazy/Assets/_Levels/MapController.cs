@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class MapController : MonoBehaviour {
 
-
+    [Header("Global data about all upgrades")]
     public UpgradeTemplate rackUpgrade;
     public UpgradeTemplate chairUpgrade;
     public UpgradeTemplate deskUpgrade;
@@ -11,22 +11,24 @@ public class MapController : MonoBehaviour {
     public UpgradeTemplate coolingUpgrade;
     public UpgradeTemplate hamsterUpgrade;
     
+    [Header("Object references")]
     public MiningController miningControllerInstance;
     public MiningControllerTemplate myMiningController;
     public RigController rigController;
     public ItemDatabase itemDatabase;
     public MapDelegateHolder mapDelegateHolder;
-
-
     public List<Transform> rackSlots = new List<Transform>();
     public List<Transform> rigSlots = new List<Transform>();
-
     public Transform rackSlotHolder;
     public Transform rigSlotHolder;
 
-    public float leftmostScrollValue;
-    public float rightmostScrollValue;
+    [Header("Camera variables")]
+    public float leftmostPanValue;
+    public float rightmostPanValue;
+    public float leftPanValZoomed;
+    public float rightPanValZoomed;
 
+    [Header("Objects in scene")]
     public GameObject partner;
     public GameObject livingRoom;
     public GameObject cooling;
@@ -35,17 +37,15 @@ public class MapController : MonoBehaviour {
     public Transform monitorSlot;
     public GameObject hamster;
 
-    public Building rackBuildingObject;
+    public Building rackPrefab;
 
-
+    [Header("Notifications")]
     public Notification firstRackInstallation;
     public bool partnerKickedOut;
     public Notification fifthRackInstallation;
     public bool furnitureSold;
 
-    
-
-    public float pricePercentageGrowth;
+    [SerializeField] float pricePercentageGrowth;
 
     // This factors in what we are sending back to the UI of the racks
   
@@ -170,6 +170,19 @@ public class MapController : MonoBehaviour {
                 }
             }
         }
+        // We're upgrading a CHAIR
+        else if (thingToSpawn.buildingID == 2)
+        {
+            // Find the current upgr lvl of chair and see if we need to upgrade the sprite. 
+            // Even if we don't, do some effects on the chair?
+            if (chairUpgrade.currentUpgradeLvl % 6 == 0)
+            {
+                int myUpgradeLvl = chairUpgrade.currentUpgradeLvl / 6;
+                chairSlot.GetComponent<SpriteRenderer>().sprite = itemDatabase.chairs[myUpgradeLvl];
+                Instantiate(itemDatabase.accentFX, Vector2.zero, Quaternion.identity, chairSlot.transform);
+            }
+            
+        }
     }
 
     public void SpawnUpgradedRig(Rig rigToSpawn, int uiSlot, bool spawnInThisSlot)
@@ -199,7 +212,6 @@ public class MapController : MonoBehaviour {
         }
         
     }
-
     public void UpgradeRackDirectly(int rigUpgradeLvl, int slotToUpgrade)
     {
         // Upgrades a rack directly by it's number in the slot list
@@ -226,7 +238,6 @@ public class MapController : MonoBehaviour {
     #region UPGRADE RELATED FUNCTIONS
     public void UpgradeARig(int rigSlot)
     {
-       
         foreach (Transform slot in rigSlots)
         {
             if (slot.GetComponent<Rigslot>().myOrderNumber == rigSlot)
@@ -368,7 +379,7 @@ public class MapController : MonoBehaviour {
     #region STORY RELATED FUNCTIONS
     public void AskAboutPartner()
     {
-        NotificationSystem.Instance.DisplayAChoiceNotification(firstRackInstallation, null, () => { SpawnAnItem(rackBuildingObject); KickOutThePartner(); });
+        NotificationSystem.Instance.DisplayAChoiceNotification(firstRackInstallation, null, () => { SpawnAnItem(rackPrefab); KickOutThePartner(); });
         partnerKickedOut = true;
     }
 
@@ -380,7 +391,7 @@ public class MapController : MonoBehaviour {
 
     public void AskAboutFurniture()
     {
-        NotificationSystem.Instance.DisplayAChoiceNotification(fifthRackInstallation, null, () => { SpawnAnItem(rackBuildingObject); GetRidOfFurniture(); });
+        NotificationSystem.Instance.DisplayAChoiceNotification(fifthRackInstallation, null, () => { SpawnAnItem(rackPrefab); GetRidOfFurniture(); });
         furnitureSold = true;
     }
 

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu]
+[CreateAssetMenu(menuName = "Crypto Crazy/Attribute")]
 public class Attribute : ScriptableObject {
 
     public int id;

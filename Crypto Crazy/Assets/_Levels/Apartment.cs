@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu]
+[CreateAssetMenu(menuName = "Crypto Crazy/Apartment")]
 public class Apartment : ScriptableObject {
 
     public string myTitle;
