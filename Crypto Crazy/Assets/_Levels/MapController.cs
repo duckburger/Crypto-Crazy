@@ -114,8 +114,6 @@ public class MapController : MonoBehaviour {
             if (racksBuilt == 3 && !furnitureSold)
             {
                 // Run the notification first to ask whether the player wants to remove his furniture
-
-
                 //FOR THIS TO WORK: Notification system must be enabled!
                 AskAboutFurniture();
                 return;
@@ -175,10 +173,11 @@ public class MapController : MonoBehaviour {
         {
             // Find the current upgr lvl of chair and see if we need to upgrade the sprite. 
             // Even if we don't, do some effects on the chair?
-            if (chairUpgrade.currentUpgradeLvl % 6 == 0)
+            if (chairUpgrade.currentUpgradeLvl <= chairUpgrade.maxUpgradeLvl)
             {
-                int myUpgradeLvl = chairUpgrade.currentUpgradeLvl / 6;
+                int myUpgradeLvl = chairUpgrade.currentUpgradeLvl;
                 chairSlot.GetComponent<SpriteRenderer>().sprite = itemDatabase.chairs[myUpgradeLvl];
+                // Spawn an fx object on the newlsy changed sprite
                 Instantiate(itemDatabase.accentFX, Vector2.zero, Quaternion.identity, chairSlot.transform);
             }
             

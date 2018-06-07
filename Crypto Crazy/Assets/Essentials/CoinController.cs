@@ -24,8 +24,6 @@ public class CoinController : MonoBehaviour {
     public MiningControllerTemplate myMiningController;
 
 
-
-
     // Use this for initialization
     void Start() {
 
@@ -59,8 +57,6 @@ public class CoinController : MonoBehaviour {
                 myMiningController.decreaseSpeed *= 3;
                 hadEffectOnMineSpeed = false;
             }
-
-
             //Debug.Log("Stopped spinning");
         }
 

@@ -285,26 +285,30 @@ public class RigUI : MonoBehaviour {
                 myRig = currentRigInThisRack;
                 return;
             }
-                if (currentRigInThisRack.id == 0)
-                    isEnabled = true;
-                    darkOverlay.gameObject.SetActive(false);
-                    upgradeButton.interactable = true;
 
-                title.text = currentRigInThisRack.title + " (Rack)";
-                description.text = currentRigInThisRack.myDescription;
-                miscText.text = "Next rig effect: \n" + "+" + currentRigInThisRack.myEffectOnMining + "% mining speed";
-                Debug.Log("Changing the menu rack item " + rackSlot + " to have this icon: " + currentRigInThisRack.icon);
-                rigIcon.sprite = currentRigInThisRack.icon;
+            if (currentRigInThisRack.id == 0)
+            {
+                isEnabled = true;
+                darkOverlay.gameObject.SetActive(false);
+                upgradeButton.interactable = true;
+                slotText.gameObject.SetActive(false);
+            }
+                    
+            title.text = currentRigInThisRack.title + " (Rack)";
+            description.text = currentRigInThisRack.myDescription;
+            miscText.text = "Next rig effect: \n" + "+" + currentRigInThisRack.myEffectOnMining + "% mining speed";
+            Debug.Log("Changing the menu rack item " + rackSlot + " to have this icon: " + currentRigInThisRack.icon);
+            rigIcon.sprite = currentRigInThisRack.icon;
 
-                // Multiplying 3 because there are 3 rigs in the rack
-                tempEffectPercentage += currentRigInThisRack.myEffectOnMining * 3;
-                currentEffectText.text = "+ " + (int)tempEffectPercentage + "%";
+            // Multiplying 3 because there are 3 rigs in the rack
+            tempEffectPercentage += currentRigInThisRack.myEffectOnMining * 3;
+            currentEffectText.text = "+ " + (int)tempEffectPercentage + "%";
                 
-                // Multiplying 3 because there are 3 rigs in the rack
-                buttonText.text = "UPGRADE THE RACK\n" + currentRigInThisRack.priceOfNextUpgradeLvl * 3;
-                rigsControlled.text = "x3";
-                upgradeLvlUI.fillAmount = (float)currentRigInThisRack.id / itemDatabase.rigTypes.Count;
-                myRig = currentRigInThisRack;
+            // Multiplying 3 because there are 3 rigs in the rack
+            buttonText.text = "UPGRADE THE RACK\n" + currentRigInThisRack.priceOfNextUpgradeLvl * 3;
+            rigsControlled.text = "x3";
+            upgradeLvlUI.fillAmount = (float)currentRigInThisRack.id / itemDatabase.rigTypes.Count;
+            myRig = currentRigInThisRack;
             
         }
     }

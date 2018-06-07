@@ -1197,7 +1197,7 @@ MonoBehaviour:
   deskSlot: {fileID: 4442729665375754}
   monitorSlot: {fileID: 4501054333556204}
   hamster: {fileID: 1077205968225752}
-  rackBuildingObject: {fileID: 11400000, guid: 759db3d60b9c86a42920f49adb286b74, type: 2}
+  rackPrefab: {fileID: 0}
   firstRackInstallation: {fileID: 11400000, guid: 5caf87654412c2541825322e19f25d8f,
     type: 2}
   partnerKickedOut: 0
@@ -1590,7 +1590,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 3, y: 3}
+  m_Size: {x: 0.91, y: 1.05}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -1818,5 +1818,5 @@ SpriteRenderer:
   m_Size: {x: 1.8, y: 2.4}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
