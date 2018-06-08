@@ -182,6 +182,16 @@ public class MapController : MonoBehaviour {
             }
             
         }
+        else if (thingToSpawn.buildingID == 3)
+        {
+            if (monitorUpgrade.currentUpgradeLvl <= monitorUpgrade.maxUpgradeLvl)
+            {
+                int myUpgradeLvl = monitorUpgrade.currentUpgradeLvl;
+                monitorSlot.GetComponent<SpriteRenderer>().sprite = itemDatabase.monitors[myUpgradeLvl];
+                // Spawn an fx object on the newlsy changed sprite
+                Instantiate(itemDatabase.accentFX, Vector2.zero, Quaternion.identity, monitorSlot.transform);
+            }
+        }
     }
 
     public void SpawnUpgradedRig(Rig rigToSpawn, int uiSlot, bool spawnInThisSlot)
