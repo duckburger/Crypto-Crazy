@@ -97,6 +97,7 @@ public class NotificationSystem : MonoBehaviour {
         // Close all the other menus first
         HideAllNotifications();
         menuController.CloseAllOtherMenus();
+        menuController.SetMenuStatusToClose();
 
         currentNoteToshow = notification;
         notificationPanel.SetActive(true);
@@ -148,6 +149,7 @@ public class NotificationSystem : MonoBehaviour {
         // Close all the other menus first
         HideAllNotifications();
         menuController.CloseAllOtherMenus();
+        menuController.SetMenuStatusToClose();
 
         currentNoteToshow = notification;
         notificationPanel.SetActive(true);
@@ -212,7 +214,6 @@ public class NotificationSystem : MonoBehaviour {
 
 
     }
-
 
 
     public void HideAllNotifications()
