@@ -9,5 +9,6 @@ EditorBuildSettings:
     path: Assets/_Levels/_Main Menu.unity
     guid: d41f5304b42c484468ceb7f7f3bfae9e
   - enabled: 1
-    path: Assets/_Levels/1 Bedroom Apartment.unity
+    path: Assets/_Levels/_MainScene.unity
     guid: 56e9d6880eff2e547b88fb1f487fcf16
+  m_configObjects: {}

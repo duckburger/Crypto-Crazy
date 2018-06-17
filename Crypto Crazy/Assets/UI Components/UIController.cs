@@ -1,14 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
-
+using TMPro;
 public class UIController : MonoBehaviour {
 
 
     public Text balanceText;
     public Text perSecondText;
-    public Text currencyName;
+    public TextMeshProUGUI currencyName;
     public MiningControllerTemplate myMiningController;
 
     public NumberConverter numberConverter;
@@ -23,10 +21,18 @@ public class UIController : MonoBehaviour {
     public delegate void OnAuxMenuClosed();
     public OnAuxMenuClosed closedAuxMenu;
 
-    
 
-	// Use this for initializations
-	void Start () {
+    private void Awake()
+    {
+        if (myMiningController.currencyName.Length < 1)
+        {
+            myMiningController.currencyName = "Sweetcoins";
+        } 
+    }
+
+
+    // Use this for initializations
+    void Start () {
         currencyName.text = myMiningController.currencyName;
 
 	}
