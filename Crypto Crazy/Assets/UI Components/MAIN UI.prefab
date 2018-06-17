@@ -1742,7 +1742,6 @@ GameObject:
   - component: {fileID: 114001931458256562}
   - component: {fileID: 114062880262895242}
   - component: {fileID: 114968822854528818}
-  - component: {fileID: 114618217116756976}
   m_Layer: 0
   m_Name: MAIN UI
   m_TagString: MainUI
@@ -7213,19 +7212,6 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: 'Allows you to buy more rigs to mine faster! '
---- !u!114 &114618217116756976
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1657202439975552}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -1254083943, guid: f70555f144d8491a825f0804e09c671c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_AspectMode: 2
-  m_AspectRatio: 0.5622189
 --- !u!114 &114620352193039376
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -12420,7 +12406,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.0000045296, y: -405}
+  m_AnchoredPosition: {x: -0.0000045296, y: -440}
   m_SizeDelta: {x: 131.1, y: 131.1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224591448334329378
