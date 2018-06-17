@@ -182,6 +182,7 @@ public class MapController : MonoBehaviour {
             }
             
         }
+        // We're upgrading a MONITOR
         else if (thingToSpawn.buildingID == 3)
         {
             if (monitorUpgrade.currentUpgradeLvl <= monitorUpgrade.maxUpgradeLvl)
