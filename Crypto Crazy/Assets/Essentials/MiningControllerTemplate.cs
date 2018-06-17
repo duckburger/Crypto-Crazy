@@ -7,7 +7,7 @@ public class MiningControllerTemplate : ScriptableObject {
 
     public string currencyName;
     public float maximumCoinsPerSec;
-    public float currencyMined;
+    public float currentBalance;
     public float coinsPerSec;
     public float dustTimer;
 
@@ -18,7 +18,7 @@ public class MiningControllerTemplate : ScriptableObject {
     public float decreaseSpeed;
 
     public int defMaxCoinsPerSecond;
-    public float defCurMin;
+    public float defaultCurrentBalance;
     public float defCoinsPerSec;
     public float defDecSpeed;
     public float defMinCoinsPerSec;
@@ -32,7 +32,7 @@ public class MiningControllerTemplate : ScriptableObject {
     private void OnEnable()
     {
         maximumCoinsPerSec = defMaxCoinsPerSecond;
-        currencyMined = defCurMin;
+        currentBalance = defaultCurrentBalance;
         coinsPerSec = defCoinsPerSec;
         decreaseSpeed = defDecSpeed;
         minCoinsPerSec = defMinCoinsPerSec;

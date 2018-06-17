@@ -53,11 +53,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentLvlData: {fileID: 0}
   newLvlData: {fileID: 0}
+  uiController: {fileID: 0}
+  menuController: {fileID: 0}
+  miningController: {fileID: 0}
+  menuIDAssigner: {fileID: 0}
   racksAmount: 0
+  rigsAmount: 0
   chairUpgrLvl: 0
   deskUpgrLvl: 0
   monUpgrLvl: 0
   coolUpgrLvl: 0
   hamUpgrLvl: 0
   cameraController: {fileID: 0}
-  upgradeEvent: {fileID: 11400000, guid: c86285b62fbcedb459666ff8b460b4e5, type: 2}
+  oldRigs: []
+  oldRacks: []
+  rigUIElements: []
+  upgradeButtons: []
+  levelUpgradedEvent: {fileID: 11400000, guid: 138300065869e734eb3f95ad64f44a39, type: 2}

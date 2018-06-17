@@ -103,7 +103,7 @@ public class ApartmentUpgrade : MonoBehaviour {
         if (active)
         {
             // TODO replace this logic with a method in Mining Controller
-            if (miningController.myMiningController.currencyMined < myApartment.myPrice)
+            if (miningController.myMiningController.currentBalance < myApartment.myPrice)
             {
                 buyButton.interactable = false;
                 buyButton.GetComponent<Image>().color = Color.gray;

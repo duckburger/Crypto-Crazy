@@ -24,10 +24,11 @@ public class UIController : MonoBehaviour {
 
     private void Awake()
     {
-        if (myMiningController.currencyName.Length < 1)
+        if (myMiningController.currencyName.Length < 3)
         {
             myMiningController.currencyName = "Sweetcoins";
         } 
+
     }
 
 
@@ -85,7 +86,7 @@ public class UIController : MonoBehaviour {
 	void Update () {
 
 
-        balanceText.text = numberConverter.ConvertNumber(myMiningController.currencyMined);
+        balanceText.text = numberConverter.ConvertNumber(myMiningController.currentBalance);
     
         perSecondText.text = numberConverter.ConvertNumber(myMiningController.coinsPerSec) + "/s";
         

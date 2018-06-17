@@ -9,25 +9,25 @@ public class CoinController : MonoBehaviour {
     public float effectOnMiningSpeed;
     public RectTransform touchRect;
 
-    [SerializeField]
-    private Vector2 touchStartPos;
-
-    [SerializeField]
-    private Vector2 touchEndPos;
-
-    [SerializeField]
-    private bool isSpinning;
-
-    [SerializeField]
-    private bool hadEffectOnMineSpeed;
+    [SerializeField] Vector2 touchStartPos;
+    [SerializeField] Vector2 touchEndPos;
+    [SerializeField] bool isSpinning;
+    [SerializeField] bool hadEffectOnMineSpeed;
+    [SerializeField] MapController currentLevel;
 
     public MiningControllerTemplate myMiningController;
 
+    
 
     // Use this for initialization
     void Start() {
 
         spinSpeed = Mathf.Clamp(spinSpeed, 0, 10);
+    }
+
+    public void RefreshMapRef()
+    {
+        currentLevel = FindObjectOfType<MapController>();
     }
 
     // Update is called once per frame
@@ -39,9 +39,25 @@ public class CoinController : MonoBehaviour {
         // Handles the launch of the rotation
         if (Input.touchCount > 0 && RectTransformUtility.RectangleContainsScreenPoint(touchRect, Input.GetTouch(0).deltaPosition) 
             || RectTransformUtility.RectangleContainsScreenPoint(touchRect, Input.mousePosition))
-            HandleTheSpin();
+        {
+            HandleSpin();
+        }
+            
 
         effectOnMiningSpeed = spinSpeed;
+
+        // This turns blinker on/off - power consumption mechanic?
+        //if (spinSpeed >= 8)
+        //{
+        //    currentLevel.lightsBlinker.BlinkOn();
+        //    SimpleNotificationSystem.Instance.QueueNotification("Drawing too much power! Aaaaaaaa...");
+        //}
+        //else
+        //{
+        //    currentLevel.lightsBlinker.BlinkOff();
+        //    SimpleNotificationSystem.Instance.CloseCurrentNotification();
+        //}
+        
 
         if (spinSpeed <= 0 && isSpinning)
         {
@@ -50,11 +66,11 @@ public class CoinController : MonoBehaviour {
             // Handles the slowdown of the coins per sec meter as the coin stops spinning
             if (hadEffectOnMineSpeed)
             {
-                if ((myMiningController.coinsPerSec -= myMiningController.coinsPerSec / 2f) > myMiningController.minCoinsPerSec)
+                if ((myMiningController.coinsPerSec / 2) > myMiningController.minCoinsPerSec)
                 {
-                    myMiningController.coinsPerSec -= myMiningController.coinsPerSec / 2f;
+                    myMiningController.coinsPerSec -= myMiningController.coinsPerSec / 1.5f;
                 }
-                myMiningController.decreaseSpeed *= 3;
+                myMiningController.decreaseSpeed *= 2;
                 hadEffectOnMineSpeed = false;
             }
             //Debug.Log("Stopped spinning");
@@ -84,7 +100,7 @@ public class CoinController : MonoBehaviour {
         }
     }
 
-    void HandleTheSpin()
+    void HandleSpin()
     {
 
         // TODO: make the character animate as the coin spins
@@ -158,27 +174,25 @@ public class CoinController : MonoBehaviour {
             myMiningController.coinsPerSec += effectOnMiningSpeed * 54;
         }
 
-
-            if (!hadEffectOnMineSpeed)
+        if (!hadEffectOnMineSpeed)
         {
-
             hadEffectOnMineSpeed = true;
-
         }
     }
 
     // Handles the gradual slow down of the rotation
     private void LateUpdate()
     {
-        
+        SlowCoinDown();
+    }
 
+    private void SlowCoinDown()
+    {
         if (isSpinning)
         {
             spinSpeed -= Time.deltaTime;
             spinSpeed = Mathf.Clamp(spinSpeed, 0, 10);
             coinAnimator.SetFloat("spinSpeed", spinSpeed);
-
-           // Debug.Log("Slowing the spinning down");
         }
     }
 }

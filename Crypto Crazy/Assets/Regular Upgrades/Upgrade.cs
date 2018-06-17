@@ -84,10 +84,10 @@ public class Upgrade : MonoBehaviour {
     // This is assigned to the button through the inspector!
     public void PurchaseTheUpgrade()
     {
-            if (myUpgrade.priceOfNextUpgradeLvl < myMiningController.currencyMined && myUpgrade.currentUpgradeLvl < myUpgrade.maxUpgradeLvl)
+            if (myUpgrade.priceOfNextUpgradeLvl < myMiningController.currentBalance && myUpgrade.currentUpgradeLvl < myUpgrade.maxUpgradeLvl)
             {
                 // Charging for the upgrade
-                myMiningController.currencyMined -= myUpgrade.priceOfNextUpgradeLvl;
+                myMiningController.currentBalance -= myUpgrade.priceOfNextUpgradeLvl;
                
                 // TODO: Try some other math here
                 // Calculate the growth of the upgrade price
@@ -217,7 +217,7 @@ public class Upgrade : MonoBehaviour {
 
         if (myUpgrade.currentUpgradeLvl < myUpgrade.maxUpgradeLvl)
         {
-            if (myUpgrade.priceOfNextUpgradeLvl < myMiningController.currencyMined)
+            if (myUpgrade.priceOfNextUpgradeLvl < myMiningController.currentBalance)
             {
                 upgradeButton.GetComponent<Image>().color = Color.green;
             }

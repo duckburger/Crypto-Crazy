@@ -136,8 +136,6 @@ public class NotificationSystem : MonoBehaviour {
     }
 
 
-   
-
     public void DisplayAChoiceNotification(Notification notification, NotificationThumbnail currentlyOpenThumbnail = null, 
         UnityAction firstButtonAction = null, UnityAction secondButtonAction = null)
     {

@@ -14,12 +14,15 @@ public class MiningController : MonoBehaviour {
     {
         
         if (myMiningController.coinsPerSec > myMiningController.minCoinsPerSec)
+        {
             myMiningController.coinsPerSec -= Time.deltaTime * myMiningController.decreaseSpeed;
+        }
+            
 
         if (myMiningController.coinsPerSec == 1)
+        {
             myMiningController.decreaseSpeed = myMiningController.defDecSpeed;
-
-
+        } 
     }
 
     public void AddPercentageToMiningSpeed (float percentageAmount)
@@ -38,7 +41,7 @@ public class MiningController : MonoBehaviour {
     // Update is called once per frame
     void Update () {
 
-        myMiningController.currencyMined += myMiningController.coinsPerSec * Time.deltaTime;
+        myMiningController.currentBalance += myMiningController.coinsPerSec * Time.deltaTime;
         myMiningController.coinsPerSec = Mathf.Clamp(myMiningController.coinsPerSec, myMiningController.minCoinsPerSec, myMiningController.maximumCoinsPerSec);
 
     }

@@ -31,6 +31,8 @@ public class CameraController : MonoBehaviour {
     {
         zoomedIn = true;
         RefreshCamPanLimits();
+        Camera mainCam = Camera.main;
+        mainCam.transform.position = new Vector3(0, mainCam.transform.position.y, mainCam.transform.position.z);
     }
 
     public void SwitchZoomLevels()

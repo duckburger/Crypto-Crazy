@@ -13,7 +13,7 @@ public class EDITORMiningController : Editor {
         EditorStyles.label.normal.textColor = Color.blue;
 
         myMiningController.defCoinsPerSec = EditorGUILayout.FloatField("Default currency mined / sec:", myMiningController.defCoinsPerSec);
-        myMiningController.defCurMin = EditorGUILayout.FloatField("Default currency mined: ", myMiningController.defCurMin);
+        myMiningController.defaultCurrentBalance = EditorGUILayout.FloatField("Starting current balance: ", myMiningController.defaultCurrentBalance);
         myMiningController.defMinCoinsPerSec = EditorGUILayout.FloatField("Default min currency mined / sec", myMiningController.defMinCoinsPerSec);
         myMiningController.defMaxCoinsPerSecond = EditorGUILayout.IntField("Default max currency mined / sec" , myMiningController.defMaxCoinsPerSecond);
         myMiningController.defDecSpeed = EditorGUILayout.FloatField("Default multiplier decrease speed: ", myMiningController.defDecSpeed);

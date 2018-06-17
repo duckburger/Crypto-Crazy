@@ -21,6 +21,7 @@ public class MapController : MonoBehaviour {
     public List<Transform> rigSlots = new List<Transform>();
     public Transform rackSlotHolder;
     public Transform rigSlotHolder;
+    public SpriteBlinker lightsBlinker;
 
     [Header("Camera variables")]
     public float leftmostPanValue;
@@ -255,10 +256,10 @@ public class MapController : MonoBehaviour {
                 RigScript rigscript = slot.gameObject.GetComponentInChildren<RigScript>(true);
                 // DO THE MONEY CHECK
                
-                if (rigscript.me.priceOfNextUpgradeLvl < miningControllerInstance.myMiningController.currencyMined)
+                if (rigscript.me.priceOfNextUpgradeLvl < miningControllerInstance.myMiningController.currentBalance)
                 {
 
-                    miningControllerInstance.myMiningController.currencyMined -= rigscript.me.priceOfNextUpgradeLvl;
+                    miningControllerInstance.myMiningController.currentBalance -= rigscript.me.priceOfNextUpgradeLvl;
                     float thisUpgradePrice = rigscript.me.priceOfNextUpgradeLvl;
                     //Debug.Log(thisUpgradePrice);
                     // TODO: this might break when getting to the last item in the list
@@ -304,10 +305,10 @@ public class MapController : MonoBehaviour {
                     //Debug.Log(rigslotsInThisRackGroup.Length);
 
                     // Find out if we have enough money to upgrade all the rigs in this group
-                    if (rigslotsInThisRackGroup[0].me.priceOfNextUpgradeLvl * rigslotsInThisRackGroup.Length < miningControllerInstance.myMiningController.currencyMined)
+                    if (rigslotsInThisRackGroup[0].me.priceOfNextUpgradeLvl * rigslotsInThisRackGroup.Length < miningControllerInstance.myMiningController.currentBalance)
                     {
                         // Charge me the money for the upgrade of the 3 rigs in the group
-                        miningControllerInstance.myMiningController.currencyMined -= rigslotsInThisRackGroup[0].me.priceOfNextUpgradeLvl * rigslotsInThisRackGroup.Length;
+                        miningControllerInstance.myMiningController.currentBalance -= rigslotsInThisRackGroup[0].me.priceOfNextUpgradeLvl * rigslotsInThisRackGroup.Length;
                         //Debug.Log("Charged you " + rigslotsInThisRackGroup[0].me.priceOfNextUpgradeLvl * rigslotsInThisRackGroup.Length + " for the upgrades on the rack");
 
                         // The actual rig upgrade process
@@ -347,10 +348,10 @@ public class MapController : MonoBehaviour {
             // Collecting all the RIGSCRIPTS inside this RACKSLOT to the update them
             rigslotsInThisRackGroup = rackToUpgrade.GetComponentsInChildren<RigScript>(true);
 
-            if (rigslotsInThisRackGroup[0].me.priceOfNextUpgradeLvl * rigslotsInThisRackGroup.Length < miningControllerInstance.myMiningController.currencyMined)
+            if (rigslotsInThisRackGroup[0].me.priceOfNextUpgradeLvl * rigslotsInThisRackGroup.Length < miningControllerInstance.myMiningController.currentBalance)
             {
                 // Charge me the money for the upgrade
-                miningControllerInstance.myMiningController.currencyMined -= rigslotsInThisRackGroup[0].me.priceOfNextUpgradeLvl * rigslotsInThisRackGroup.Length;
+                miningControllerInstance.myMiningController.currentBalance -= rigslotsInThisRackGroup[0].me.priceOfNextUpgradeLvl * rigslotsInThisRackGroup.Length;
                 //Debug.Log("Charged you " + rigslotsInThisRackGroup[0].me.priceOfNextUpgradeLvl * rigslotsInThisRackGroup.Length + " for the upgrades on the rack");
 
                 foreach (RigScript rig in rigslotsInThisRackGroup)

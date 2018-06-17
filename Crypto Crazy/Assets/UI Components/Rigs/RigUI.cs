@@ -174,9 +174,9 @@ public class RigUI : MonoBehaviour {
     void BuyARigFromScratch()
     {
         // Check if we have enough money for the rig
-        if (miningController.myMiningController.currencyMined > 200)
+        if (miningController.myMiningController.currentBalance > 200)
         {
-            miningController.myMiningController.currencyMined -= 200;
+            miningController.myMiningController.currentBalance -= 200;
             isEnabled = true;
             InitizalizeTheUI();
             if (!controllingRack)
@@ -326,11 +326,11 @@ public class RigUI : MonoBehaviour {
 
         if (!isEnabled && !controllingRack)
         {
-            if (miningController.myMiningController.currencyMined > 200)
+            if (miningController.myMiningController.currentBalance > 200)
             {
                 activateButton.GetComponent<Image>().color = Color.green;
             }
-            else if (miningController.myMiningController.currencyMined < 200)
+            else if (miningController.myMiningController.currentBalance < 200)
             {
                 activateButton.GetComponent<Image>().color = Color.grey;
             }
@@ -340,14 +340,14 @@ public class RigUI : MonoBehaviour {
         {
             if (isEnabled)
             {
-                if (myRig.priceOfNextUpgradeLvl < miningController.myMiningController.currencyMined)
+                if (myRig.priceOfNextUpgradeLvl < miningController.myMiningController.currentBalance)
                 {
 
                     // This only works because we are controlling the racks 1 by 1
                     if (!controllingRack)
                     {
                        
-                        if (currentMapController.rigSlots[myRigID.myControlID].GetComponentInChildren<RigScript>(true).me.priceOfNextUpgradeLvl < miningController.myMiningController.currencyMined)
+                        if (currentMapController.rigSlots[myRigID.myControlID].GetComponentInChildren<RigScript>(true).me.priceOfNextUpgradeLvl < miningController.myMiningController.currentBalance)
                         {
                             upgradeButton.GetComponent<Image>().color = Color.green;
 
@@ -362,8 +362,8 @@ public class RigUI : MonoBehaviour {
                     {
                         // Multiplying by 3 because there are 3 rigs in the rack
                        
-                        if (currentMapController.rackSlots[myRackID.myControlID - 4].GetComponentInChildren<RigScript>(true).me.priceOfNextUpgradeLvl * 3 < miningController.myMiningController.currencyMined
-                            && myRig.priceOfNextUpgradeLvl < miningController.myMiningController.currencyMined)
+                        if (currentMapController.rackSlots[myRackID.myControlID - 4].GetComponentInChildren<RigScript>(true).me.priceOfNextUpgradeLvl * 3 < miningController.myMiningController.currentBalance
+                            && myRig.priceOfNextUpgradeLvl < miningController.myMiningController.currentBalance)
                         {
                             upgradeButton.GetComponent<Image>().color = Color.green;
                         }

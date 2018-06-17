@@ -31,11 +31,13 @@ public class LevelUpgrader : MonoBehaviour {
     private bool partnerKickedOut;
     private bool furnitureSold;
 
-    [SerializeField] private List<Rig> oldRigs = new List<Rig>();
-    [SerializeField] private List<Rig> oldRacks = new List<Rig>();
+    [SerializeField] List<Rig> oldRigs = new List<Rig>();
+    [SerializeField] List<Rig> oldRacks = new List<Rig>();
     
-    [SerializeField] private RigUI[] rigUIElements;
-    [SerializeField] private Upgrade[] upgradeButtons;
+    [SerializeField] RigUI[] rigUIElements;
+    [SerializeField] Upgrade[] upgradeButtons;
+
+    [SerializeField] GameEvent levelUpgradedEvent;
    
 
     public delegate void OnLevelSuccessfullyUpgraded(ApartmentUpgrade UItoUpdate);
@@ -54,7 +56,7 @@ public class LevelUpgrader : MonoBehaviour {
     public void UpgradeToDifferentLvl(GameObject newLvlPrefab, ApartmentUpgrade UIToUpdate)
     {
         //Check whether we have enough money to upgrade to this apartment
-        if (miningController.myMiningController.currencyMined > UIToUpdate.myApartment.myPrice)
+        if (miningController.myMiningController.currentBalance > UIToUpdate.myApartment.myPrice)
         {
             
             //Collect the numbers from the existing apartment
@@ -78,6 +80,7 @@ public class LevelUpgrader : MonoBehaviour {
 
             // Run the upgraded apartment delegate
             upgradedApartment(UIToUpdate);
+            levelUpgradedEvent.Raise();
         }
         return;
 
@@ -159,7 +162,13 @@ public class LevelUpgrader : MonoBehaviour {
                 }
                
             }
+
+
+          // Setting the correct sprites for all items
+          // TODO: implement here
         } 
+
+
 
         int chairUpgrLvl = newLvlData.chairUpgrade.currentUpgradeLvl;
         newLvlData.chairSlot.GetComponent<SpriteRenderer>().sprite = itemDatabase.chairs[chairUpgrLvl];
