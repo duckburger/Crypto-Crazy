@@ -22,13 +22,37 @@ public class MiningController : MonoBehaviour {
         if (myMiningController.coinsPerSec == 1)
         {
             myMiningController.decreaseSpeed = myMiningController.defDecSpeed;
-        } 
+        }
+
+        //if (myMiningController.coinsPerSec > myMiningController.minCoinsPerSec)
+        //{
+        //    if (myMiningController.coinsPerSec > 0 && myMiningController.coinsPerSec <= 10)
+        //    {
+        //        myMiningController.coinsPerSec -= myMiningController.decreaseSpeed;
+        //    }
+        //    else if (myMiningController.coinsPerSec > 10 && myMiningController.coinsPerSec <= 50)
+        //    {
+        //        myMiningController.coinsPerSec -= myMiningController.decreaseSpeed * 2;
+        //    }
+        //    else if (myMiningController.coinsPerSec > 50 && myMiningController.coinsPerSec <= 500)
+        //    {
+        //        myMiningController.coinsPerSec -= myMiningController.decreaseSpeed * 4;
+        //    }
+        //    else if (myminingcontroller.coinspersec > 500 && myminingcontroller.coinspersec <= 10000)
+        //    {
+        //        myminingcontroller.coinspersec -= myminingcontroller.decreasespeed * 16;
+        //    }
+        //    else if (myminingcontroller.coinspersec > 10000 && myminingcontroller.coinspersec <= 500000)
+        //    {
+        //        myminingcontroller.coinspersec -= myminingcontroller.decreasespeed * 48;
+        //    }
+        //}
     }
 
-    public void AddPercentageToMiningSpeed (float percentageAmount)
+    public void IncreaseMinMaxMiningSpeed (float percentageAmount)
     {
         Debug.Log("Added " + percentageAmount + "% to the max mining per sec speed");
-        myMiningController.minCoinsPerSec += (myMiningController.minCoinsPerSec / 100 * percentageAmount );
+        myMiningController.minCoinsPerSec += (myMiningController.minCoinsPerSec / 100 * percentageAmount);
         myMiningController.maximumCoinsPerSec += (myMiningController.maximumCoinsPerSec / 100 * percentageAmount);
     }
 

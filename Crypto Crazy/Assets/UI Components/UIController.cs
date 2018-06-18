@@ -9,8 +9,6 @@ public class UIController : MonoBehaviour {
     public TextMeshProUGUI currencyName;
     public MiningControllerTemplate myMiningController;
 
-    public NumberConverter numberConverter;
-
     public Animator sideMenuAnimator;
     public Animator rigsMenuAnimator;
     public bool sideMenuShown;
@@ -86,9 +84,9 @@ public class UIController : MonoBehaviour {
 	void Update () {
 
 
-        balanceText.text = numberConverter.ConvertNumber(myMiningController.currentBalance);
+        balanceText.text = NumberConverter.ConvertNumber(myMiningController.currentBalance);
     
-        perSecondText.text = numberConverter.ConvertNumber(myMiningController.coinsPerSec) + "/s";
+        perSecondText.text = NumberConverter.ConvertNumber(myMiningController.coinsPerSec) + "/s";
         
         
 	}

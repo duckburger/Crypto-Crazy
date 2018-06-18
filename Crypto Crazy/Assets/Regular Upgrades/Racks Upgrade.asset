@@ -16,10 +16,10 @@ MonoBehaviour:
   descr: Allows you to place more rigs in your house to mine faster!
   miscText: 'CURRENT APARTMENT FITS:'
   defMiscText: 'CURRENT APARTMENT FITS:'
-  currentUpgradeLvl: 12
+  currentUpgradeLvl: 0
   defCurUpgLvl: 0
-  priceOfNextUpgradeLvl: 26390.043
-  defPrOfNxtUpgLvl: 400
+  priceOfNextUpgradeLvl: 5000
+  defPrOfNxtUpgLvl: 5000
   defCurUpgEff: 0
   maxUpgradeLvl: 8
   attributesIAffect: []

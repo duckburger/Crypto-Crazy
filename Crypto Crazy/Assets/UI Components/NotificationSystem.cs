@@ -184,11 +184,14 @@ public class NotificationSystem : MonoBehaviour {
             {
                 foreach(Attribute attr in notification.attributesIAffect)
                 {
+                    
                     if (attr.id == 0)
                     {
-                        button1.onClick.AddListener(() => miningController.AddPercentageToMiningSpeed(notification.button1EffectOnAttribute));
+                        // Mining speed effect
+                        button1.onClick.AddListener(() => miningController.IncreaseMinMaxMiningSpeed(notification.button1EffectOnAttribute));
                     } else if (attr.id == 1)
                     {
+                        // Dust timer effect
                         button1.onClick.AddListener(() => miningController.AddTimeToDustTimer((int)notification.button1EffectOnAttribute));
                     }
                 }

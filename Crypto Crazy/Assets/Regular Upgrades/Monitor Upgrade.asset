@@ -16,10 +16,10 @@ MonoBehaviour:
   descr: This thing helps you track your literal destiny and coin value in real time!
   miscText: 'NEXT UPGRADE:'
   defMiscText: 'NEXT UPGRADE: +2% mining speed'
-  currentUpgradeLvl: 17
+  currentUpgradeLvl: 0
   defCurUpgLvl: 0
-  priceOfNextUpgradeLvl: 50155.055
-  defPrOfNxtUpgLvl: 750
+  priceOfNextUpgradeLvl: 2000
+  defPrOfNxtUpgLvl: 2000
   defCurUpgEff: 0
   maxUpgradeLvl: 17
   attributesIAffect:

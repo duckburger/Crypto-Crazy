@@ -20,8 +20,8 @@ MonoBehaviour:
   defMiscText: 'NEXT UPGRADE: +2% mining speed'
   currentUpgradeLvl: 0
   defCurUpgLvl: 0
-  priceOfNextUpgradeLvl: 900
-  defPrOfNxtUpgLvl: 900
+  priceOfNextUpgradeLvl: 5000
+  defPrOfNxtUpgLvl: 5000
   defCurUpgEff: 0
   maxUpgradeLvl: 19
   attributesIAffect:

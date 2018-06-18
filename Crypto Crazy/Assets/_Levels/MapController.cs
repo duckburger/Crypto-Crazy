@@ -273,7 +273,7 @@ public class MapController : MonoBehaviour {
                     Rig currentRig = rigscript.me;
 
                     // MAKING THE NEW RIG ACTUALLY APPLY AN EFFECT TO THE MINING CONTROLLER
-                    miningControllerInstance.AddPercentageToMiningSpeed(currentRig.myEffectOnMining);
+                    miningControllerInstance.IncreaseMinMaxMiningSpeed(currentRig.myEffectOnMining);
 
                     // Sewnding the info to the UI element responsible for this rig
                     mapDelegateHolder.upgradedRigActions(rigSlot, currentRig);
@@ -323,10 +323,10 @@ public class MapController : MonoBehaviour {
                             
 
                         }
-
+                        // Getting info from one of the rigs in the bunch
                         RigScript rigSample = rigslotsInThisRackGroup[0];
                         // APPLYING THE UPGRADE'S EFFECTS (this will be multiplied by 3, because there are 3 rigs in each rack
-                        miningControllerInstance.AddPercentageToMiningSpeed(rigSample.me.myEffectOnMining * 3);
+                        miningControllerInstance.IncreaseMinMaxMiningSpeed(rigSample.me.myEffectOnMining * 3);
 
                         //Send in the info to the UI so it can be udpated with the newly updated rig info for this rag
                         Debug.Log("Spawning a " + rigslotsInThisRackGroup[0].me);
@@ -362,7 +362,7 @@ public class MapController : MonoBehaviour {
                     //Debug.Log("My rig id is now " + rig.me.id);
                     rig.RefreshIcon();
 
-                    miningControllerInstance.AddPercentageToMiningSpeed(rig.me.myEffectOnMining);
+                    miningControllerInstance.IncreaseMinMaxMiningSpeed(rig.me.myEffectOnMining);
 
                 }
                     Debug.Log("Spawning a " + rigslotsInThisRackGroup[0].me);

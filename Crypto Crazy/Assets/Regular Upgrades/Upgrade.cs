@@ -40,6 +40,11 @@ public class Upgrade : MonoBehaviour {
 
     }
 
+    float CalculatePriceOfNextBuilding(float initialCost, float costBase, float currentUpgrLvl)
+    {
+        return initialCost * Mathf.Pow(costBase, currentUpgrLvl + 1);
+    }
+
     private void RefreshUI()
     {
         titleField.text = myUpgrade.title;
@@ -88,11 +93,12 @@ public class Upgrade : MonoBehaviour {
             {
                 // Charging for the upgrade
                 myMiningController.currentBalance -= myUpgrade.priceOfNextUpgradeLvl;
-               
+
                 // TODO: Try some other math here
                 // Calculate the growth of the upgrade price
-                myUpgrade.priceOfNextUpgradeLvl += (myUpgrade.priceOfNextUpgradeLvl * pricePercentageGrowth / 100);
-                pricePercentageGrowth -= (pricePercentageGrowth * 40 / 100);
+                //myUpgrade.priceOfNextUpgradeLvl += (myUpgrade.priceOfNextUpgradeLvl * pricePercentageGrowth / 100);
+                myUpgrade.priceOfNextUpgradeLvl = CalculatePriceOfNextBuilding(myUpgrade.defPrOfNxtUpgLvl, 4, myUpgrade.currentUpgradeLvl);
+                //pricePercentageGrowth -= (pricePercentageGrowth * 40 / 100);
                 myUpgrade.currentUpgradeLvl++;
 
                 // APPLYING THE UPGRADE EFFECTS HERE
@@ -165,7 +171,7 @@ public class Upgrade : MonoBehaviour {
                 }
 
                 // Update the text on the button to display the price of the next step
-                buttonText.text = "BUY" + "\n" + myUpgrade.priceOfNextUpgradeLvl;
+                buttonText.text = "BUY" + "\n" + NumberConverter.ConvertNumber(myUpgrade.priceOfNextUpgradeLvl);
             }
             else
             {
@@ -187,7 +193,7 @@ public class Upgrade : MonoBehaviour {
                 // Mining speed
                 if (attribute.id == 0)
                 {  
-                    minContr.AddPercentageToMiningSpeed(myUpgrade.primaryListOfEffects[myUpgrade.currentUpgradeLvl]);
+                    minContr.IncreaseMinMaxMiningSpeed(myUpgrade.primaryListOfEffects[myUpgrade.currentUpgradeLvl]);
                 }
                 // Dust timer
                 if (attribute.id == 1)
