@@ -1772,7 +1772,6 @@ GameObject:
   - component: {fileID: 114246365065742554}
   - component: {fileID: 114741069814564448}
   - component: {fileID: 114731327645098004}
-  - component: {fileID: 114695960361050538}
   - component: {fileID: 114001931458256562}
   - component: {fileID: 114062880262895242}
   - component: {fileID: 114968822854528818}
@@ -7457,10 +7456,12 @@ MonoBehaviour:
   touchRect: {fileID: 224448799173659914}
   touchStartPos: {x: 0, y: 0}
   touchEndPos: {x: 0, y: 0}
-  isSpinning: 0
+  isCoinSpinning: 0
   hadEffectOnMineSpeed: 0
   currentLevel: {fileID: 0}
   myMiningController: {fileID: 11400000, guid: 873c1aa079dc5b5419d9a61efdea1c15, type: 2}
+  holdToSpin: 0
+  isHeldDown: 0
 --- !u!114 &114631417429264000
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -8071,28 +8072,6 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
---- !u!114 &114695960361050538
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1657202439975552}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d47d1a9c05498ce4faf5048c9e35c083, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  shortHands:
-  - Mlns
-  - Blns
-  - Trls
-  - Qdrls
-  - Qntls
-  - Sxtls
-  - Sptls
-  - Octls
-  - Nnls
-  - Dcls
 --- !u!114 &114698086106406968
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -8287,7 +8266,6 @@ MonoBehaviour:
   perSecondText: {fileID: 114527548087744650}
   currencyName: {fileID: 114678772932774012}
   myMiningController: {fileID: 11400000, guid: 873c1aa079dc5b5419d9a61efdea1c15, type: 2}
-  numberConverter: {fileID: 114695960361050538}
   sideMenuAnimator: {fileID: 0}
   rigsMenuAnimator: {fileID: 95608284269530318}
   sideMenuShown: 0

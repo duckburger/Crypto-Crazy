@@ -163,7 +163,6 @@ public class LevelUpgrader : MonoBehaviour {
                
             }
 
-
           // Setting the correct sprites for all items
           // TODO: implement here
         } 

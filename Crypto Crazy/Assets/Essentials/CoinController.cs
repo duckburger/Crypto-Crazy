@@ -50,26 +50,26 @@ public class CoinController : MonoBehaviour {
         {
             SetUpHoldToSpin();
         }
-            
-        HandlePreSpin();
+        else
+        {
+            HandlePreSpin();
+        }
 
-            
+
+
 
         // Handles the launch of the rotation
         if (Input.touchCount > 0 && RectTransformUtility.RectangleContainsScreenPoint(touchRect, Input.GetTouch(0).deltaPosition) 
             || RectTransformUtility.RectangleContainsScreenPoint(touchRect, Input.mousePosition))
         {
 
-            Debug.Log("Handling spin");
             if (holdToSpin && isHeldDown)
             {
                 CheckForHoldToSpin();
             }
             HandleSpin();
 
-            
         }
-            
 
         effectOnMiningSpeed = spinSpeed;
 
@@ -123,11 +123,10 @@ public class CoinController : MonoBehaviour {
         // Handle coin pre-spin animation through mouse clicks
         else if (Input.GetMouseButton(0))
         {
-            Debug.Log("Registered a drag for the coin");
 
             if (RectTransformUtility.RectangleContainsScreenPoint(touchRect, Input.mousePosition))
             {
-                coinAnimator.Play("Spinning", -1, Input.mousePosition.x / 10);
+                coinAnimator.Play("Spinning", -1, Input.mousePosition.x);
 
             }
 
@@ -153,9 +152,7 @@ public class CoinController : MonoBehaviour {
             //Debug.Log("Registered a click for the coin");
         }
 
-
-
-        if (Input.touchCount < 0 && Input.GetTouch(0).phase == TouchPhase.Ended)
+        if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended)
         {
             touchEndPos = Input.GetTouch(0).deltaPosition;
             CalculateMiningSpeedIncrease();
@@ -167,12 +164,10 @@ public class CoinController : MonoBehaviour {
             CalculateMiningSpeedIncrease();
         }
 
-
     }
 
     void SetUpHoldToSpin()
     {
-
         // Handle coin pre-spin animation through touch
         if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Stationary)
         {
@@ -195,7 +190,6 @@ public class CoinController : MonoBehaviour {
             }
             
         }
-
     }
 
     void CheckForHoldToSpin()
@@ -208,12 +202,11 @@ public class CoinController : MonoBehaviour {
             //Debug.Log("Registered a hold for the coin");
 
         }
-        else if (Input.GetMouseButtonDown(0))
+        else if (Input.GetMouseButton(0))
         {
             touchStartPos = Vector2.zero;
             isHeldDown = true;
             CalculateMiningSpeedIncrease();
-            //Debug.Log("Registered a hold for the coin");
         }
 
 
@@ -230,54 +223,48 @@ public class CoinController : MonoBehaviour {
             return;
         }
 
-        //if (!RectTransformUtility.RectangleContainsScreenPoint(touchRect, Input.GetTouch(0).position))
-        //{
-        //    isHeldDown = false;
-        //}
-        //else if (!RectTransformUtility.RectangleContainsScreenPoint(touchRect, Input.mousePosition))
-        //{
-        //    isHeldDown = false;
-        //}
-
-        
-
+        if (!RectTransformUtility.RectangleContainsScreenPoint(touchRect, Input.GetTouch(0).position))
+        {
+            isHeldDown = false;
+        }
+        else if (!RectTransformUtility.RectangleContainsScreenPoint(touchRect, Input.mousePosition))
+        {
+            isHeldDown = false;
+        }
 
     }
 
-   
 
     private void CalculateMiningSpeedIncrease()
     {
         float amountMoved = (touchEndPos - touchStartPos).magnitude;
-        if (!holdToSpin)
-        {
-            spinSpeed += amountMoved * 2 * Time.deltaTime;
-        }
-        else if (holdToSpin && isHeldDown)
+
+        if (holdToSpin && isHeldDown)
         {
             spinSpeed += myMiningController.miningSpeedIncreaseWhenHeld * Time.deltaTime;
+            Debug.Log("Spinspeed on hold is " + spinSpeed);
+        }
+        else if (!isHeldDown)
+        {
+            spinSpeed += amountMoved * Time.deltaTime;
         }
 
-        Debug.Log("Spinspeed is " + spinSpeed);
+        Debug.Log("Spinspeed afte adjustment is " + spinSpeed);
         spinSpeed = Mathf.Clamp(spinSpeed, 0, 10);
         coinAnimator.SetFloat("spinSpeed", spinSpeed);
 
-        
 
+        effectOnMiningSpeed = spinSpeed;
 
         //An increase calculator
 
         if (myMiningController.coinsPerSec < myMiningController.maximumCoinsPerSec - 2)
         {
-            if (myMiningController.coinsPerSec > 0 && myMiningController.coinsPerSec <= 10)
+            if (myMiningController.coinsPerSec > 0 && myMiningController.coinsPerSec <= 150)
             {
                 myMiningController.coinsPerSec += effectOnMiningSpeed;
             }
-            else if (myMiningController.coinsPerSec > 10 && myMiningController.coinsPerSec <= 50)
-            {
-                myMiningController.coinsPerSec += effectOnMiningSpeed * 2;
-            }
-            else if (myMiningController.coinsPerSec > 50 && myMiningController.coinsPerSec <= 500)
+            else if (myMiningController.coinsPerSec > 150 && myMiningController.coinsPerSec <= 500)
             {
                 myMiningController.coinsPerSec += effectOnMiningSpeed * 6;
             }
@@ -297,7 +284,6 @@ public class CoinController : MonoBehaviour {
             // Pause the mining amount at the top for a time
         }
 
-        effectOnMiningSpeed = spinSpeed;
 
         if (!hadEffectOnMineSpeed)
         {
@@ -324,7 +310,7 @@ public class CoinController : MonoBehaviour {
     {
         if (isCoinSpinning)
         {
-            spinSpeed -= Time.deltaTime * 1.5f;
+            spinSpeed -= Time.deltaTime;
             spinSpeed = Mathf.Clamp(spinSpeed, 0, 10);
             coinAnimator.SetFloat("spinSpeed", spinSpeed);
         }
