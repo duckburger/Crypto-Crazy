@@ -12,16 +12,18 @@ MonoBehaviour:
   m_Name: MiningController
   m_EditorClassIdentifier: 
   currencyName: Dudecoins
-  maximumCoinsPerSec: 200
-  currencyMined: 0
-  coinsPerSec: 50
-  dustTimer: 90
-  minCoinsPerSec: 200
+  maximumCoinsPerSec: 244.29129
+  currentBalance: 1332.099
+  coinsPerSec: 225.80208
+  miningSpeedIncreaseWhenHeld: 5
+  dustTimer: 165
+  minCoinsPerSec: 162.86084
   decreaseSpeed: 2
-  defMaxCoinsPerSecond: 150
-  defCurMin: 0
+  defMaxCoinsPerSecond: 15
+  defaultCurrentBalance: 0
   defCoinsPerSec: 50
+  defMiningSpeedIncreaseWhenHeld: 5
   defDecSpeed: 2
-  defMinCoinsPerSec: 100
+  defMinCoinsPerSec: 10
   defaultDustTimer: 90
   currentCurrencyExchangeRate: 0.0005

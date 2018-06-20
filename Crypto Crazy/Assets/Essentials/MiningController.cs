@@ -49,11 +49,10 @@ public class MiningController : MonoBehaviour {
         //}
     }
 
-    public void IncreaseMinMaxMiningSpeed (float percentageAmount)
+    public void IncreaseMinMaxMiningSpeed (float addition)
     {
-        Debug.Log("Added " + percentageAmount + "% to the max mining per sec speed");
-        myMiningController.minCoinsPerSec += (myMiningController.minCoinsPerSec / 100 * percentageAmount);
-        myMiningController.maximumCoinsPerSec += (myMiningController.maximumCoinsPerSec / 100 * percentageAmount);
+        myMiningController.minCoinsPerSec += addition;
+        myMiningController.maximumCoinsPerSec += addition;
     }
 
     public void AddTimeToDustTimer (int amount)

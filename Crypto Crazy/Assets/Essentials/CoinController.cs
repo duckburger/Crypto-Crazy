@@ -5,6 +5,7 @@ using UnityEngine;
 public class CoinController : MonoBehaviour {
 
     public Animator coinAnimator;
+    public Animator windFXAnimator;
     public float spinSpeed;
     public float effectOnMiningSpeed;
     public RectTransform touchRect;
@@ -115,8 +116,8 @@ public class CoinController : MonoBehaviour {
 
             if (RectTransformUtility.RectangleContainsScreenPoint(touchRect, Input.GetTouch(0).position))
             {
-                coinAnimator.Play("Spinning", -1, Input.GetTouch(0).position.x);
-
+                coinAnimator.Play("Spinning", -1, Input.GetTouch(0).position.x / 10);
+                windFXAnimator.SetFloat("spinSpeed", 0);
             }
 
         }
@@ -126,8 +127,8 @@ public class CoinController : MonoBehaviour {
 
             if (RectTransformUtility.RectangleContainsScreenPoint(touchRect, Input.mousePosition))
             {
-                coinAnimator.Play("Spinning", -1, Input.mousePosition.x);
-
+                coinAnimator.Play("Spinning", -1, Input.mousePosition.x / 10);
+                windFXAnimator.SetFloat("spinSpeed", 0);
             }
 
         }
@@ -242,17 +243,14 @@ public class CoinController : MonoBehaviour {
         if (holdToSpin && isHeldDown)
         {
             spinSpeed += myMiningController.miningSpeedIncreaseWhenHeld * Time.deltaTime;
-            Debug.Log("Spinspeed on hold is " + spinSpeed);
         }
         else if (!isHeldDown)
         {
             spinSpeed += amountMoved * Time.deltaTime;
         }
 
-        Debug.Log("Spinspeed afte adjustment is " + spinSpeed);
         spinSpeed = Mathf.Clamp(spinSpeed, 0, 10);
-        coinAnimator.SetFloat("spinSpeed", spinSpeed);
-
+        PassSpinSpeedToAnimators();
 
         effectOnMiningSpeed = spinSpeed;
 
@@ -312,7 +310,13 @@ public class CoinController : MonoBehaviour {
         {
             spinSpeed -= Time.deltaTime;
             spinSpeed = Mathf.Clamp(spinSpeed, 0, 10);
-            coinAnimator.SetFloat("spinSpeed", spinSpeed);
+            PassSpinSpeedToAnimators();
         }
+    }
+
+    void PassSpinSpeedToAnimators()
+    {
+        coinAnimator.SetFloat("spinSpeed", spinSpeed);
+        windFXAnimator.SetFloat("spinSpeed", spinSpeed);
     }
 }
