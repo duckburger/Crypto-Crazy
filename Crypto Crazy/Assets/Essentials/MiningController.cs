@@ -60,6 +60,11 @@ public class MiningController : MonoBehaviour {
         myMiningController.dustTimer += amount;
     }
 
+    public void AddPercentageToDustTimer (float percentage)
+    {
+        myMiningController.dustTimer += (myMiningController.dustTimer / 100) * percentage;
+    }
+
 
     // Update is called once per frame
     void Update () {

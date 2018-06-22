@@ -31,7 +31,12 @@ public class MiningControllerTemplate : ScriptableObject {
 
     public float currentCurrencyExchangeRate;
 
-    
+    [Header("Colors")]
+    public Color bgColor;
+    public Color positiveColor;
+    public Color negativeColor;
+    public Color yellowColor;
+    public Color orangeColor;
     
 
     private void OnEnable()

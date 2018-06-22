@@ -9,6 +9,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5c704ac76d53ccc439566949e539617e, type: 3}
-  m_Name: MiningSpeed
+  m_Name: CoolingTimer_id_1
   m_EditorClassIdentifier: 
-  id: 0
+  id: 1

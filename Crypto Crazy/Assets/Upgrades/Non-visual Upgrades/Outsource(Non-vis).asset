@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6cc24a6399647ee41b523c5b105e0e60, type: 3}
+  m_Name: Outsource(Non-vis)
+  m_EditorClassIdentifier: 
+  icon: {fileID: 21300000, guid: 9f81fa2889daf5d49a827bab6f15dab4, type: 3}
+  title: Outsource Mining to Russia
+  descr: Oursource some of your mining to a well-ventilated mining warehouse in Siberia.
+    'And no, of corz vee are leegal!'
+  miscText: 
+  defMiscText: 'Next Upgrade Level: +15% mining speed'
+  currentUpgradeLvl: 0
+  defCurUpgLvl: 0
+  priceOfNextUpgradeLvl: 100
+  defPrOfNxtUpgLvl: 100
+  defCurUpgEff: 0
+  maxUpgradeLvl: 49
+  attributesIAffect:
+  - {fileID: 11400000, guid: c830d208fc11c5543b65f7d049e52d89, type: 2}
+  buildingsISpawn: []
+  primaryListOfEffects: 000000000f0000000f0000000f0000000f0000000f0000000f0000000f0000000f0000000f0000000f0000000f0000000f0000000f0000000f0000000f0000000f0000000f0000000f0000000f0000000f0000000f0000000f0000000f0000000f0000000f0000000f0000000f0000000f0000000f0000000f0000000f0000000f0000000f0000000f0000000f0000000f0000000f0000000f0000000f0000000f0000000f0000000f0000000f0000000f0000000f0000000f0000000f0000000f0000000f000000
+  secondaryListOfEffects: 

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class Upgrade : MonoBehaviour {
 
@@ -11,16 +12,18 @@ public class Upgrade : MonoBehaviour {
     public MapController mapController;
     public GameEvent activationEvent;
    
-    public Text titleField;
-    public Text descriptionField;
-    public Text miscTextField;
+    public TextMeshProUGUI titleField;
+    public TextMeshProUGUI descriptionField;
+    public TextMeshProUGUI miscTextField;
+
+
 
 
     public Image icon;
     public Button upgradeButton;
-    public Text buttonText;
+    public TextMeshProUGUI buttonText;
     public Image upgradeLevelUI;
-    public Text currentEffectText;
+    public TextMeshProUGUI currentEffectText;
 
     public float pricePercentageGrowth;
 
@@ -151,7 +154,7 @@ public class Upgrade : MonoBehaviour {
 
                         //Debug.Log("Turnt off the " + myUpgrade.title + " button");
                         upgradeButton.GetComponent<Image>().color = Color.gray;
-
+                        buttonText.text = "MAX!";
                         Debug.Log("You've reached the maximum level for this upgrade right now");
                         return;
                     }
@@ -225,18 +228,12 @@ public class Upgrade : MonoBehaviour {
         {
             if (myUpgrade.priceOfNextUpgradeLvl < myMiningController.currentBalance)
             {
-                upgradeButton.GetComponent<Image>().color = Color.green;
+                upgradeButton.GetComponent<Image>().color = myMiningController.positiveColor;
             }
             else
             {
                 upgradeButton.GetComponent<Image>().color = Color.gray;
             }
-        }
-        else
-        {
-            upgradeButton.GetComponent<Image>().color = Color.gray;
-            buttonText.text = "Max upgrade" + "\n" +  "reached for this apartment!";
-           
         }
 		
 	}
