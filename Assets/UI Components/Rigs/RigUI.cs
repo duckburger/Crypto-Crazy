@@ -79,15 +79,23 @@ public class RigUI : MonoBehaviour {
 
         // If the center activate button is ON then give it a function of buying a brand new rig
         if (activateButton && !controllingRack)
+        {
             activateButton.onClick.AddListener(() => BuyARigFromScratch());
+        }
         else
+        {
             activateButton.gameObject.SetActive(false);
-
+        }
+            
         if (!controllingRack)
+        {
             mapDelegateHolder.upgradedRigActions += UpdateMyRigUI;
+        }
         else
+        {
             mapDelegateHolder.upgradedRackActions += UpdateMyRackUI;
-
+        }
+            
         InitizalizeTheUI();
     }
 
@@ -126,11 +134,12 @@ public class RigUI : MonoBehaviour {
             upgradeButton.GetComponent<Image>().color = Color.gray;
             upgradeButton.interactable = false;
             darkOverlay.gameObject.SetActive(true);
+            slotText.gameObject.SetActive(true);
 
         }
         else
         {
-            upgradeButton.GetComponent<Image>().color = Color.green;
+            upgradeButton.GetComponent<Image>().color = miningController.myMiningController.positiveColor;
             activateButton.gameObject.SetActive(false);
             slotText.gameObject.SetActive(false);
 
@@ -328,7 +337,7 @@ public class RigUI : MonoBehaviour {
         {
             if (miningController.myMiningController.currentBalance > 200)
             {
-                activateButton.GetComponent<Image>().color = Color.green;
+                activateButton.GetComponent<Image>().color = miningController.myMiningController.positiveColor;
             }
             else if (miningController.myMiningController.currentBalance < 200)
             {
@@ -349,7 +358,7 @@ public class RigUI : MonoBehaviour {
                        
                         if (currentMapController.rigSlots[myRigID.myControlID].GetComponentInChildren<RigScript>(true).me.priceOfNextUpgradeLvl < miningController.myMiningController.currentBalance)
                         {
-                            upgradeButton.GetComponent<Image>().color = Color.green;
+                            upgradeButton.GetComponent<Image>().color = miningController.myMiningController.positiveColor;
 
                         }
                         else
@@ -365,7 +374,7 @@ public class RigUI : MonoBehaviour {
                         if (currentMapController.rackSlots[myRackID.myControlID - 4].GetComponentInChildren<RigScript>(true).me.priceOfNextUpgradeLvl * 3 < miningController.myMiningController.currentBalance
                             && myRig.priceOfNextUpgradeLvl < miningController.myMiningController.currentBalance)
                         {
-                            upgradeButton.GetComponent<Image>().color = Color.green;
+                            upgradeButton.GetComponent<Image>().color = miningController.myMiningController.positiveColor;
                         }
                         else
                         {

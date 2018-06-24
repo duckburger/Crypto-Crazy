@@ -38,7 +38,7 @@ public class MapController : MonoBehaviour {
     public Transform monitorSlot;
     public GameObject hamster;
 
-    public Building rackPrefab;
+    public Building rackBuilding;
 
     [Header("Notifications")]
     public Notification firstRackInstallation;
@@ -386,7 +386,7 @@ public class MapController : MonoBehaviour {
     #region STORY RELATED FUNCTIONS
     public void AskAboutPartner()
     {
-        NotificationSystem.Instance.DisplayAChoiceNotification(firstRackInstallation, null, () => { SpawnAnItem(rackPrefab); KickOutThePartner(); });
+        NotificationSystem.Instance.DisplayAChoiceNotification(firstRackInstallation, null, () => { SpawnAnItem(rackBuilding); KickOutThePartner(); });
         partnerKickedOut = true;
     }
 
@@ -398,7 +398,7 @@ public class MapController : MonoBehaviour {
 
     public void AskAboutFurniture()
     {
-        NotificationSystem.Instance.DisplayAChoiceNotification(fifthRackInstallation, null, () => { SpawnAnItem(rackPrefab); GetRidOfFurniture(); });
+        NotificationSystem.Instance.DisplayAChoiceNotification(fifthRackInstallation, null, () => { SpawnAnItem(rackBuilding); GetRidOfFurniture(); });
         furnitureSold = true;
     }
 

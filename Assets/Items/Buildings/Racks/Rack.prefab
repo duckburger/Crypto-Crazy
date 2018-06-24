@@ -178,7 +178,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be9007b3b0741354aa20f3f9edfad027, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myRig: {fileID: 0}
+  myRig: {fileID: 1718482844624774}
   myOrderNumber: 0
 --- !u!114 &114361502399423398
 MonoBehaviour:
@@ -233,7 +233,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be9007b3b0741354aa20f3f9edfad027, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myRig: {fileID: 0}
+  myRig: {fileID: 1366969406576228}
   myOrderNumber: 0
 --- !u!114 &114735424291493796
 MonoBehaviour:
@@ -246,7 +246,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be9007b3b0741354aa20f3f9edfad027, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myRig: {fileID: 0}
+  myRig: {fileID: 1246812939362062}
   myOrderNumber: 0
 --- !u!114 &114839415424933730
 MonoBehaviour:
@@ -260,6 +260,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myRigs: []
+  myIndividualID: 
 --- !u!212 &212442784032826786
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -273,6 +274,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
@@ -317,6 +319,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
@@ -361,6 +364,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
@@ -405,6 +409,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:

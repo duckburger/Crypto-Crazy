@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using TMPro;
 public class ApartmentUpgrade : MonoBehaviour {
 
     public Image icon;
-    public Text title;
-    public Text descText;
-    public Text miscText;
+    public TextMeshProUGUI title;
+    public TextMeshProUGUI descText;
+    public TextMeshProUGUI miscText;
     public Button buyButton;
     public Image darkOverlay;
     public GameObject alreadyOwnedText;
@@ -42,14 +42,14 @@ public class ApartmentUpgrade : MonoBehaviour {
             title.text = myApartment.myTitle;
             descText.text = myApartment.myDescText;
 
-            buyButton.GetComponentInChildren<Text>().text = "BUY APARTMENT\n" + myApartment.myPrice;
+            buyButton.GetComponentInChildren<TextMeshProUGUI>().text = "BUY APARTMENT\n" + myApartment.myPrice;
         }
         else if (current)
         {
             darkOverlay.gameObject.SetActive(true);
             alreadyOwnedText.gameObject.SetActive(true);
 
-            buyButton.GetComponentInChildren<Text>().text = "...";
+            buyButton.GetComponentInChildren<TextMeshProUGUI>().text = "...";
             buyButton.interactable = false;
             buyButton.GetComponent<Image>().color = Color.gray;
         }
@@ -71,7 +71,7 @@ public class ApartmentUpgrade : MonoBehaviour {
             darkOverlay.gameObject.SetActive(true);
             alreadyOwnedText.gameObject.SetActive(true);
 
-            buyButton.GetComponentInChildren<Text>().text = "...";
+            buyButton.GetComponentInChildren<TextMeshProUGUI>().text = "...";
             buyButton.interactable = false;
             buyButton.GetComponent<Image>().color = Color.gray;
 
@@ -83,7 +83,7 @@ public class ApartmentUpgrade : MonoBehaviour {
                 current = false;
                 darkOverlay.gameObject.SetActive(true);
                 alreadyOwnedText.gameObject.SetActive(false);
-                buyButton.GetComponentInChildren<Text>().text = "...";
+                buyButton.GetComponentInChildren<TextMeshProUGUI>().text = "...";
                 buyButton.GetComponent<Image>().color = Color.gray;
             }     
             
@@ -111,7 +111,7 @@ public class ApartmentUpgrade : MonoBehaviour {
             else
             {
                 buyButton.interactable = true;
-                buyButton.GetComponent<Image>().color = Color.green;
+                buyButton.GetComponent<Image>().color = miningController.myMiningController.positiveColor;
             }
         }
        

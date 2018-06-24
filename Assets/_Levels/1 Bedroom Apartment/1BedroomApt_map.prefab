@@ -922,7 +922,7 @@ MonoBehaviour:
   deskSlot: {fileID: 4127436725830104}
   monitorSlot: {fileID: 4382665292972890}
   hamster: {fileID: 1676204307603856}
-  rackPrefab: {fileID: 11400000, guid: 759db3d60b9c86a42920f49adb286b74, type: 2}
+  rackBuilding: {fileID: 11400000, guid: 759db3d60b9c86a42920f49adb286b74, type: 2}
   firstRackInstallation: {fileID: 11400000, guid: 5caf87654412c2541825322e19f25d8f,
     type: 2}
   partnerKickedOut: 0
