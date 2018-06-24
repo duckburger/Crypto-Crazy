@@ -81,7 +81,7 @@ public class Upgrade : MonoBehaviour {
             // Here we have to check whether the current upgrade is making use of the second property list
             if (myUpgrade.secondaryListOfEffects.Count > 0)
             {
-                miscTextField.text += "\n" + "+" + myUpgrade.secondaryListOfEffects[myUpgrade.currentUpgradeLvl] + " secs to dust timer";
+                miscTextField.text += ", " + "+" + myUpgrade.secondaryListOfEffects[(int)myUpgrade.currentUpgradeLvl + 1] + " secs to dust timer";
             }
 
         }
@@ -188,7 +188,6 @@ public class Upgrade : MonoBehaviour {
         //Debug.Log("Registered a button press on " + myUpgrade.title);
         if (myAttributes.Count > 0)
         {
-
             // 0 - Mining speed
             // 1 - Cooling timer
             foreach(Attribute attribute in myAttributes)

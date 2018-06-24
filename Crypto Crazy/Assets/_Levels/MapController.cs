@@ -302,7 +302,6 @@ public class MapController : MonoBehaviour {
                     RigScript[] rigslotsInThisRackGroup;
                     // Collecting all the RIGSCRIPTS inside this RACKSLOT to the update them
                     rigslotsInThisRackGroup = slot.GetComponentsInChildren<RigScript>(true);
-                    //Debug.Log(rigslotsInThisRackGroup.Length);
 
                     // Find out if we have enough money to upgrade all the rigs in this group
                     if (rigslotsInThisRackGroup[0].me.priceOfNextUpgradeLvl * rigslotsInThisRackGroup.Length < miningControllerInstance.myMiningController.currentBalance)
@@ -319,9 +318,6 @@ public class MapController : MonoBehaviour {
                             rig.me = itemDatabase.rigTypes[rig.me.id + 1];
                             //Debug.Log("My rig id is now " + rig.me.id);
                             rig.RefreshIcon();
-
-                            
-
                         }
                         // Getting info from one of the rigs in the bunch
                         RigScript rigSample = rigslotsInThisRackGroup[0];
