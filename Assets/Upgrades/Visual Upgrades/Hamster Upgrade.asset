@@ -3,8 +3,9 @@
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -16,14 +17,16 @@ MonoBehaviour:
   descr: Sitting and mining crypto all day can get tedious. Get yourself a pet. Pets
     improve your mood, which means the slog of mining won't feel as tedious any more,
     somehow.
-  miscText: 'NEXT UPGRADE:'
-  defMiscText: 'NEXT UPGRADE: +2% mining speed'
+  miscText: 
+  defMiscText: 'Next Lvl: + 7 mining speed'
   currentUpgradeLvl: 0
   defCurUpgLvl: 0
   priceOfNextUpgradeLvl: 5000
   defPrOfNxtUpgLvl: 5000
   defCurUpgEff: 0
   maxUpgradeLvl: 19
+  accumulatedPrimUpgrEffect: 0
+  accumulatedSecUpgrEffect: 0
   attributesIAffect:
   - {fileID: 11400000, guid: c830d208fc11c5543b65f7d049e52d89, type: 2}
   buildingsISpawn: []

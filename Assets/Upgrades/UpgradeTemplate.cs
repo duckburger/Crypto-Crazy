@@ -10,7 +10,6 @@ public class UpgradeTemplate : ScriptableObject {
 
     public string title;
    
-
     [TextArea(3, 10)]
     public string descr;
 
@@ -29,6 +28,9 @@ public class UpgradeTemplate : ScriptableObject {
 
     public float maxUpgradeLvl;
 
+    public float accumulatedPrimUpgrEffect;
+    public float accumulatedSecUpgrEffect;
+
     public List<Attribute> attributesIAffect;
     public List<Building> buildingsISpawn;
     
@@ -43,6 +45,8 @@ public class UpgradeTemplate : ScriptableObject {
     {
         currentUpgradeLvl = defCurUpgLvl;
         priceOfNextUpgradeLvl = defPrOfNxtUpgLvl;
+        accumulatedPrimUpgrEffect = 0;
+        accumulatedSecUpgrEffect = 0;
 
         if (primaryListOfEffects.Count > 0)
         {
@@ -50,8 +54,47 @@ public class UpgradeTemplate : ScriptableObject {
         }
     }
 
+    public string GenerateNextUpgradeTextAnnouncement()
+    {
+        if (currentUpgradeLvl == maxUpgradeLvl)
+        {
+           return "MAX UPGRADE REACHED!";
+        }
+
+        if (primaryListOfEffects.Count > 0 && secondaryListOfEffects.Count > 0)
+        {
+            return "Next Lvl: " + "+ " + primaryListOfEffects[(int)currentUpgradeLvl + 1] + " mining speed" + ", +" + secondaryListOfEffects[(int)currentUpgradeLvl + 1] + "s to dust timer";
+        } 
+        else if (primaryListOfEffects.Count > 0 && secondaryListOfEffects.Count <= 0)
+        {
+            return "Next Lvl: " + "+ " + primaryListOfEffects[(int)currentUpgradeLvl + 1] + " mining speed";
+        }
+        else if (primaryListOfEffects.Count <= 0 && secondaryListOfEffects.Count > 0)
+        {
+            return "Next Lvl: " + "+" + secondaryListOfEffects[(int)currentUpgradeLvl + 1] + "s to dust timer";
+        }
+        return null;
+    }
     
-  
-
-
+    public string GenerateCurrentEffectTextAnnouncement()
+    {
+        if (primaryListOfEffects.Count > 0 && secondaryListOfEffects.Count > 0)
+        {
+            accumulatedPrimUpgrEffect += primaryListOfEffects[(int)currentUpgradeLvl];
+            accumulatedSecUpgrEffect += secondaryListOfEffects[(int)currentUpgradeLvl];
+            return "+" + accumulatedSecUpgrEffect + "," + "\n" + "+" + accumulatedSecUpgrEffect + "s";
+        }
+        else if (primaryListOfEffects.Count > 0 && secondaryListOfEffects.Count <= 0)
+        {
+            accumulatedPrimUpgrEffect += primaryListOfEffects[(int)currentUpgradeLvl];
+            return "+" + accumulatedPrimUpgrEffect;
+        }
+        else if (primaryListOfEffects.Count <= 0 && secondaryListOfEffects.Count > 0)
+        {
+            accumulatedSecUpgrEffect += secondaryListOfEffects[(int)currentUpgradeLvl];
+            return "+" + accumulatedSecUpgrEffect + "s";
+        }
+        return "";
+    }
+      
 }

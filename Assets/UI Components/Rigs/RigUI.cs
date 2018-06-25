@@ -189,8 +189,10 @@ public class RigUI : MonoBehaviour {
             isEnabled = true;
             InitizalizeTheUI();
             if (!controllingRack)
+            {
                 // Passing in my building type and my order number to the map controller
                 currentMapController.SpawnAnItem(myRig, myRigID.myControlID);
+            } 
         }
         else
         {
@@ -229,9 +231,6 @@ public class RigUI : MonoBehaviour {
                 return;
             }
 
-           
-
-                 
                  title.text = currentRigInfo.title;
                  description.text = currentRigInfo.myDescription;
                  miscText.text = "Next rig effect: \n" + "+" + currentRigInfo.myEffectOnMining + "% mining speed";
@@ -246,22 +245,11 @@ public class RigUI : MonoBehaviour {
                  upgradeLvlUI.fillAmount = (float)currentRigInfo.id / itemDatabase.rigTypes.Count;
                  myRig = currentRigInfo;
 
-
-          
-                
-              
-
-            
         }
     }
     #endregion
 
     #region RACK SPECIFIC FUNCTIONS
-
-
-
-
- 
 
     // This one is signed up to the UPGRADED A RACK delegate in the MapController
     public void UpdateMyRackUI(Rig currentRigInThisRack, int rackSlot = -1)
@@ -321,10 +309,6 @@ public class RigUI : MonoBehaviour {
             
         }
     }
-
-
-
-
 
     #endregion
 
@@ -394,4 +378,7 @@ public class RigUI : MonoBehaviour {
         
 
     }
+
+
+   
 }

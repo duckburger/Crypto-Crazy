@@ -12,16 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6987b4f1ac2adf49b2d6bd10bfaaa1b, type: 3}
   m_Name: MiningController
   m_EditorClassIdentifier: 
-  currencyName: Hello
-  maximumCoinsPerSec: 15
-  currentBalance: 3.009495e+9
-  coinsPerSec: 10
+  currencyName: Testcoin
+  maximumCoinsPerSec: 30
+  currentBalance: 606.63995
+  coinsPerSec: 27.842794
   miningSpeedIncreaseWhenHeld: 5
   dustTimer: 90
-  minCoinsPerSec: 10
+  minCoinsPerSec: 25
   decreaseSpeed: 2
   defMaxCoinsPerSecond: 15
-  defaultCurrentBalance: 0
+  defaultCurrentBalance: 450
   defCoinsPerSec: 50
   defMiningSpeedIncreaseWhenHeld: 5
   defDecSpeed: 2

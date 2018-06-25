@@ -27,8 +27,6 @@ public class Upgrade : MonoBehaviour {
 
     public float pricePercentageGrowth;
 
-    [SerializeField]
-    private float tempEffectPercentage;
     // Use this for initialization
     void Start()
     {
@@ -66,25 +64,16 @@ public class Upgrade : MonoBehaviour {
 
         upgradeLevelUI.fillAmount = myUpgrade.currentUpgradeLvl / myUpgrade.maxUpgradeLvl;
 
-        // TODO: Figure out a better way to make this tell what to display in the MISC TEXT and the UPGRADE LVL
-        if (myUpgrade.primaryListOfEffects.Count == 0)
+        if (myUpgrade.primaryListOfEffects.Count == 0 && myUpgrade.secondaryListOfEffects.Count == 0)
         {
             currentEffectText.text = myUpgrade.currentUpgradeLvl.ToString();
             miscTextField.text = myUpgrade.miscText + " " + myUpgrade.maxUpgradeLvl;
         }
         else
         {
-            tempEffectPercentage = myUpgrade.primaryListOfEffects[(int)myUpgrade.currentUpgradeLvl];
-            currentEffectText.text = "+ " + tempEffectPercentage.ToString() + "%";
-            miscTextField.text = myUpgrade.miscText + " " + myUpgrade.primaryListOfEffects[(int)myUpgrade.currentUpgradeLvl + 1] + "% mining speed";
-
-            // Here we have to check whether the current upgrade is making use of the second property list
-            if (myUpgrade.secondaryListOfEffects.Count > 0)
-            {
-                miscTextField.text += ", " + "+" + myUpgrade.secondaryListOfEffects[(int)myUpgrade.currentUpgradeLvl + 1] + " secs to dust timer";
-            }
-
-        }
+            currentEffectText.text = myUpgrade.GenerateCurrentEffectTextAnnouncement();
+            miscTextField.text = myUpgrade.GenerateNextUpgradeTextAnnouncement();
+        } 
     }
 
     // TODO: Pull the ui updating methods out of here
@@ -96,70 +85,35 @@ public class Upgrade : MonoBehaviour {
             {
                 // Charging for the upgrade
                 myMiningController.currentBalance -= myUpgrade.priceOfNextUpgradeLvl;
-
-                // TODO: Try some other math here
                 // Calculate the growth of the upgrade price
-                //myUpgrade.priceOfNextUpgradeLvl += (myUpgrade.priceOfNextUpgradeLvl * pricePercentageGrowth / 100);
                 myUpgrade.priceOfNextUpgradeLvl = CalculatePriceOfNextBuilding(myUpgrade.defPrOfNxtUpgLvl, 4, myUpgrade.currentUpgradeLvl);
-                //pricePercentageGrowth -= (pricePercentageGrowth * 40 / 100);
                 myUpgrade.currentUpgradeLvl++;
-
                 // APPLYING THE UPGRADE EFFECTS HERE
                 ApplyMyEffectsToGame(myUpgrade.attributesIAffect, myUpgrade.buildingsISpawn);
-
                 upgradeLevelUI.fillAmount = myUpgrade.currentUpgradeLvl / myUpgrade.maxUpgradeLvl;
 
             // IF THIS UPGRADE ONLY BUILDS STUFF...
             if (myUpgrade.attributesIAffect.Count <= 0)
+            {
+            // Updating the text for the current and next effect if this is a building only upgrade
+                currentEffectText.text = myUpgrade.currentUpgradeLvl.ToString();
+                miscTextField.text = myUpgrade.miscText + " " + myUpgrade.maxUpgradeLvl;
+            }
+            else
+            {   // ...IF THIS UPGRADE ALSO AFFECTS ATTRIBUTES
+                // If this has been the last upgrade then turn the button off and make it gray
+                if (myUpgrade.currentUpgradeLvl == myUpgrade.maxUpgradeLvl)
                 {
-                // Updating the text for the current and next effect if this is a building only upgrade
-                    currentEffectText.text = myUpgrade.currentUpgradeLvl.ToString();
-                    miscTextField.text = myUpgrade.miscText + " " + myUpgrade.maxUpgradeLvl;
+                    miscTextField.text = myUpgrade.GenerateNextUpgradeTextAnnouncement();
+                    upgradeButton.interactable = false;
+
+                    //Debug.Log("Turnt off the " + myUpgrade.title + " button");
+                    upgradeButton.GetComponent<Image>().color = Color.gray;
+                    return;
                 }
-
-                // ...IF THIS UPGRADE ALSO AFFECTS ATTRIBUTES
-                else
-                {
-                    // If this has been the last upgrade then turn the button off and make it gray
-                    if (myUpgrade.currentUpgradeLvl == myUpgrade.maxUpgradeLvl)
-                    {
-                        miscTextField.text = "MAX UPGRADE REACHED!";
-                        upgradeButton.interactable = false;
-
-                        //Debug.Log("Turnt off the " + myUpgrade.title + " button");
-                        upgradeButton.GetComponent<Image>().color = Color.gray;
-                        return;
-                    }
-                // This calculates the next effect of the upgrade and display it in the UI
-                tempEffectPercentage += myUpgrade.primaryListOfEffects[myUpgrade.currentUpgradeLvl];
-                currentEffectText.text = "+ " + (tempEffectPercentage).ToString() + "%";
-  
-                    if (myUpgrade.currentUpgradeLvl < myUpgrade.primaryListOfEffects.Count)
-                    {
-                        miscTextField.text = myUpgrade.miscText + " " + myUpgrade.primaryListOfEffects[myUpgrade.currentUpgradeLvl] + "% mining speed";
-                        
-                        // We have to check whether the current upgrade is making use of the second property list
-                        if (myUpgrade.secondaryListOfEffects.Count > 0)
-                        {
-                        // TODO: make this independent
-                        miscTextField.text += "\n" + "+" + myUpgrade.secondaryListOfEffects[myUpgrade.currentUpgradeLvl] + " secs to dust timer";
-                        }
-
-                    }
-                    else
-                    {
-                        miscTextField.text = "MAX UPGRADE REACHED!";
-
-                        upgradeButton.interactable = false;
-
-                        //Debug.Log("Turnt off the " + myUpgrade.title + " button");
-                        upgradeButton.GetComponent<Image>().color = Color.gray;
-                        buttonText.text = "MAX!";
-                        Debug.Log("You've reached the maximum level for this upgrade right now");
-                        return;
-                    }
-
-                }
+                currentEffectText.text = myUpgrade.GenerateCurrentEffectTextAnnouncement();
+                miscTextField.text = myUpgrade.GenerateNextUpgradeTextAnnouncement();    
+            }
             
                 // Check if after applying this upgrade we've reached the maximum one
                 if (myUpgrade.currentUpgradeLvl == myUpgrade.maxUpgradeLvl)
@@ -167,12 +121,9 @@ public class Upgrade : MonoBehaviour {
 
                 // Turn off the button if we reached max upgrade
                     upgradeButton.interactable = false;
-
-                    //Debug.Log("Turnt off the " + myUpgrade.title + " button");
                     upgradeButton.GetComponent<Image>().color = Color.gray;
                     return;
                 }
-
                 // Update the text on the button to display the price of the next step
                 buttonText.text = "BUY" + "\n" + NumberConverter.ConvertNumber(myUpgrade.priceOfNextUpgradeLvl);
             }

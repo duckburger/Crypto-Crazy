@@ -3,8 +3,9 @@
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -14,14 +15,16 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: 10a36340bc293824daa1a974fa3b80f3, type: 3}
   title: Your Monitor
   descr: This thing helps you track your literal destiny and coin value in real time!
-  miscText: 'NEXT UPGRADE:'
-  defMiscText: 'NEXT UPGRADE: +2% mining speed'
+  miscText: 
+  defMiscText: 'Next Lvl: + 7 mining speed'
   currentUpgradeLvl: 0
   defCurUpgLvl: 0
   priceOfNextUpgradeLvl: 2000
   defPrOfNxtUpgLvl: 2000
   defCurUpgEff: 0
   maxUpgradeLvl: 17
+  accumulatedPrimUpgrEffect: 0
+  accumulatedSecUpgrEffect: 0
   attributesIAffect:
   - {fileID: 11400000, guid: c830d208fc11c5543b65f7d049e52d89, type: 2}
   buildingsISpawn:

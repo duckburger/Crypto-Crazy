@@ -3,8 +3,9 @@
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -16,15 +17,17 @@ MonoBehaviour:
   descr: Cleaning the house is boring, tiring, and takes away your precious time.
     There are people you can pay to do this, you know...
   miscText: 
-  defMiscText: 'Next Upgrade Level: -5% dust timer'
+  defMiscText: 'Next Upgrade Level: +5s dust timer'
   currentUpgradeLvl: 0
   defCurUpgLvl: 0
   priceOfNextUpgradeLvl: 200
   defPrOfNxtUpgLvl: 200
   defCurUpgEff: 0
   maxUpgradeLvl: 19
+  accumulatedPrimUpgrEffect: 0
+  accumulatedSecUpgrEffect: 0
   attributesIAffect:
   - {fileID: 11400000, guid: 73cc4c5cf04934940a0e2d9c295242c6, type: 2}
   buildingsISpawn: []
-  primaryListOfEffects: 0000000005000000050000000500000005000000050000000500000005000000050000000500000005000000050000000500000005000000050000000500000005000000050000000500000005000000
-  secondaryListOfEffects: 
+  primaryListOfEffects: 
+  secondaryListOfEffects: 0000000005000000050000000500000005000000050000000500000005000000050000000500000005000000050000000500000005000000050000000500000005000000050000000500000005000000

@@ -3,8 +3,9 @@
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -14,14 +15,16 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: d0f58a29d9182164db0bd87500cecc33, type: 3}
   title: Your Chair
   descr: Having a comfier chair contributes to faster mining... somehow
-  miscText: 'NEXT UPGRADE: '
-  defMiscText: 'NEXT UPGRADE: +2% mining speed'
-  currentUpgradeLvl: 1
+  miscText: 
+  defMiscText: 'Next Lvl: + 5 mining speed'
+  currentUpgradeLvl: 0
   defCurUpgLvl: 0
-  priceOfNextUpgradeLvl: 200
+  priceOfNextUpgradeLvl: 50
   defPrOfNxtUpgLvl: 50
   defCurUpgEff: 0
   maxUpgradeLvl: 17
+  accumulatedPrimUpgrEffect: 0
+  accumulatedSecUpgrEffect: 0
   attributesIAffect:
   - {fileID: 11400000, guid: c830d208fc11c5543b65f7d049e52d89, type: 2}
   buildingsISpawn:

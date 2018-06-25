@@ -157,7 +157,7 @@ public class MapController : MonoBehaviour {
 
                     
                     // This line sets up the pricing for consequtive rigs
-                    itemDatabase.rigTypes[1].priceOfNextUpgradeLvl = (slot.GetComponentInChildren<RigScript>(true).me.priceOfNextUpgradeLvl * pricePercentageGrowth / 100);
+                    itemDatabase.rigTypes[1].priceOfNextUpgradeLvl = CalculatePriceOfNextBuilding(itemDatabase.rigTypes[0].priceOfNextUpgradeLvl, 1.5f, 2); 
 
                     //Debug.Log(slot.GetComponentInChildren<RigScript>(true).me);
                     
@@ -210,7 +210,7 @@ public class MapController : MonoBehaviour {
                 slot.GetComponentInChildren<RigScript>(true).RefreshIcon();
 
                 // This line sets up the pricing for consequtive rigs
-                itemDatabase.rigTypes[1].priceOfNextUpgradeLvl = (slot.GetComponentInChildren<RigScript>(true).me.priceOfNextUpgradeLvl * pricePercentageGrowth / 100);
+                itemDatabase.rigTypes[1].priceOfNextUpgradeLvl = CalculatePriceOfNextBuilding(itemDatabase.rigTypes[0].priceOfNextUpgradeLvl, 1.5f, 2);
                 mapDelegateHolder.upgradedRigActions(uiSlot, slot.GetComponentInChildren<RigScript>(true).me);
                 return;
                 }
@@ -268,7 +268,7 @@ public class MapController : MonoBehaviour {
 
 
                     // Here we calculate the price of the next ugprade after the one we've just installed
-                    rigscript.me.priceOfNextUpgradeLvl = (thisUpgradePrice * pricePercentageGrowth / 100);
+                    rigscript.me.priceOfNextUpgradeLvl = CalculatePriceOfNextBuilding(itemDatabase.rigTypes[0].priceOfNextUpgradeLvl, 1.5f, rigscript.me.id + 1);
                     //pricePercentageGrowth -= (pricePercentageGrowth * 20 / 100);
                     Rig currentRig = rigscript.me;
 
@@ -408,5 +408,11 @@ public class MapController : MonoBehaviour {
         
     }
 
-    #endregion  
+    #endregion
+
+
+    float CalculatePriceOfNextBuilding(float initialCost, float costBase, float currentUpgrLvl)
+    {
+        return initialCost * Mathf.Pow(costBase, currentUpgrLvl + 1);
+    }
 }

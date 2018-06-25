@@ -767,7 +767,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1512576908485532, guid: ee5bddb390d02b944932d2eaffdcff9c, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224890931132380008, guid: ee5bddb390d02b944932d2eaffdcff9c,
         type: 3}
@@ -781,11 +781,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1362911849660248, guid: ee5bddb390d02b944932d2eaffdcff9c, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1075208110945916, guid: ee5bddb390d02b944932d2eaffdcff9c, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114146481771730706, guid: ee5bddb390d02b944932d2eaffdcff9c,
         type: 3}
@@ -1032,6 +1032,16 @@ PrefabInstance:
         type: 3}
       propertyPath: current
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114644095556751490, guid: ee5bddb390d02b944932d2eaffdcff9c,
+        type: 3}
+      propertyPath: m_text
+      value: 'NEXT UPGRADE: +5s dust timer'
+      objectReference: {fileID: 0}
+    - target: {fileID: 114315616696270528, guid: ee5bddb390d02b944932d2eaffdcff9c,
+        type: 3}
+      propertyPath: m_text
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114336185325085574, guid: ee5bddb390d02b944932d2eaffdcff9c, type: 3}
