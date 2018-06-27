@@ -8,7 +8,6 @@ public class MiningController : MonoBehaviour {
 
     public MiningControllerTemplate myMiningController;
 
-    
 
     private void LateUpdate()
     {
@@ -49,6 +48,8 @@ public class MiningController : MonoBehaviour {
         //}
     }
 
+    #region Upgrade functions
+
     public void IncreaseMinMaxMiningSpeed (float addition)
     {
         myMiningController.minCoinsPerSec += addition;
@@ -64,6 +65,39 @@ public class MiningController : MonoBehaviour {
     {
         myMiningController.dustTimer += (myMiningController.dustTimer / 100) * percentage;
     }
+
+    public void DoubleARandomRigRack()
+    {
+        MapController mapController = FindObjectOfType<MapController>();
+        int choice = Random.Range(0, 1);
+        if (choice == 0 && mapController.racksBuilt > 0)
+        {
+            // Apply to a random rack
+            int rackChoice = Random.Range(0, mapController.racksBuilt - 1);
+            RigScript[] rigsInRack = mapController.rackSlots[rackChoice].GetComponentsInChildren<RigScript>();
+            int effectOnMining = 0;
+            foreach (RigScript script in rigsInRack)
+            {
+                effectOnMining += script.me.myEffectOnMining;
+            }
+            Debug.Log("Applying " + effectOnMining + " points to miningPerSec stat through a random doubler");
+            IncreaseMinMaxMiningSpeed(effectOnMining);
+
+        } 
+        else
+        {
+            int rigChoice = Random.Range(0, mapController.rigsBuilt - 1);
+            RigScript rig = mapController.rigSlots[rigChoice].GetComponentInChildren<RigScript>();
+            int effectOnMining = rig.me.myEffectOnMining;
+            Debug.Log("Applying " + effectOnMining + " points to miningPerSec stat through a random doubler");
+            IncreaseMinMaxMiningSpeed(effectOnMining);
+        }
+
+    }
+
+    
+
+    #endregion
 
 
     // Update is called once per frame

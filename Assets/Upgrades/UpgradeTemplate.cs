@@ -21,6 +21,7 @@ public class UpgradeTemplate : ScriptableObject {
     public int currentUpgradeLvl;
     public int defCurUpgLvl;
 
+    public float costBase; // This detemines how quickly the cost grows for this upgrade
     public float priceOfNextUpgradeLvl;
     public float defPrOfNxtUpgLvl;
 
@@ -31,7 +32,7 @@ public class UpgradeTemplate : ScriptableObject {
     public float accumulatedPrimUpgrEffect;
     public float accumulatedSecUpgrEffect;
 
-    public List<Attribute> attributesIAffect;
+    public List<Attribute> myApplications;
     public List<Building> buildingsISpawn;
     
     [Tooltip("If this list has 0 elements, than the upgrade does not affect the mining speed.")]
@@ -73,6 +74,12 @@ public class UpgradeTemplate : ScriptableObject {
         {
             return "Next Lvl: " + "+" + secondaryListOfEffects[(int)currentUpgradeLvl + 1] + "s to dust timer";
         }
+        // Doubler
+        if (myApplications[0].id == 2)
+        {
+            return "Next lvl: Next lvl: 2x on a random rig or rack";
+        }
+
         return null;
     }
     
@@ -93,6 +100,12 @@ public class UpgradeTemplate : ScriptableObject {
         {
             accumulatedSecUpgrEffect += secondaryListOfEffects[(int)currentUpgradeLvl];
             return "+" + accumulatedSecUpgrEffect + "s";
+        }
+
+        // Doubler
+        if (myApplications[0].id == 2)
+        {
+            return "2x";
         }
         return "";
     }

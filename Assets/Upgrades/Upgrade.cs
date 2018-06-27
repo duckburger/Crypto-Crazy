@@ -43,6 +43,7 @@ public class Upgrade : MonoBehaviour {
 
     float CalculatePriceOfNextBuilding(float initialCost, float costBase, float currentUpgrLvl)
     {
+        // cost = first item cost * costBase ^ amount of this upgrade currently owned
         return initialCost * Mathf.Pow(costBase, currentUpgrLvl + 1);
     }
 
@@ -86,14 +87,14 @@ public class Upgrade : MonoBehaviour {
                 // Charging for the upgrade
                 myMiningController.currentBalance -= myUpgrade.priceOfNextUpgradeLvl;
                 // Calculate the growth of the upgrade price
-                myUpgrade.priceOfNextUpgradeLvl = CalculatePriceOfNextBuilding(myUpgrade.defPrOfNxtUpgLvl, 4, myUpgrade.currentUpgradeLvl);
+                myUpgrade.priceOfNextUpgradeLvl = CalculatePriceOfNextBuilding(myUpgrade.defPrOfNxtUpgLvl, myUpgrade.costBase, myUpgrade.currentUpgradeLvl);
                 myUpgrade.currentUpgradeLvl++;
                 // APPLYING THE UPGRADE EFFECTS HERE
-                ApplyMyEffectsToGame(myUpgrade.attributesIAffect, myUpgrade.buildingsISpawn);
+                ApplyMyEffectsToGame(myUpgrade.myApplications, myUpgrade.buildingsISpawn);
                 upgradeLevelUI.fillAmount = myUpgrade.currentUpgradeLvl / myUpgrade.maxUpgradeLvl;
 
             // IF THIS UPGRADE ONLY BUILDS STUFF...
-            if (myUpgrade.attributesIAffect.Count <= 0)
+            if (myUpgrade.myApplications.Count <= 0)
             {
             // Updating the text for the current and next effect if this is a building only upgrade
                 currentEffectText.text = myUpgrade.currentUpgradeLvl.ToString();
@@ -106,7 +107,7 @@ public class Upgrade : MonoBehaviour {
                 {
                     miscTextField.text = myUpgrade.GenerateNextUpgradeTextAnnouncement();
                     upgradeButton.interactable = false;
-
+                    buttonText.text = "MAX UPGRADE PURCHASED";
                     //Debug.Log("Turnt off the " + myUpgrade.title + " button");
                     upgradeButton.GetComponent<Image>().color = Color.gray;
                     return;
@@ -152,6 +153,11 @@ public class Upgrade : MonoBehaviour {
                 if (attribute.id == 1)
                 {
                     minContr.AddTimeToDustTimer(myUpgrade.secondaryListOfEffects[myUpgrade.currentUpgradeLvl]);
+                }
+                // Apply a random doubler or a rig/rack
+                if (attribute.id == 2)
+                {
+                    minContr.DoubleARandomRigRack();
                 }
 
                 

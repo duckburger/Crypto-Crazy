@@ -3,26 +3,31 @@
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6cc24a6399647ee41b523c5b105e0e60, type: 3}
   m_Name: RandomRigDoubler
   m_EditorClassIdentifier: 
-  icon: {fileID: 0}
-  title: 
-  descr: 
-  miscText: 
-  defMiscText: 
+  icon: {fileID: 21300000, guid: 9c8e7e723431c1445bdb175f9392906b, type: 3}
+  title: Rack Boost
+  descr: Apply a permanent  double mining effect bonus to a random rack/rig you own.
+  miscText: 'Next lvl: 2x on a random rig or rack'
+  defMiscText: 'Next lvl: 2x on a random rig or rack'
   currentUpgradeLvl: 0
   defCurUpgLvl: 0
-  priceOfNextUpgradeLvl: 0
-  defPrOfNxtUpgLvl: 0
+  costBase: 1.1
+  priceOfNextUpgradeLvl: 3500
+  defPrOfNxtUpgLvl: 3500
   defCurUpgEff: 0
-  maxUpgradeLvl: 0
-  attributesIAffect: []
+  maxUpgradeLvl: 9
+  accumulatedPrimUpgrEffect: 0
+  accumulatedSecUpgrEffect: 0
+  myApplications:
+  - {fileID: 11400000, guid: 01b07012bf7622c4d880eda9f2afdf1a, type: 2}
   buildingsISpawn: []
   primaryListOfEffects: 
   secondaryListOfEffects: 

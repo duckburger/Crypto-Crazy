@@ -3,8 +3,9 @@
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -18,11 +19,14 @@ MonoBehaviour:
   defMiscText: 'CURRENT APARTMENT FITS:'
   currentUpgradeLvl: 0
   defCurUpgLvl: 0
+  costBase: 1.12
   priceOfNextUpgradeLvl: 5000
   defPrOfNxtUpgLvl: 5000
   defCurUpgEff: 0
   maxUpgradeLvl: 8
-  attributesIAffect: []
+  accumulatedPrimUpgrEffect: 0
+  accumulatedSecUpgrEffect: 0
+  myApplications: []
   buildingsISpawn:
   - {fileID: 11400000, guid: 759db3d60b9c86a42920f49adb286b74, type: 2}
   primaryListOfEffects: 

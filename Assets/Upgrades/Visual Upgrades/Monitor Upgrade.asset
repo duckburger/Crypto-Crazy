@@ -19,13 +19,14 @@ MonoBehaviour:
   defMiscText: 'Next Lvl: + 7 mining speed'
   currentUpgradeLvl: 0
   defCurUpgLvl: 0
+  costBase: 1.08
   priceOfNextUpgradeLvl: 2000
   defPrOfNxtUpgLvl: 2000
   defCurUpgEff: 0
   maxUpgradeLvl: 17
   accumulatedPrimUpgrEffect: 0
   accumulatedSecUpgrEffect: 0
-  attributesIAffect:
+  myApplications:
   - {fileID: 11400000, guid: c830d208fc11c5543b65f7d049e52d89, type: 2}
   buildingsISpawn:
   - {fileID: 11400000, guid: ba24fb20b6931fa4b98c49be43568a2a, type: 2}
