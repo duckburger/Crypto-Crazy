@@ -20,8 +20,8 @@ MonoBehaviour:
   currentUpgradeLvl: 0
   defCurUpgLvl: 0
   costBase: 1.12
-  priceOfNextUpgradeLvl: 5000
-  defPrOfNxtUpgLvl: 5000
+  priceOfNextUpgradeLvl: 6500
+  defPrOfNxtUpgLvl: 6500
   defCurUpgEff: 0
   maxUpgradeLvl: 8
   accumulatedPrimUpgrEffect: 0

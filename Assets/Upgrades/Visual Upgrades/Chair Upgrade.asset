@@ -20,8 +20,8 @@ MonoBehaviour:
   currentUpgradeLvl: 0
   defCurUpgLvl: 0
   costBase: 1.17
-  priceOfNextUpgradeLvl: 50
-  defPrOfNxtUpgLvl: 50
+  priceOfNextUpgradeLvl: 500
+  defPrOfNxtUpgLvl: 500
   defCurUpgEff: 0
   maxUpgradeLvl: 17
   accumulatedPrimUpgrEffect: 0
@@ -30,5 +30,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: c830d208fc11c5543b65f7d049e52d89, type: 2}
   buildingsISpawn:
   - {fileID: 11400000, guid: 1b096859d5259444aaa6a219411e1845, type: 2}
-  primaryListOfEffects: 000000000500000005000000050000000500000005000000050000000500000005000000050000000500000005000000050000000500000005000000050000000500000005000000
+  primaryListOfEffects: 000000000f0000000f0000000f0000000f0000000f0000000f0000000f0000000f0000000f0000000f0000000f0000000f0000000f0000000f0000000f0000000f0000000f000000
   secondaryListOfEffects: 

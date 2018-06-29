@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: MiningController
   m_EditorClassIdentifier: 
   currencyName: Testcoin
-  maximumCoinsPerSec: 72
-  currentBalance: 1751.1438
-  coinsPerSec: 27.363634
+  maximumCoinsPerSec: 10
+  currentBalance: 52.168987
+  coinsPerSec: 12.19143
   miningSpeedIncreaseWhenHeld: 5
   dustTimer: 90
-  minCoinsPerSec: 27.363634
+  minCoinsPerSec: 1
   decreaseSpeed: 2
   defMaxCoinsPerSecond: 14
   defaultCurrentBalance: 0
