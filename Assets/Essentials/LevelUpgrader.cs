@@ -102,7 +102,7 @@ public class LevelUpgrader : MonoBehaviour {
         }
 
         // Propogating the new mapcontroller to all the upgrade buttons
-        upgradeButtons = menuController.upgradesMenu.GetComponentsInChildren<Upgrade>(true);
+        upgradeButtons = menuController.visualUpgradesMenu.GetComponentsInChildren<Upgrade>(true);
 
         foreach (Upgrade upgradeBtnController in upgradeButtons)
         {

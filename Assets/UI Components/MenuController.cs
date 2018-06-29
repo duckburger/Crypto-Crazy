@@ -4,14 +4,14 @@ using UnityEngine.UI;
 
 public class MenuController : MonoBehaviour {
 
-    public GameObject upgradesMenu;
-    public GameObject realEstateMenu;
-    public GameObject miscMenu;
-    public GameObject rigsMenu;
-    public GameObject Menu5;
-    public GameObject Menu6;
+    public Canvas visualUpgradesMenu;
+    public Canvas realEstateMenu;
+    public Canvas nonVisualUpgradesMenu;
+    public Canvas rigsMenu;
+    public Canvas Menu5;
+    public Canvas Menu6;
     public NotificationSystem notificationSystem;
-    public List<GameObject> menus = new List<GameObject>();
+    public List<Canvas> menus = new List<Canvas>();
     public bool isMenuOpen;
 
     [SerializeField] ScrollRect upgradeMenuScrollRect;
@@ -20,9 +20,9 @@ public class MenuController : MonoBehaviour {
 
     void Start()
     {
-        menus.Add(upgradesMenu);
+        menus.Add(visualUpgradesMenu);
         menus.Add(realEstateMenu);
-        menus.Add(miscMenu);
+        menus.Add(nonVisualUpgradesMenu);
         menus.Add(rigsMenu);
         menus.Add(Menu5);
         menus.Add(Menu6);
@@ -30,22 +30,22 @@ public class MenuController : MonoBehaviour {
     }
 
     // This will close all menus if nothing is passed in
-    public void CloseAllOtherMenus(GameObject currentMenu = null)
+    public void CloseAllOtherMenus(Canvas currentMenu = null)
     {
         if (currentMenu != null)
         {
-            foreach (GameObject menu in menus)
+            foreach (Canvas menu in menus)
             {
                 if (menu != currentMenu)
                 {
-                    menu.SetActive(false);
+                    menu.enabled = false;
                 }
             }
         } else
         {
-            foreach (GameObject menu in menus)
+            foreach (Canvas menu in menus)
             {
-                menu.SetActive(false);
+                menu.enabled = false;
             }
         }
         isMenuOpen = true;
@@ -63,69 +63,69 @@ public class MenuController : MonoBehaviour {
 
     public void CloseAllMenus()
     {
-        foreach (GameObject menu in menus)
+        foreach (Canvas menu in menus)
         {
-            menu.SetActive(false);  
+            menu.enabled = false;
         }
         isMenuOpen = false;
     }
 
     public void UpgradesMenuToggle()
     {
-        if (upgradesMenu.gameObject.activeSelf)
+        if (visualUpgradesMenu.enabled)
         {
             upgradeMenuScrollRect.verticalNormalizedPosition = 1;
-            upgradesMenu.SetActive(false);
+            visualUpgradesMenu.enabled = false;
             isMenuOpen = false;
         }
         else if (!notificationSystem.noteIsShowing)
         {
-            CloseAllOtherMenus(upgradesMenu);
+            CloseAllOtherMenus(visualUpgradesMenu);
             upgradeMenuScrollRect.verticalNormalizedPosition = 1;
-            upgradesMenu.SetActive(true);
+            visualUpgradesMenu.enabled = true;
             isMenuOpen = true;
         }
     }
 
     public void RealEstateMenuToggle()
     {
-        if (realEstateMenu.gameObject.activeSelf)
+        if (realEstateMenu.enabled)
         {
             realEstateMenuScrollRect.verticalNormalizedPosition = 1;
-            realEstateMenu.SetActive(false);
+            realEstateMenu.enabled = false;
             isMenuOpen = false;
         }
         else if (!notificationSystem.noteIsShowing)
         {
             CloseAllOtherMenus(realEstateMenu);
             realEstateMenuScrollRect.verticalNormalizedPosition = 1;
-            realEstateMenu.SetActive(true);
+            realEstateMenu.enabled = true;
             isMenuOpen = true;
         }
     }
 
     public void MiscMenuToggle()
     {
-        if (miscMenu.gameObject.activeSelf)
+        if (nonVisualUpgradesMenu.enabled)
         {
-            miscMenu.SetActive(false);
+            nonVisualUpgradesMenu.enabled = false;
             isMenuOpen = false;
 
         }
         else if (!notificationSystem.noteIsShowing)
         {
-            CloseAllOtherMenus(miscMenu);
-            miscMenu.SetActive(true);
+            CloseAllOtherMenus(nonVisualUpgradesMenu);
+            nonVisualUpgradesMenu.enabled = true;
             isMenuOpen = true;
         }
     }
 
     public void RigsMenuToggle()
     {
-        if (rigsMenu.gameObject.activeSelf)
+        if (rigsMenu.enabled)
         {
             rigsMenuScrollRect.verticalNormalizedPosition = 1;
-            rigsMenu.SetActive(false);
+            rigsMenu.enabled = true;
             isMenuOpen = false;
 
         }
@@ -133,38 +133,38 @@ public class MenuController : MonoBehaviour {
         {
             CloseAllOtherMenus(rigsMenu);
             rigsMenuScrollRect.verticalNormalizedPosition = 1;
-            rigsMenu.SetActive(true);
+            rigsMenu.enabled = true;
             isMenuOpen = true;
         }
     }
 
     public void Menu5Control()
     {
-        if (Menu5.gameObject.activeSelf)
+        if (Menu5.enabled)
         {
-            Menu5.SetActive(false);
+            Menu5.enabled = false;
             isMenuOpen = false;
 
         }
         else if (!notificationSystem.noteIsShowing)
         {
             CloseAllOtherMenus(rigsMenu);
-            Menu5.SetActive(true);
+            Menu5.enabled = true;
             isMenuOpen = true;
         }
     }
 
     public void Menu6Control()
     {
-        if (Menu6.gameObject.activeSelf)
+        if (Menu6.enabled)
         {
-            Menu6.SetActive(false);
+            Menu6.enabled = false;
             isMenuOpen = false;
         }
         else if (!notificationSystem.noteIsShowing)
         {
             CloseAllOtherMenus(rigsMenu);
-            Menu6.SetActive(true);
+            Menu6.enabled = true;
             isMenuOpen = true;
         }
     }
