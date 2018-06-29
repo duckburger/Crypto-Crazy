@@ -4,23 +4,26 @@ using UnityEngine;
 
 public class CoinController : MonoBehaviour {
 
+    
     public Animator coinAnimator;
     public Animator windFXAnimator;
     public float spinSpeed;
     public float effectOnMiningSpeed;
     public RectTransform touchRect;
-
     [SerializeField] Vector2 touchStartPos;
     [SerializeField] Vector2 touchEndPos;
     [SerializeField] bool isCoinSpinning;
     [SerializeField] bool hadEffectOnMineSpeed;
+    public bool isHoldingTopSpinSpeed;
     [SerializeField] MapController currentLevel;
-
+    [SerializeField] bool isHeldDown;
     public MiningControllerTemplate myMiningController;
 
-
+    [Header("Available Upgrades")]
     [SerializeField] bool holdToSpin;
-    [SerializeField] bool isHeldDown;
+    [SerializeField] float timeTopSpinSpeedHeld;
+    [SerializeField] float miningSpeedDecrease;
+
 
     // Use this for initialization
     void Start() {
@@ -56,14 +59,10 @@ public class CoinController : MonoBehaviour {
             HandlePreSpin();
         }
 
-
-
-
         // Handles the launch of the rotation
         if (Input.touchCount > 0 && RectTransformUtility.RectangleContainsScreenPoint(touchRect, Input.GetTouch(0).deltaPosition) 
             || RectTransformUtility.RectangleContainsScreenPoint(touchRect, Input.mousePosition))
         {
-
             if (holdToSpin && isHeldDown)
             {
                 CheckForHoldToSpin();
@@ -104,6 +103,57 @@ public class CoinController : MonoBehaviour {
             //Debug.Log("Stopped spinning");
         }
 
+        if (spinSpeed > 0)
+        {
+            isCoinSpinning = true;
+        }
+        else
+        {
+            isCoinSpinning = false;
+        }
+        SlowCoinDown();
+
+    }
+
+    private void SlowCoinDown()
+    {
+        if (isCoinSpinning && !isHoldingTopSpinSpeed && spinSpeed < myMiningController.maximumCoinsPerSec && myMiningController.coinsPerSec < myMiningController.maximumCoinsPerSec - 0.2f)
+        {
+            spinSpeed -= Time.deltaTime;
+            spinSpeed = Mathf.Clamp(spinSpeed, 0, 10);
+            PassSpinSpeedOver();
+        }
+        else if (isCoinSpinning && timeTopSpinSpeedHeld > 0 && !isHoldingTopSpinSpeed && myMiningController.coinsPerSec > myMiningController.maximumCoinsPerSec - 0.2f)
+        {
+            StartCoroutine(WaitAtTheTop());
+        }
+
+        if (isHoldingTopSpinSpeed)
+        {
+            spinSpeed = 10;
+        }
+    }
+
+    IEnumerator WaitAtTheTop()
+    {
+        isHoldingTopSpinSpeed = true;
+        Debug.Log("Starting the timer for the top spin hold");
+        yield return new WaitForSeconds(timeTopSpinSpeedHeld);
+        isHoldingTopSpinSpeed = false;
+        spinSpeed -= 0.3f;
+        myMiningController.coinsPerSec -= 0.3f;
+        PassSpinSpeedOver();
+    }
+
+    public void ToggleCoinsPerSecTextFX()
+    {
+
+    }
+
+    void PassSpinSpeedOver()
+    {
+        coinAnimator.SetFloat("spinSpeed", spinSpeed);
+        windFXAnimator.SetFloat("spinSpeed", spinSpeed);
     }
 
 
@@ -240,7 +290,7 @@ public class CoinController : MonoBehaviour {
     {
         float amountMoved = (touchEndPos - touchStartPos).magnitude;
 
-        if (holdToSpin && isHeldDown)
+        if (holdToSpin && isHeldDown && !isHoldingTopSpinSpeed)
         {
             spinSpeed += myMiningController.miningSpeedIncreaseWhenHeld * Time.deltaTime;
         }
@@ -250,7 +300,7 @@ public class CoinController : MonoBehaviour {
         }
 
         spinSpeed = Mathf.Clamp(spinSpeed, 0, 10);
-        PassSpinSpeedToAnimators();
+        PassSpinSpeedOver();
 
         effectOnMiningSpeed = spinSpeed;
 
@@ -289,34 +339,5 @@ public class CoinController : MonoBehaviour {
         }
     }
 
-
-    // Handles the gradual slow down of the rotation
-    private void LateUpdate()
-    {
-        if (spinSpeed > 0)
-        {
-            isCoinSpinning = true;
-        }
-        else
-        {
-            isCoinSpinning = false;
-        }
-        SlowCoinDown();
-    }
-
-    private void SlowCoinDown()
-    {
-        if (isCoinSpinning)
-        {
-            spinSpeed -= Time.deltaTime;
-            spinSpeed = Mathf.Clamp(spinSpeed, 0, 10);
-            PassSpinSpeedToAnimators();
-        }
-    }
-
-    void PassSpinSpeedToAnimators()
-    {
-        coinAnimator.SetFloat("spinSpeed", spinSpeed);
-        windFXAnimator.SetFloat("spinSpeed", spinSpeed);
-    }
+  
 }

@@ -52,6 +52,9 @@ public class UpgradeTemplate : ScriptableObject {
         if (primaryListOfEffects.Count > 0)
         {
             maxUpgradeLvl = primaryListOfEffects.Count - 1;
+        } else if (secondaryListOfEffects.Count > 0)
+        {
+            maxUpgradeLvl = secondaryListOfEffects.Count - 1;
         }
     }
 

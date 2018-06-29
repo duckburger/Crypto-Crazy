@@ -7,22 +7,25 @@ public class MiningController : MonoBehaviour {
 
 
     public MiningControllerTemplate myMiningController;
-
+    [SerializeField] CoinController coinController;
 
     private void LateUpdate()
     {
-        
+
         if (myMiningController.coinsPerSec > myMiningController.minCoinsPerSec)
         {
-            myMiningController.coinsPerSec -= Time.deltaTime * myMiningController.decreaseSpeed;
+            if (!coinController.isHoldingTopSpinSpeed)
+            {
+                myMiningController.coinsPerSec -= Time.deltaTime * myMiningController.decreaseSpeed;
+            }
         }
-            
+
 
         if (myMiningController.coinsPerSec == 1)
         {
             myMiningController.decreaseSpeed = myMiningController.defDecSpeed;
         }
-
+        //    }
         //if (myMiningController.coinsPerSec > myMiningController.minCoinsPerSec)
         //{
         //    if (myMiningController.coinsPerSec > 0 && myMiningController.coinsPerSec <= 10)
@@ -52,7 +55,7 @@ public class MiningController : MonoBehaviour {
 
     public void IncreaseMinMaxMiningSpeed (float addition)
     {
-        myMiningController.minCoinsPerSec += addition;
+        myMiningController.minCoinsPerSec += addition / 2.2f;
         myMiningController.maximumCoinsPerSec += addition;
     }
 
@@ -94,8 +97,6 @@ public class MiningController : MonoBehaviour {
         }
 
     }
-
-    
 
     #endregion
 

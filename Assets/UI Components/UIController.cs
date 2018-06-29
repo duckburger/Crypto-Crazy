@@ -4,8 +4,8 @@ using TMPro;
 public class UIController : MonoBehaviour {
 
 
-    public Text balanceText;
-    public Text perSecondText;
+    public TextMeshProUGUI balanceText;
+    public TextMeshProUGUI perSecondText;
     public TextMeshProUGUI currencyName;
     public MiningControllerTemplate myMiningController;
 
@@ -81,13 +81,9 @@ public class UIController : MonoBehaviour {
 
 	
 	// Update is called once per frame
-	void Update () {
-
-
+	void Update ()
+    {
         balanceText.text = NumberConverter.ConvertNumber(myMiningController.currentBalance);
-    
-        perSecondText.text = NumberConverter.ConvertNumber(myMiningController.coinsPerSec) + "/s";
-        
-        
+        perSecondText.text = NumberConverter.ConvertNumber(myMiningController.coinsPerSec) + "/s"; 
 	}
 }
