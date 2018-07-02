@@ -55,8 +55,8 @@ public class MiningController : MonoBehaviour {
 
     public void IncreaseMinMaxMiningSpeed (float addition)
     {
-        myMiningController.minCoinsPerSec += addition / 2.2f;
-        myMiningController.maximumCoinsPerSec += addition;
+        myMiningController.minCoinsPerSec += ((myMiningController.minCoinsPerSec  / 100) * addition) / 1.5f;
+        myMiningController.maximumCoinsPerSec += (myMiningController.minCoinsPerSec / 100) * addition;
     }
 
     public void AddTimeToDustTimer (int amount)
@@ -96,6 +96,11 @@ public class MiningController : MonoBehaviour {
             IncreaseMinMaxMiningSpeed(effectOnMining);
         }
 
+    }
+
+    public void AddHoldAtTopTime(float timeToAdd)
+    {
+        myMiningController.timeTopSpinSpeedHeld += timeToAdd;
     }
 
     #endregion

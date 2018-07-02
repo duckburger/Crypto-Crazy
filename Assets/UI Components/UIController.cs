@@ -72,14 +72,9 @@ public class UIController : MonoBehaviour {
 
         //sideMenuAnimator.SetBool("ShowMenu", false);
 
-        
-
-
         return;
     }
 
-
-	
 	// Update is called once per frame
 	void Update ()
     {

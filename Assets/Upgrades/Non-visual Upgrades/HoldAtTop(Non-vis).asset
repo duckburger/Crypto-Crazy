@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6cc24a6399647ee41b523c5b105e0e60, type: 3}
+  m_Name: HoldAtTop(Non-vis)
+  m_EditorClassIdentifier: 
+  icon: {fileID: 21300000, guid: 9f81fa2889daf5d49a827bab6f15dab4, type: 3}
+  title: Longer Mining Speed Freeze
+  descr: The mining speed will be frozen at the max amount per second for longer.
+  miscText: 'Next lvl: + 0.25 secs speed freeze'
+  defMiscText: 'Next lvl: + 0.25 secs speed freeze'
+  currentUpgradeLvl: 0
+  defCurUpgLvl: 0
+  costBase: 1.25
+  priceOfNextUpgradeLvl: 2
+  defPrOfNxtUpgLvl: 2
+  defCurUpgEff: 0
+  maxUpgradeLvl: 0
+  accumulatedPrimUpgrEffect: 0
+  accumulatedSecUpgrEffect: 0
+  myApplications:
+  - {fileID: 11400000, guid: c925752daaf25e943803571199a68e5f, type: 2}
+  buildingsISpawn: []
+  primaryListOfEffects: 
+  secondaryListOfEffects: 

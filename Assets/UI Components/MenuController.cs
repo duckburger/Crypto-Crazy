@@ -10,6 +10,7 @@ public class MenuController : MonoBehaviour {
     public Canvas rigsMenu;
     public Canvas Menu5;
     public Canvas Menu6;
+    public Canvas specialsMenu;
     public NotificationSystem notificationSystem;
     public List<Canvas> menus = new List<Canvas>();
     public bool isMenuOpen;
@@ -26,6 +27,7 @@ public class MenuController : MonoBehaviour {
         menus.Add(rigsMenu);
         menus.Add(Menu5);
         menus.Add(Menu6);
+        menus.Add(specialsMenu);
         CloseAllMenus();
     }
 
@@ -148,7 +150,7 @@ public class MenuController : MonoBehaviour {
         }
         else if (!notificationSystem.noteIsShowing)
         {
-            CloseAllOtherMenus(rigsMenu);
+            CloseAllOtherMenus(Menu5);
             Menu5.enabled = true;
             isMenuOpen = true;
         }
@@ -163,8 +165,23 @@ public class MenuController : MonoBehaviour {
         }
         else if (!notificationSystem.noteIsShowing)
         {
-            CloseAllOtherMenus(rigsMenu);
+            CloseAllOtherMenus(Menu6);
             Menu6.enabled = true;
+            isMenuOpen = true;
+        }
+    }
+
+    public void Menu7Control()
+    {
+        if (specialsMenu.enabled)
+        {
+            specialsMenu.enabled = false;
+            isMenuOpen = false;
+        }
+        else if (!notificationSystem.noteIsShowing)
+        {
+            CloseAllOtherMenus(specialsMenu);
+            specialsMenu.enabled = true;
             isMenuOpen = true;
         }
     }

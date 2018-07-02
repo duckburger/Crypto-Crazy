@@ -41,7 +41,7 @@ public static class NumberConverter {
 
         string prefix = shortHands[prefixIndex];
         double number = value / (Mathf.Pow(10, ((prefixIndex + 2) * 3)));
-        string returnvalue = number.ToString("0.00");
+        string returnvalue = number.ToString("0.000");
         returnvalue += " ";
         returnvalue += prefix;
         return returnvalue;

@@ -5,19 +5,24 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Crypto Crazy/Mining Controller")]
 public class MiningControllerTemplate : ScriptableObject {
 
-    [Header("Runtime values")]
+    [Header("Settings")]
     public string currencyName;
     public float maximumCoinsPerSec;
     public float currentBalance;
     public float coinsPerSec;
     public float miningSpeedIncreaseWhenHeld;
     public float dustTimer;
-
     //This number determined how low the mining speed can go
     // so it should be modified by upgrades
     public float minCoinsPerSec;
-
     public float decreaseSpeed;
+
+    [Header("Available Upgrades")]
+    public bool holdToSpin;
+    public float timeTopSpinSpeedHeld;
+    public float miningSpeedDecrease;
+
+    
 
 
     [Header("Default values")]

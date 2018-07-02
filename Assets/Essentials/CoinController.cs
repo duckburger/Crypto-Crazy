@@ -19,10 +19,7 @@ public class CoinController : MonoBehaviour {
     [SerializeField] bool isHeldDown;
     public MiningControllerTemplate myMiningController;
 
-    [Header("Available Upgrades")]
-    [SerializeField] bool holdToSpin;
-    [SerializeField] float timeTopSpinSpeedHeld;
-    [SerializeField] float miningSpeedDecrease;
+
 
 
     // Use this for initialization
@@ -38,19 +35,19 @@ public class CoinController : MonoBehaviour {
     
     public void TurnOnHoldToSpin()
     {
-        holdToSpin = true;
+        myMiningController.holdToSpin = true;
     }
 
     public void TurnOffHoldToSpin()
     {
-        holdToSpin = false;
+        myMiningController.holdToSpin = false;
     }
 
     // Update is called once per frame
     void Update() {
 
         // Handles the scrubbing rotation during the touch/drag phase
-        if (holdToSpin)
+        if (myMiningController.holdToSpin)
         {
             SetUpHoldToSpin();
         }
@@ -63,7 +60,7 @@ public class CoinController : MonoBehaviour {
         if (Input.touchCount > 0 && RectTransformUtility.RectangleContainsScreenPoint(touchRect, Input.GetTouch(0).deltaPosition) 
             || RectTransformUtility.RectangleContainsScreenPoint(touchRect, Input.mousePosition))
         {
-            if (holdToSpin && isHeldDown)
+            if (myMiningController.holdToSpin && isHeldDown)
             {
                 CheckForHoldToSpin();
             }
@@ -123,7 +120,7 @@ public class CoinController : MonoBehaviour {
             spinSpeed = Mathf.Clamp(spinSpeed, 0, 10);
             PassSpinSpeedOver();
         }
-        else if (isCoinSpinning && timeTopSpinSpeedHeld > 0 && !isHoldingTopSpinSpeed && myMiningController.coinsPerSec > myMiningController.maximumCoinsPerSec - 0.2f)
+        else if (isCoinSpinning && myMiningController.timeTopSpinSpeedHeld > 0 && !isHoldingTopSpinSpeed && myMiningController.coinsPerSec > myMiningController.maximumCoinsPerSec - 0.2f)
         {
             StartCoroutine(WaitAtTheTop());
         }
@@ -138,7 +135,7 @@ public class CoinController : MonoBehaviour {
     {
         isHoldingTopSpinSpeed = true;
         Debug.Log("Starting the timer for the top spin hold");
-        yield return new WaitForSeconds(timeTopSpinSpeedHeld);
+        yield return new WaitForSeconds(myMiningController.timeTopSpinSpeedHeld);
         isHoldingTopSpinSpeed = false;
         spinSpeed -= 0.3f;
         myMiningController.coinsPerSec -= 0.3f;
@@ -290,7 +287,7 @@ public class CoinController : MonoBehaviour {
     {
         float amountMoved = (touchEndPos - touchStartPos).magnitude;
 
-        if (holdToSpin && isHeldDown && !isHoldingTopSpinSpeed)
+        if (myMiningController.holdToSpin && isHeldDown && !isHoldingTopSpinSpeed)
         {
             spinSpeed += myMiningController.miningSpeedIncreaseWhenHeld * Time.deltaTime;
         }

@@ -16,9 +16,6 @@ public class Upgrade : MonoBehaviour {
     public TextMeshProUGUI descriptionField;
     public TextMeshProUGUI miscTextField;
 
-
-
-
     public Image icon;
     public Button upgradeButton;
     public TextMeshProUGUI buttonText;
@@ -44,7 +41,7 @@ public class Upgrade : MonoBehaviour {
     float CalculatePriceOfNextBuilding(float initialCost, float costBase, float currentUpgrLvl)
     {
         // cost = first item cost * costBase ^ amount of this upgrade currently owned
-        return initialCost * Mathf.Pow(costBase, currentUpgrLvl + 1);
+        return initialCost * Mathf.Pow(costBase + currentUpgrLvl / 3, currentUpgrLvl + 1);
     }
 
     private void RefreshUI()
